@@ -1,18 +1,14 @@
 <?php
 
-namespace Model\Tool;
+namespace App\Model;
 
+use App\Model\User;
 use Illuminate\Database\Eloquent\Model;
 
-class Tool extends Model 
+class Tool extends Model
 {
-
-    protected $table = 'tools';
-    public $timestamps = true;
-
     public function user()
     {
-        return $this->belongsTo('User');
+      return $this->belongsTo(User::class);
     }
-
 }
