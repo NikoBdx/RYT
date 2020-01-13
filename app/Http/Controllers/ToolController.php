@@ -23,7 +23,7 @@ class ToolController extends Controller
      */
     public function create()
     {
-
+        return view('tools.create');
     }
 
     /**
