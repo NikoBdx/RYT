@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ToolController extends Controller 
+class Category_toolController extends Controller 
 {
 
   /**
