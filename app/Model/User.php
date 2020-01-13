@@ -2,9 +2,10 @@
 
 namespace App\Model;
 
+use App\Model\Tool;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -39,6 +40,6 @@ class User extends Authenticatable
 
     public function tools()
     {
-        return $this->hasMany('Tool');
+        return $this->hasMany(Tool::class);
     }
 }
