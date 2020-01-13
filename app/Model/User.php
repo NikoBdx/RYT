@@ -40,6 +40,6 @@ class User extends Authenticatable
 
     public function tools()
     {
-        return $this->hasMany(Tool:class);
+        return $this->hasMany(Tool::class);
     }
 }
