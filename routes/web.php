@@ -15,8 +15,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('tools', 'ToolController');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('user', 'UserController');
+Route::resource('tool', 'ToolController');
+Route::resource('order', 'OrderController');
+Route::resource('category', 'CategoryController');
+Route::resource('category_tool', 'Category_toolController');
+Route::resource('driver', 'DriverController');
