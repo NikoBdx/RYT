@@ -3,6 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
+use Mail;
+use App\Model\Tool;
+use Redirect;
+use UploadedFile;
+use Intervention\Image\ImageManagerStatic as Image;
+
 
 class ToolController extends Controller 
 {
@@ -14,7 +21,7 @@ class ToolController extends Controller
    */
   public function index()
   {
-    
+    return view('tools.index');    
   }
 
   /**
@@ -34,6 +41,28 @@ class ToolController extends Controller
    */
   public function store(Request $request)
   {
+    $values = $request->all();
+
+              
+        $image = $request->file('image');
+        
+        $image_resize = Image::make($image->getRealPath());              
+        $image_resize->resize(600, 300);
+
+        $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension(); 
+
+        $image_resize->save(public_path('storage/compagnies/compagny_name/' .$name));
+
+        
+        $tool = new Tool();
+        $tool->title = $values['title'];
+        $tool->description = $values['description'];
+        $tool->image = $name;
+        
+        $tool->save();  
+                           
+
+        return view('tools.index');
     
   }
 
