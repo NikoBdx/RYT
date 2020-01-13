@@ -16,3 +16,7 @@ Route::get('/', function () {
 });
 
 Route::resource('tools', 'ToolController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
