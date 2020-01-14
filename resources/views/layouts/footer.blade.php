@@ -1,28 +1,32 @@
 <footer>
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
+        <div class="row pt-3">
+            <div class="col-md-6">
                 <h3>Aide & Conseils</h3>
-                <p>Mode d'emploi</p>
-                <p>FAQ</p>
-                <p>Contact</p>
+                <ul>
+                    <li><a href="">Mode d'emploi</a></li>
+                    <li><a href="">Le contrat de location</a></li>
+                    <li><a href="">FAQ</a></li>
+                    <li><a href="">Contact</a></li>        
+                </ul>
             </div>    
-            <div class="col-md-4">
-                <h3>aide</h3>
-                <p>coco</p>
-                <p>coco</p>
-                <p>coco</p>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h3>Espace utilisateur</h3>
-                <p>S'identifier</p>
-                <p>Publier une annonce</p>
-                <p>Vos annonces</p>
-                <p>Votre profil</p>
+                <ul>
+                    <li><a href="">S'identifier</a></li>
+                    <li><a href="">Publier une annonce</a></li>
+                    <li><a href="">Vos annonces</a></li>
+                    <li><a href="">Votre profil</a></li>
+                </ul>
             </div>
         </div>
-        <div class="row">
-            
+        <div class="divider"></div>
+        <div class="row social_network">
+            <span>RentYourTool 2020</span>
+            <div>
+                <a href=""><i class="fab fa-facebook-square"></i></a>
+                <a href=""><i class="fab fa-twitter-square"></i></a>
+            </div>
         </div>
     </div>
 </footer>

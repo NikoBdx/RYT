@@ -1,7 +1,5 @@
 <h1 class="text-center mb-5"> Page de vue des tools</h1>
-
-
-@extends('layouts.master')
+@extends('layouts.app')
 @section('content')
 
 @if(!empty($successMessage) )

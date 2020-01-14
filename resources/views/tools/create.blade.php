@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.app')
 @section('content')
 @if(!empty($successMessage) )
     <p>{{ $successMessage }}</p>
