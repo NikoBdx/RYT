@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{ route('tools.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title">nom de l'outil</label>

@@ -19,14 +19,16 @@ class ToolController extends Controller
     {
         return view('tools.index');
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
-        return view('register.driver.index');
+        return view('tools.create');
     }
 
   /**
@@ -68,7 +70,7 @@ class ToolController extends Controller
 
       $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension(); 
 
-      $image_resize->save(public_path('storage/tools/' .$name));
+      $image_resize->save(public_path('storage/' .$name));
 
 
       $tool = new Tool();
@@ -81,7 +83,7 @@ class ToolController extends Controller
       $tool->save();  
                       
 
-      return view('tools.index');
+      return redirect()->route('tools.create');
     
   }
 
