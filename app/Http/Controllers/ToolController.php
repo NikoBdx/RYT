@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Validator;
+use Auth;
 use Mail;
 use User;
-use Auth;
-use App\Model\Tool;
 use Redirect;
+use Validator;
 use UploadedFile;
+use App\Model\Tool;
+use App\Model\Category;
+use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
 
@@ -38,7 +39,9 @@ class ToolController extends Controller
 
     public function create()
     {
-        return view('tools.create');
+      $categories = Category::all();
+
+      return view('tools.create', compact('categories'));
     }
 
 
@@ -50,16 +53,21 @@ class ToolController extends Controller
   public function store(Request $request)
   {
       $user_id = Auth::user()->id;
+
       $values = $request->all();
       $rules = [
         'description' => 'required|string',
         'title' => 'required|string',
+        'price' => 'required|integer',
+        'categories' => 'required',
         'image' => 'required'
       ];
       $validator = Validator::make($values, $rules,[
         'decription.required' => 'La decription est obligatoire',
         'title.required' => 'Le titre est obligatoire',
-        'image.required' => 'L\'image est obligaotire'
+        'price.required' => 'Veuillez saisir un prix',
+        'image.required' => 'L\'image est obligaotire',
+        'categories.required' => 'Merci de choisir au moins une catégorie'
       ]);
       if($validator->fails()){
       return Redirect::back()
@@ -78,9 +86,12 @@ class ToolController extends Controller
       $tool->price = $values['price'];
       $tool->image = $name;
       $tool->user_id = $user_id;
-      $tool->save();
 
-      return redirect()->route('tools.create');
+      if ($tool->save()){
+                        $tool->categories()->attach($request->categories);
+                    };
+
+      return redirect()->route('tools.index');
 
   }
 
