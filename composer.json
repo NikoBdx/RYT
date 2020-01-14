@@ -9,8 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "doctrine/dbal": "^2.10",
         "fideloper/proxy": "^4.0",
-        "illuminate/support": "^6.10",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/scout": "^7.2",

@@ -25,9 +25,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('user', 'UserController');
-Route::resource('tool', 'ToolController');
-Route::resource('order', 'OrderController');
-Route::resource('category', 'CategoryController');
+Route::resource('users', 'UserController');
+Route::resource('tools', 'ToolController');
+Route::resource('orders', 'OrderController');
+Route::resource('categories', 'CategoryController');
 Route::resource('category_tool', 'Category_toolController');
-Route::resource('driver', 'DriverController');
+Route::resource('drivers', 'DriverController');
+Route::resource('registerchoices', 'RegisterChoiceController');

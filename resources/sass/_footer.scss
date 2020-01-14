@@ -1,0 +1,21 @@
+footer{
+    background-color:hsla(8, 84%, 48%, 0.76);
+}
+.social_network{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px 0 15px;
+}
+footer ul{
+    list-style-type: none;
+    padding-left: 0!important;
+}
+footer li a{
+    color:black;
+}
+footer li a:hover{
+    color:white;
+}
+i{
+    color:black;
+}
