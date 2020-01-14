@@ -13,7 +13,21 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class ToolController extends Controller 
 {
+    public function index()
+    {
+        return view('tools.index');
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('register.driver.index');
+    }
 
+<<<<<<< HEAD
   /**
    * Display a listing of the resource.
    *
@@ -33,6 +47,8 @@ class ToolController extends Controller
   {
     
   }
+=======
+>>>>>>> ab1de9f398d53717de86795845d94fe8c1ccd753
 
   /**
    * Store a newly created resource in storage.

@@ -71,10 +71,19 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        <div class="container">
+            <nav>       
+                <a href="#" class="navbar-brand">Accueil</a>
+                <a href="#" class="navbar-brand">Recherche un outil</a>
+                <a href="#" class="navbar-brand">Contrat de Location</a>
+                <a href="#" class="navbar-brand">Publier une annonce</a> 
+                <a href="#" class="navbar-brand">Contact</a>   
+            </nav>
+            <main class="py-4">
+                @yield('content')
+            </main>
+            @extends('layouts.footer')
+        </div>
     </div>
 </body>
 </html>
