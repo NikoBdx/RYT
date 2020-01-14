@@ -24,9 +24,10 @@ class ToolController extends Controller
     public function index()
     {
 
-      $tools = Tool::paginate(5);
+      $tools = Tool::orderBy('created_at', 'desc')->paginate(5);
 
         return view('tools.index', compact('tools'));
+
     }
 
     /**
