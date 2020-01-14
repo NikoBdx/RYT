@@ -10,6 +10,15 @@ li {
   margin-left: 12px;
 }
 
+.categories {
+  display: inline-block;
+  background-color: #eceeef;
+  padding: 0.4em 0.7em;
+  margin: 5px 5px 0 0;
+  border-radius: 5px;
+  color: rgba(225, 47, 20, 0.76);
+  font-size: 12px;
+}
 
 footer {
   background-color: rgba(225, 47, 20, 0.76);
@@ -40,17 +49,6 @@ i {
   color: black;
 }
 
-.categories {
-  display: inline-block;
-  background-color: #eceeef;
-  padding: 0.4em 0.7em;
-  margin: 5px 5px 0 0;
-  border-radius: 5px;
-  color: rgba(225, 47, 20, 0.76);
-  font-size: 12px;
-
-}
-
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -72,7 +70,7 @@ i {
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: hsla(188, 84%, 13%, 0.87);
+  --primary: rgba(225, 47, 20, 0.76);
   --secondary: #6c757d;
   --success: #38c172;
   --info: #6cb2eb;
