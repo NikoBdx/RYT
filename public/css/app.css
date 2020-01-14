@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+
 li {
   list-style: none;
 }
@@ -6,6 +8,35 @@ li {
   font-size: 12px;
   color: #7b868d;
   margin-left: 12px;
+}
+
+footer {
+  background-color: rgba(225, 47, 20, 0.76);
+}
+
+.social_network {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  padding: 0 15px 0 15px;
+}
+
+footer ul {
+  list-style-type: none;
+  padding-left: 0 !important;
+}
+
+footer li a {
+  color: black;
+}
+
+footer li a:hover {
+  color: white;
+}
+
+i {
+  color: black;
 }
 
 /*!
