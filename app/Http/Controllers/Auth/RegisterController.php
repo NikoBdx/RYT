@@ -49,6 +49,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -59,6 +60,19 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
 
         ]);
+        $validator = Validator::make($rules,[
+        'firstname.required' => 'Le prénom est obligatoire',
+        'lastname.required' => 'Le nom est obligatoire',
+        'adress.required' => 'Veuillez saisir l\'adresse',
+        'cp.required' => 'Veuillez saisir le code postal',
+        'email.required' => 'L\'email est obligatoire'
+      ]);
+
+        if($validator->fails()){
+        return Redirect::back()
+          ->withErrors($validator)
+          ->withInput();
+      }
     }
 
     /**
