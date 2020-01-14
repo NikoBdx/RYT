@@ -27,8 +27,11 @@
 
                     <p class="card-text">{{$tool->description}}</p>
 
-
                     <div><a href="/projets/{{ $tool->id }}" class="btn btn-primary">Voir l'outil</a> </div>
+
+                    @foreach($tool->categories as $category)
+                        <span class="categories">{{ $category->name }} </span>
+                    @endforeach
 
         @endforeach
 
