@@ -67,6 +67,7 @@ class ToolController extends Controller
         'image.required' => 'L\'image est obligaotire',
         'categories.required' => 'Merci de choisir au moins une catégorie'
       ]);
+
       if($validator->fails()){
       return Redirect::back()
           ->withErrors($validator)
