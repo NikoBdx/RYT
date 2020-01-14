@@ -86,13 +86,13 @@
                                 <a class="nav-link" href="{{ url('/')}}">Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('tool.index')}}">Recherche un outil</a>
+                                    <a class="nav-link" href="{{ route('tools.index')}}">Recherche un outil</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Contrat de Location</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ route('tool.create')}}">Publier une annonce</a>
+                                <a class="nav-link" href="{{ route('tools.create')}}">Publier une annonce</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Contact</a>
