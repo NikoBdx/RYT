@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use Mail;
+use User;
+use Auth;
 use App\Model\Tool;
 use Redirect;
 use UploadedFile;
@@ -27,58 +29,59 @@ class ToolController extends Controller
         return view('register.driver.index');
     }
 
-<<<<<<< HEAD
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    return view('tools.index');    
-  }
-
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
-  }
-=======
->>>>>>> ab1de9f398d53717de86795845d94fe8c1ccd753
-
   /**
    * Store a newly created resource in storage.
    *
    * @return Response
    */
   public function store(Request $request)
+
   {
-    $values = $request->all();
 
-              
-        $image = $request->file('image');
-        
-        $image_resize = Image::make($image->getRealPath());              
-        $image_resize->resize(600, 300);
+      $user_id = Auth::user()->id;
 
-        $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension(); 
+      $values = $request->all();
 
-        $image_resize->save(public_path('storage/compagnies/compagny_name/' .$name));
+      $rules = [
+        'description' => 'required|string',
+        'title' => 'required|string',
+        'image' => 'required'
+      ];
 
-        
-        $tool = new Tool();
-        $tool->title = $values['title'];
-        $tool->description = $values['description'];
-        $tool->image = $name;
-        
-        $tool->save();  
-                           
+      $validator = Validator::make($values, $rules,[
+        'decription.required' => 'La decription est obligatoire',
+        'title.required' => 'Le titre est obligatoire',
+        'image.required' => 'L\'image est obligaotire'
+      ]);
 
-        return view('tools.index');
+      if($validator->fails()){
+      return Redirect::back()
+          ->withErrors($validator)
+          ->withInput();
+      }
+
+           
+      $image = $request->file('image');
+
+      $image_resize = Image::make($image->getRealPath());              
+      $image_resize->resize(600, 300);
+
+      $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension(); 
+
+      $image_resize->save(public_path('storage/tools/' .$name));
+
+
+      $tool = new Tool();
+      $tool->title = $values['title'];
+      $tool->description = $values['description'];
+      $tool->price = $values['price'];
+      $tool->image = $name;
+      $tool->user_id = $user_id;
+
+      $tool->save();  
+                      
+
+      return view('tools.index');
     
   }
 
