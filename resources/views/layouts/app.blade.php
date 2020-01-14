@@ -49,11 +49,12 @@
                             <!-- Authentication Links -->
                             @guest
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                                 </li>
                                 @if (Route::has('register'))
+                                {{-- Lien vers l'enregistrement --}}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                        <a class="nav-link" href="{{ route('registerchoices.index') }}">{{ __('S\'inscrire') }}</a>
                                     </li>
                                 @endif
                             @else
@@ -61,12 +62,13 @@
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }} <span class="caret"></span>
                                     </a>
-
+                                    {{-- Toggle de l'utilisateur --}}
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="#">{{ __('Mon profil') }}</a>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            {{ __('Déconnexion') }}
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -81,6 +83,7 @@
             </nav>
             <div class="container-fluid leader">
                 <div class="container">
+                    {{-- Barre de navigation --}}
                     <nav class="navbar navbar-expand-lg navbar-light">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
@@ -108,6 +111,7 @@
                 </div>
             </div>
             <div class="container">
+                {{-- Contenu des views --}}
                 <main class="py-4">
                     @yield('content')
                 </main>
