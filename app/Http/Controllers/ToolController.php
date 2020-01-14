@@ -13,6 +13,7 @@ use UploadedFile;
 use Intervention\Image\ImageManagerStatic as Image;
 
 
+
 class ToolController extends Controller
 {
     public function index()
@@ -33,24 +34,7 @@ class ToolController extends Controller
         return view('tools.create');
     }
 
-<<<<<<< HEAD
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-      $values = $request->all();
 
-
-        $image = $request->file('image');
-
-        $image_resize = Image::make($image->getRealPath());
-        $image_resize->resize(600, 300);
-
-        $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-=======
   /**
    * Store a newly created resource in storage.
    *
@@ -63,7 +47,7 @@ class ToolController extends Controller
       $user_id = Auth::user()->id;
 
       $values = $request->all();
->>>>>>> fc92b1c91934164c15c2aecc5ebbb2fabb01bcfd
+
 
       $rules = [
         'description' => 'required|string',
@@ -71,19 +55,11 @@ class ToolController extends Controller
         'image' => 'required'
       ];
 
-<<<<<<< HEAD
-
         $tool = new Tool();
         $tool->title = $values['title'];
         $tool->description = $values['description'];
         $tool->image = $name;
 
-        $tool->save();
-
-
-        return view('tools.index');
-
-=======
       $validator = Validator::make($values, $rules,[
         'decription.required' => 'La decription est obligatoire',
         'title.required' => 'Le titre est obligatoire',
@@ -118,8 +94,7 @@ class ToolController extends Controller
                       
 
       return redirect()->route('tools.create');
-    
->>>>>>> fc92b1c91934164c15c2aecc5ebbb2fabb01bcfd
+
   }
 
   /**
