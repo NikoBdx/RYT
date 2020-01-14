@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -11,11 +11,13 @@ use UploadedFile;
 use Intervention\Image\ImageManagerStatic as Image;
 
 
-class ToolController extends Controller 
+class ToolController extends Controller
 {
     public function index()
     {
-        return view('tools.index');
+      $tools = Tool::all();
+
+        return view('tools.index', compact('tools'));
     }
     /**
      * Show the form for creating a new resource.
@@ -24,62 +26,39 @@ class ToolController extends Controller
      */
     public function create()
     {
-        return view('register.driver.index');
+        return view('tools.create');
     }
 
-<<<<<<< HEAD
-  /**
-   * Display a listing of the resource.
-   *
-   * @return Response
-   */
-  public function index()
-  {
-    return view('tools.index');    
-  }
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+      $values = $request->all();
 
-  /**
-   * Show the form for creating a new resource.
-   *
-   * @return Response
-   */
-  public function create()
-  {
-    
-  }
-=======
->>>>>>> ab1de9f398d53717de86795845d94fe8c1ccd753
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store(Request $request)
-  {
-    $values = $request->all();
-
-              
         $image = $request->file('image');
-        
-        $image_resize = Image::make($image->getRealPath());              
+
+        $image_resize = Image::make($image->getRealPath());
         $image_resize->resize(600, 300);
 
-        $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension(); 
+        $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
 
         $image_resize->save(public_path('storage/compagnies/compagny_name/' .$name));
 
-        
+
         $tool = new Tool();
         $tool->title = $values['title'];
         $tool->description = $values['description'];
         $tool->image = $name;
-        
-        $tool->save();  
-                           
+
+        $tool->save();
+
 
         return view('tools.index');
-    
+
   }
 
   /**
@@ -90,7 +69,7 @@ class ToolController extends Controller
    */
   public function show($id)
   {
-    
+
   }
 
   /**
@@ -101,7 +80,7 @@ class ToolController extends Controller
    */
   public function edit($id)
   {
-    
+
   }
 
   /**
@@ -112,7 +91,7 @@ class ToolController extends Controller
    */
   public function update($id)
   {
-    
+
   }
 
   /**
@@ -123,9 +102,9 @@ class ToolController extends Controller
    */
   public function destroy($id)
   {
-    
+
   }
-  
+
 }
 
 ?>

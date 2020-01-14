@@ -1,5 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
+li {
+  list-style: none;
+}
+
+.list-project-time {
+  font-size: 12px;
+  color: #7b868d;
+  margin-left: 10px;
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
