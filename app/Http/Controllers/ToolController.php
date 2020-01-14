@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use Mail;
+use User;
+use Auth;
 use App\Model\Tool;
 use Redirect;
 use UploadedFile;
@@ -19,16 +21,19 @@ class ToolController extends Controller
 
         return view('tools.index', compact('tools'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         return view('tools.create');
     }
 
+<<<<<<< HEAD
     /**
      * Store a newly created resource in storage.
      *
@@ -45,9 +50,28 @@ class ToolController extends Controller
         $image_resize->resize(600, 300);
 
         $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
+=======
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @return Response
+   */
+  public function store(Request $request)
 
-        $image_resize->save(public_path('storage/compagnies/compagny_name/' .$name));
+  {
 
+      $user_id = Auth::user()->id;
+
+      $values = $request->all();
+>>>>>>> fc92b1c91934164c15c2aecc5ebbb2fabb01bcfd
+
+      $rules = [
+        'description' => 'required|string',
+        'title' => 'required|string',
+        'image' => 'required'
+      ];
+
+<<<<<<< HEAD
 
         $tool = new Tool();
         $tool->title = $values['title'];
@@ -59,6 +83,43 @@ class ToolController extends Controller
 
         return view('tools.index');
 
+=======
+      $validator = Validator::make($values, $rules,[
+        'decription.required' => 'La decription est obligatoire',
+        'title.required' => 'Le titre est obligatoire',
+        'image.required' => 'L\'image est obligaotire'
+      ]);
+
+      if($validator->fails()){
+      return Redirect::back()
+          ->withErrors($validator)
+          ->withInput();
+      }
+
+           
+      $image = $request->file('image');
+
+      $image_resize = Image::make($image->getRealPath());              
+      $image_resize->resize(600, 300);
+
+      $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension(); 
+
+      $image_resize->save(public_path('storage/' .$name));
+
+
+      $tool = new Tool();
+      $tool->title = $values['title'];
+      $tool->description = $values['description'];
+      $tool->price = $values['price'];
+      $tool->image = $name;
+      $tool->user_id = $user_id;
+
+      $tool->save();  
+                      
+
+      return redirect()->route('tools.create');
+    
+>>>>>>> fc92b1c91934164c15c2aecc5ebbb2fabb01bcfd
   }
 
   /**
