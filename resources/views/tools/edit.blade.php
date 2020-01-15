@@ -6,19 +6,19 @@
 <div class="container">
     <div class="row">
         <div class="text-center">
-            <h1>Enregistrement des outils</h1>
+            <h1>Modifier votre outil</h1>
         </div>
-
     </div>
-
+    
 {{-- ------------------------------ Nom  ------------------------------ --}}
     <div class="row">
         <div class="col-md-12">
-            <form action="{{ route('tools.store') }}" method="PATCH" enctype="multipart/form-data">
+            <form action="{{ route('tools.update',$tool->id) }}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('PATCH')
             <div class="form-group">
                 <label for="title-tool">Nom de l'outil </label>
-                    <input type="text" id="title-tool" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" name="title">
+                <input value="{{$tool->title}}" type="text" id="title-tool" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" name="title">
                 @error('title')
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -31,7 +31,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend">€</span>
                         </div>
-                            <input type="number" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" min="0" step="0.01" name="price" id="price-tool" >
+                            <input value="{{$tool->price}}" type="number" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" min="0" step="0.01" name="price" id="price-tool" >
                         @error('price')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -55,7 +55,7 @@
 {{-- ------------------------------ Description ------------------------------ --}}
             <div class="form-group">
                 <label for="description-tool">Décrivez en quelques lignes votre outil :</label>
-                <textarea class="form-control @error('description') is-invalid @enderror" id="description-tool" rows="5"  name="description">{{ old('description') }}</textarea>
+                <textarea class="form-control @error('description') is-invalid @enderror" id="description-tool" rows="5"  name="description">{{$tool->description}}</textarea>
                 @error('description')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -64,7 +64,7 @@
 {{-- ------------------------------ Image ------------------------------ --}}
             <div class="form-group{{ $errors->has('image') ? ' is-invalid' : '' }}">
                 <div class="custom-file">
-                    <input type="file" id="image" name="image"
+                    <input type="file" id="image" name="image" value="{{ asset("/storage/app/public/{$tool->image}") }}"
                            class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
                     <label class="custom-file-label" for="image"></label>
                     @if ($errors->has('image'))
@@ -73,10 +73,11 @@
                 </div>
                 <br>
                 <div class="form-group">
-                <img id="preview" class="img-fluid img-thumbnail" width="300" src="#" alt="">
+                <img id="preview" class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$tool->image}")}}' alt="">
                 </div>               
             </div>
-            
+{{-- ------------------------------ ID [HIDDEN] ----------------------- --}}
+            <input type="hidden" name="id" value="{{$tool->id}}">
             <div class="form-group">
                 <button class="btn btn-primary">Envoyer</button>
             </div>

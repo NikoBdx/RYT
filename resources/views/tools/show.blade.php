@@ -32,21 +32,23 @@
             </div>
         </div>
         <div class="col col-12 col-sm-12 col-sm-12 col-md-3 ">
-               @if ( Auth::user()->id === $tool->user->id)
-                    <p class="card-text">Vous êtes le propriétaire de cet outil</p>
-                    <div class="card card-project mb-5">
-                        <button class="btn btn-warning">Modifier mon outils</button>
-                    </div>
-               @else
-                    <p class="card-text"></p>
-                    <div class="card card-project mb-5">
-                        <button class="btn btn-primary">Contacter le client</button>
-                    </div>
-                    <div class="card card-project">
-                        <button class="btn btn-success">Réserver cet outil</button>
-                    </div>
-               @endif                  
-
+                
+                @if ( !empty(Auth::user()) && Auth::user()->id === $tool->user->id)
+                <p class="card-text">Vous êtes le propriétaire de cet outil</p>
+                <div class="card card-project mb-5">
+                    <a class="btn btn-warning" href="/tools/{{$tool->id}}/edit">Modifier mon outils</a>
+                    
+                </div>
+                @else
+                <p class="card-text"></p>
+                <div class="card card-project mb-5">
+                    <button class="btn btn-primary">Contacter le client</button>
+                </div>
+                <div class="card card-project">
+                    <button class="btn btn-success">Réserver cet outil</button>
+                </div>
+                @endif   
+            
         </div>
     </div>
 </div>

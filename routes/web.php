@@ -27,8 +27,10 @@ Route::post('tools/search', 'ToolController@search');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
 Route::resource('users', 'UserController');
 Route::resource('tools', 'ToolController')->middleware('verified');
+
 Route::resource('orders', 'OrderController');
 Route::resource('categories', 'CategoryController');
 Route::resource('category_tool', 'Category_toolController');
