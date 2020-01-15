@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\Tool;
 
 class OrderController extends Controller 
 {
@@ -14,7 +15,9 @@ class OrderController extends Controller
    */
   public function index()
   {
-    return view('order.index');
+    $user = auth()->user();
+    $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
+    return view('order.index', ['address' => $address]);
   }
 
   /**
