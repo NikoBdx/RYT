@@ -15,6 +15,8 @@ class AddLastnameColumsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('lastname');
+            $table->string('role');
+            $table->string('vehicule');
         });
     }
 
