@@ -3,11 +3,12 @@
 namespace App\Model;
 
 use App\Model\Tool;
+use App\Model\Vehicule;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'firstname','lastname','adress','cp','town', 'email', 'password',
+        'firstname','lastname','address','cp','town', 'email', 'password', 'role', 'vehicule',
     ];
 
         /**
@@ -42,4 +43,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Tool::class);
     }
+
 }

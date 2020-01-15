@@ -1,10 +1,12 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
+use App\Model\Driver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class DriverController extends Controller 
+class DriverController extends Controller
 {
 
   /**
@@ -17,6 +19,7 @@ class DriverController extends Controller
     return view('driver.index');
   }
 
+
   /**
    * Show the form for creating a new resource.
    *
@@ -24,7 +27,7 @@ class DriverController extends Controller
    */
   public function create()
   {
-    
+    return view('drivers.create');
   }
 
   /**
@@ -34,7 +37,7 @@ class DriverController extends Controller
    */
   public function store(Request $request)
   {
-    
+
   }
 
   /**
@@ -45,7 +48,7 @@ class DriverController extends Controller
    */
   public function show($id)
   {
-    
+
   }
 
   /**
@@ -56,7 +59,7 @@ class DriverController extends Controller
    */
   public function edit($id)
   {
-    
+
   }
 
   /**
@@ -67,7 +70,7 @@ class DriverController extends Controller
    */
   public function update($id)
   {
-    
+
   }
 
   /**
@@ -78,9 +81,9 @@ class DriverController extends Controller
    */
   public function destroy($id)
   {
-    
+
   }
-  
+
 }
 
 ?>

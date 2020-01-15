@@ -14,7 +14,7 @@ class AddAdressAndCpAndTownColumsToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-                $table->string('adress');
+                $table->string('address');
                 $table->string('cp');
                 $table->string('town');
         });
