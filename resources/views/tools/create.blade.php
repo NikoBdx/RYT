@@ -62,13 +62,21 @@
             </div>
 
 {{-- ------------------------------ Image ------------------------------ --}}
-            <div class="form-group">
-                <input class="@error('image') is-invalid @enderror" id="image-tool" type="file" name="image">
-                @error('image')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+            <div class="form-group{{ $errors->has('image') ? ' is-invalid' : '' }}">
+                <div class="custom-file">
+                    <input type="file" id="image" name="image"
+                           class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
+                    <label class="custom-file-label" for="image"></label>
+                    @if ($errors->has('image'))
+                        <div class="invalid-feedback">{{ $errors->first('image') }}</div>
+                    @endif
+                </div>
+                <br>
+                <div class="form-group">
+                <img id="preview" class="img-fluid img-thumbnail" width="300" src="#" alt="">
+                </div>               
             </div>
-
+            
             <div class="form-group">
                 <button class="btn btn-primary">Envoyer</button>
             </div>
@@ -83,6 +91,24 @@
 $(document).ready(function() {
     $('.js-select').select2();
 });
+
+// script visualisation de l’image avant envoi
+
+$(() => {
+    $('input[type="file"]').on('change', (e) => {
+        let that = e.currentTarget
+        if (that.files && that.files[0]) {
+            $(that).next('.custom-file-label').html(that.files[0].name)
+            let reader = new FileReader()
+            reader.onload = (e) => {
+                $('#preview').attr('src', e.target.result)
+            }
+            reader.readAsDataURL(that.files[0])
+        }
+    })
+})
+
+
 </script>
 
 @endsection
