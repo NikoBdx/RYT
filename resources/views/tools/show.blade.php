@@ -36,7 +36,8 @@
                 @if ( !empty(Auth::user()) && Auth::user()->id === $tool->user->id)
                 <p class="card-text">Vous êtes le propriétaire de cet outil</p>
                 <div class="card card-project mb-5">
-                    <a class="btn btn-warning" href="{{ route('tools.update') }}" >Modifier mon outils</a>
+                    <a class="btn btn-warning" href="/tools/{{$tool->id}}/edit">Modifier mon outils</a>
+                    
                 </div>
                 @else
                 <p class="card-text"></p>

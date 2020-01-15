@@ -25,7 +25,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('users', 'UserController');
+// Route::resource('users', 'UserController');
 Route::resource('tools', 'ToolController');
 Route::resource('orders', 'OrderController');
 Route::resource('categories', 'CategoryController');

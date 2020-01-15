@@ -41,7 +41,7 @@ class OrderController extends Controller
   public function store(Request $request)
   {
 
-    $tool_id = tool->id;
+    $tool_id = $tool->id;
 
     $values = $request->all();
 
@@ -84,15 +84,6 @@ class OrderController extends Controller
     
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
-  public function store(Request $request)
-  {
-    
-  }
 
   /**
    * Display the specified resource.
