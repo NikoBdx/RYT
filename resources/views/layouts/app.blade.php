@@ -62,7 +62,7 @@
                                             <option value="{{$category->id}}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true">SEARCH</i></button>
                                 
                              </form>
                             
