@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('content')
 
-<h1 class="text-center">Hello-World!</h1>
-
+<div class="container">
+    <div class="row">
+      <img class= "img-fluid mx-auto d-block" src='{{asset("/storage/RYT-logo.png")}}' alt="logo">            
+    </div>
+</div>
 
 @endsection
