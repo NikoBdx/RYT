@@ -13,7 +13,9 @@
                         <div class="col-md-6 text-center">
                         <div>
                                 <div class="mb-3">
+
                                         <a href="{{ route('drivers.create')}}"><i class="icon-register fas fa-truck"></i></a>
+
                                 </div>
                                 <p>Livreur</p>
                         </div>

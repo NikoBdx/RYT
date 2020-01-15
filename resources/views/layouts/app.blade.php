@@ -43,7 +43,30 @@
                         <ul class="navbar-nav mr-auto">
 
                         </ul>
-
+                        <div>
+                            <?php
+                                //  SEARCHBAR
+                                //  Get categories to display in th search bar
+                                Use App\Model\Category;  
+                                $categories = Category::All();   
+                            ?>
+                            
+                            <form action="{{ action('ToolController@search') }}" method="POST" class="input-group md-form form-sm form-1 pl-0">
+                                @csrf
+                                {{-- Searchbar Input --}}
+                                
+                                    <input type="text" class="form-control my-0 py-1" name="q" id="q" placeholder="Rechercher un outils" size="50">
+                                    <select class="custom-select" id="select" name="category">
+                                        <option value="">Selectionner une categorie</option>
+                                        @foreach ($categories as $category)
+                                            <option value="{{$category->id}}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
+                                
+                             </form>
+                            
+                            </div>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Authentication Links -->
@@ -60,7 +83,7 @@
                             @else
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                        {{ Auth::user()->firstname }} <span class="caret"></span>
                                     </a>
                                     {{-- Toggle de l'utilisateur --}}
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
