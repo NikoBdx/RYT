@@ -62,7 +62,7 @@
                                             <option value="{{$category->id}}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
-                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true">SEARCH</i></button>
+                                    <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
                                 
                              </form>
                             
@@ -83,7 +83,7 @@
                             @else
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }} <span class="caret"></span>
+                                        {{ Auth::user()->firstname }} <span class="caret"></span>
                                     </a>
                                     {{-- Toggle de l'utilisateur --}}
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
