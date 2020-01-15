@@ -32,11 +32,13 @@
             </div>
         </div>
         <div class="col col-12 col-sm-12 col-sm-12 col-md-3 ">
-            <div class="card">
-                <div class="card card-project">
-                    <button class="btn btn-success">Contacter le client</button>
+                <div class="card card-project mb-5">
+                    <button class="btn btn-primary">Contacter le client</button>
                 </div>
-            </div>
+                <div class="card card-project">
+                    <button class="btn btn-success">Réserver cet outil</button>
+                </div>
+
         </div>
     </div>
 </div>
