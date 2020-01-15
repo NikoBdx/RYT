@@ -17,6 +17,9 @@ class AddLastnameColumsToUsersTable extends Migration
             $table->string('lastname');
             $table->string('role');
             $table->string('vehicule');
+            $table->string('latitude');
+            $table->string('longitude');
+
         });
     }
 
