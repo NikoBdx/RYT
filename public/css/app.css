@@ -98,6 +98,39 @@ i {
   color: black;
 }
 
+.icon-register {
+  font-size: 10em;
+}
+
+.icon-register:hover {
+  color: rgba(225, 47, 20, 0.76);
+}
+
+.locomotion-icon {
+  font-size: 5em;
+}
+
+/* HIDE RADIO */
+
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+
+[type=radio] + i {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+
+[type=radio]:checked + i {
+  color: rgba(225, 47, 20, 0.76);
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

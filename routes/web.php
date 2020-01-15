@@ -34,4 +34,5 @@ Route::resource('categories', 'CategoryController');
 Route::resource('category_tool', 'Category_toolController');
 Route::resource('drivers', 'DriverController');
 Route::resource('registerchoices', 'RegisterChoiceController');
+
 Route::resource('formulaire', 'FormulaireController');

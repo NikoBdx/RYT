@@ -87,8 +87,8 @@ class ToolController extends Controller
       $tool->user_id = $user_id;
 
       if ($tool->save()){
-                        $tool->categories()->attach($request->categories);
-                    };
+        $tool->categories()->attach($request->categories);
+      };
 
       return redirect()->route('tools.index');
 
@@ -149,8 +149,9 @@ class ToolController extends Controller
     $tools = Tool::where('title','LIKE', '%'.$data.'%' )
             ->join('category_tool', 'tools.id', '=', 'category_tool.tool_id')
             ->where('category_tool.category_id',$category_id)
-            ->get();
-    return  view('/tools/search')->with('tools', $tools)->with('categories',$categories);
+            ->paginate(5);
+
+    return  view('tools.index')->with('tools', $tools)->with('categories',$categories);
     }
 
     public function list(){
