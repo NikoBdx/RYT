@@ -1,15 +1,24 @@
 @extends('layouts.app')
 @section('content')
-        <h1 class="text-center">Choisissez votre type d'inscription</h1>
-        <div class="container">
+<div class="container">
+        <h1 class="text-center mb-5">Choisissez votre type d'inscription</h1>
+
                 <div class="row">
-                        <div class="col-md-6">
-                                <a href="{{ route('register') }}">Utilisateur</a>
-                                <small>Vous souhaitez louer ou mettre location</small>                           
+                        <div class="col-md-6 text-center">
+                                <div class="mb-3">
+                                        <a href="{{ route('register') }}"><i class="icon-register fas fa-user"></i></a>
+                                </div>
+                                <p>Utilisateur</p>
                         </div>
-                        <div class="col-md-6">
-                                <a href="#">Livreur</a>
-                                <small>Vous souhaitez vous inscrire en tant que livreur</small>
+                        <div class="col-md-6 text-center">
+                        <div>
+                                <div class="mb-3">
+                                        <!-- <a href="{{ route('drivers/register') }}"><i class="icon-register fas fa-truck"></i></a> -->
+                                </div>
+                                <p>Livreur</p>
+                        </div>
+
+
                         </div>
                 </div>
         </div>
