@@ -98,6 +98,14 @@ i {
   color: black;
 }
 
+.icon-register {
+  font-size: 10em;
+}
+
+.icon-register:hover {
+  color: rgba(225, 47, 20, 0.76);
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

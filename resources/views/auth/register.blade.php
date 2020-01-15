@@ -79,10 +79,10 @@
                         </div>
 
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
+                        <div class="form-group row mt-4 mb-2">
+                            <div class="col-md-12 text-center">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Enregister') }}
+                                    <i class="text-white fas fa-user"></i> {{ __('S\'enregister') }}
                                 </button>
                             </div>
                         </div>
