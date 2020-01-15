@@ -35,7 +35,7 @@
                @if ( Auth::user()->id === $tool->user->id)
                     <p class="card-text">Vous êtes le propriétaire de cet outil</p>
                     <div class="card card-project mb-5">
-                        <button class="btn btn-warning">Modifier mon outils </button>
+                        <button class="btn btn-warning">Modifier mon outils</button>
                     </div>
                @else
                     <p class="card-text"></p>
