@@ -87,8 +87,8 @@ class ToolController extends Controller
       $tool->user_id = $user_id;
 
       if ($tool->save()){
-                        $tool->categories()->attach($request->categories);
-                    };
+        $tool->categories()->attach($request->categories);
+      };
 
       return redirect()->route('tools.index');
 

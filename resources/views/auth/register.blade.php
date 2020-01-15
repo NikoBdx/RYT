@@ -10,6 +10,8 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
+                      <input name="role" type="hidden" value="customer">
+                      <input name="vehicule" type="hidden" value="NULL">
 
                         <div class="form-group row">
                           <div class="col-md-6">
@@ -30,8 +32,8 @@
 
                         <div class="form-group">
                           <label for="form-address">Adresse</label>
-                          <input type="search" class="form-control @error('adress') is-invalid @enderror" id="form-address" name="adress" placeholder="Veuillez saisir votre adresse" />
-                          @error('adress')
+                          <input type="search" class="form-control @error('address') is-invalid @enderror" id="form-address" name="address" placeholder="Veuillez saisir votre adresse" />
+                          @error('address')
                                   <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
                         </div>
