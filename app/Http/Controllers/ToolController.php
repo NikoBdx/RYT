@@ -23,7 +23,7 @@ class ToolController extends Controller
     public function index()
     {
 
-      $tools = Tool::orderBy('created_at', 'desc')->paginate(5);
+        $tools = Tool::orderBy('created_at', 'desc')->paginate(5);
 
         return view('tools.index', compact('tools'));
 
@@ -124,6 +124,7 @@ class ToolController extends Controller
    */
   public function update($id)
   {
+    return view('tools.update');
 
   }
 
@@ -135,7 +136,7 @@ class ToolController extends Controller
    */
   public function destroy($id)
   {
-
+    return view('tools.show', compact('tool'));
   }
 
 
