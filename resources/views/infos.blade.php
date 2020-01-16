@@ -81,7 +81,7 @@
             
 
             
-                <div class="faqHeader accordion" id="loc">Locataire</div>
+                <div class="faqHeader accordion" id="loc">Locataires</div>
 
                 <div class="card">
                     <div class="card-header p-2" id="headingFive">
