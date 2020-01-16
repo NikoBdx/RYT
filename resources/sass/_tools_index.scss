@@ -26,6 +26,15 @@ text-decoration: none !important;
   width: 100%;
 }
 
+.card-home a{
+  color: #333 !important;
+}
+.card-home:hover {
+  box-shadow: 0 0 35px rgba(0,0,0,0.4);
+  margin-left: -0.5%;
+  margin-right: -0.5%;
+}
+
 .card-product {
   overflow: hidden;
   height: 250px;
@@ -61,8 +70,6 @@ text-decoration: none !important;
 }
 
 .card-horizontal {
-    display: flex;
-    flex: 1 1 auto;
+  display: flex;
+  flex: 1 1 auto;
 }
-
-

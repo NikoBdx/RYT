@@ -4,13 +4,10 @@
 // Variables
 @import 'variables';
 @import 'tools_index';
-<<<<<<< HEAD
-@import '_footer.scss';
-@import '_order.scss';
-=======
 @import 'footer.scss';
 @import 'register.scss';
->>>>>>> 3797d7ffa2934b7496e6879fb4e52bde0d09f8d4
+@import 'notifications';
+@import 'welcome';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';

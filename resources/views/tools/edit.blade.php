@@ -72,7 +72,7 @@
                     @endif
                 </div>
                 <br>
-                <div class="form-group">
+                <div class="form-group mt-3">
                 <img id="preview" class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$tool->image}")}}' alt="">
                 </div>
             </div>

@@ -91,7 +91,7 @@ class ToolController extends Controller
         $tool->categories()->attach($request->categories);
       };
 
-      return redirect()->route('tools.index');
+      return redirect()->route('welcome')->with('success', 'Votre outils a bien été ajouté');
 
   }
 
@@ -117,7 +117,7 @@ class ToolController extends Controller
     //dd($id);
     $categories = Category::all();
     $tool = Tool::find($id);
-    
+
     return view('tools.edit')->with('tool', $tool)
                              ->with('categories',$categories);
   }
@@ -171,8 +171,8 @@ class ToolController extends Controller
 
       $tool->categories()->attach($request->categories);
     };
+    return redirect()->route('tools.show', $tool->id )->with('success', 'Votre outils a bien été modifié');;
 
-    return $this->show($tool);
   }
 
   /**
