@@ -26,7 +26,7 @@
 {{-- ------------------------------ Prix ------------------------------ --}}
             <div class="row">
                 <div class="col-md-3 sm-12">
-                    <label for="price-tool">Prix</label>
+                    <label for="price-tool">Prix/Jour</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend">€</span>

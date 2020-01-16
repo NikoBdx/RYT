@@ -20,7 +20,7 @@
                             </tr>
                             <tr>
                                 <td scope="row">Prix</td>
-                            <th colspan="2">{{$tool->price}} €</th>
+                            <th colspan="2">{{$tool->price}} €/jour</th>
                             </tr>
                             <tr>
                                 <td scope="row">Localisation</td>

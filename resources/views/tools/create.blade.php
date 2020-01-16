@@ -26,10 +26,10 @@
 {{-- ------------------------------ Prix ------------------------------ --}}
             <div class="row">
                 <div class="col-md-3 sm-12">
-                    <label for="price-tool">Prix</label>
+                    <label for="price-tool">Prix/Jour</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupPrepend">€</span>
+                            <span class="input-group-text" id="inputGroupPrepend">€/jour</span>
                         </div>
                             <input type="number" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" min="0" step="0.01" name="price" id="price-tool" >
                         @error('price')
