@@ -37,3 +37,8 @@ Route::resource('drivers', 'DriverController');
 Route::resource('registerchoices', 'RegisterChoiceController');
 
 Route::resource('formulaire', 'FormulaireController');
+
+Route::get('infos', function()
+{
+    return view('infos');
+});
