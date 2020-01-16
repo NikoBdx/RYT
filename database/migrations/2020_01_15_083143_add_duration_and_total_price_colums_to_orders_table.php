@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangeUsersNameColumn extends Migration
+class AddDurationAndTotalPriceColumsToOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class ChangeUsersNameColumn extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->renameColumn('name', 'firstname');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->integer('duration');
+            $table->integer('total_price');
         });
     }
 
@@ -25,7 +26,7 @@ class ChangeUsersNameColumn extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             //
         });
     }

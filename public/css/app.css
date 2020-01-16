@@ -4,12 +4,70 @@ li {
   list-style: none;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 .list-project-time {
   font-size: 12px;
   color: #7b868d;
   margin-left: 12px;
 }
 
+.categories {
+  display: inline-block;
+  background-color: #eceeef;
+  padding: 0.4em 0.7em;
+  margin: 5px 5px 0 0;
+  border-radius: 5px;
+  color: rgba(225, 47, 20, 0.76);
+  font-size: 12px;
+}
+
+.image-tool {
+  width: 100%;
+}
+
+.card-product {
+  overflow: hidden;
+  height: 250px;
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  color: #333;
+}
+
+.card-product:hover {
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.4);
+  margin-left: -0.5%;
+  margin-right: -0.5%;
+}
+
+.card-product img {
+  height: 100%;
+  width: 250px;
+  -o-object-fit: fill;
+     object-fit: fill;
+}
+
+.card-product h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-product p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 0;
+  margin-top: 12px;
+}
+
+.card-horizontal {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-flex: 1;
+          flex: 1 1 auto;
+}
 
 footer {
   background-color: rgba(225, 47, 20, 0.76);
@@ -40,15 +98,37 @@ i {
   color: black;
 }
 
-.categories {
-  display: inline-block;
-  background-color: #eceeef;
-  padding: 0.4em 0.7em;
-  margin: 5px 5px 0 0;
-  border-radius: 5px;
-  color: rgba(225, 47, 20, 0.76);
-  font-size: 12px;
+.icon-register {
+  font-size: 10em;
+}
 
+.icon-register:hover {
+  color: rgba(225, 47, 20, 0.76);
+}
+
+.locomotion-icon {
+  font-size: 5em;
+}
+
+/* HIDE RADIO */
+
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+
+[type=radio] + i {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+
+[type=radio]:checked + i {
+  color: rgba(225, 47, 20, 0.76);
 }
 
 /*!
@@ -72,7 +152,7 @@ i {
   --white: #fff;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: hsla(188, 84%, 13%, 0.87);
+  --primary: rgba(225, 47, 20, 0.76);
   --secondary: #6c757d;
   --success: #38c172;
   --info: #6cb2eb;

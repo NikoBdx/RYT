@@ -49,16 +49,30 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+
         return Validator::make($data, [
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'adress' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string', 'max:255'],
             'cp' => ['required', 'string', 'max:5'],
             'town' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
 
         ]);
+        $validator = Validator::make($rules,[
+        'firstname.required' => 'Le prénom est obligatoire',
+        'lastname.required' => 'Le nom est obligatoire',
+        'adress.required' => 'Veuillez saisir l\'adresse',
+        'cp.required' => 'Veuillez saisir le code postal',
+        'email.required' => 'L\'email est obligatoire'
+      ]);
+
+        if($validator->fails()){
+        return Redirect::back()
+          ->withErrors($validator)
+          ->withInput();
+      }
     }
 
     /**
@@ -69,14 +83,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
+
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
-            'adress' => $data['adress'],
+            'address' => $data['address'],
             'cp' => $data['cp'],
             'town' => $data['town'],
             'email' => $data['email'],
+            'role' => $data['role'],
+            'vehicule' => $data['vehicule'],
             'password' => Hash::make($data['password']),
         ]);
+
+
+
+
     }
 }

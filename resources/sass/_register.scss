@@ -1,0 +1,30 @@
+.icon-register{
+  font-size: 10em;
+}
+
+.icon-register:hover{
+  color: hsla(8, 84%, 48%, 0.76);
+}
+
+.locomotion-icon{
+  font-size: 5em;
+}
+
+/* HIDE RADIO */
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + i {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + i {
+  color: hsla(8, 84%, 48%, 0.76);
+}
+

@@ -13,8 +13,6 @@ use App\Model\Category;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 
-
-
 class ToolController extends Controller
 {
     public function __construct()
@@ -56,7 +54,7 @@ class ToolController extends Controller
 
       $values = $request->all();
       $rules = [
-        'description' => 'required|string',
+        'description' => 'required|string|min:10',
         'title' => 'required|string',
         'price' => 'required|integer',
         'categories' => 'required',
@@ -69,6 +67,7 @@ class ToolController extends Controller
         'image.required' => 'L\'image est obligaotire',
         'categories.required' => 'Merci de choisir au moins une catégorie'
       ]);
+
       if($validator->fails()){
       return Redirect::back()
           ->withErrors($validator)
@@ -77,7 +76,7 @@ class ToolController extends Controller
 
       $image = $request->file('image');
       $image_resize = Image::make($image->getRealPath());
-      $image_resize->resize(600, 300);
+      $image_resize->resize(400, 400);
       $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
       $image_resize->save(public_path('storage/' .$name));
       $tool = new Tool();
@@ -88,8 +87,8 @@ class ToolController extends Controller
       $tool->user_id = $user_id;
 
       if ($tool->save()){
-                        $tool->categories()->attach($request->categories);
-                    };
+        $tool->categories()->attach($request->categories);
+      };
 
       return redirect()->route('tools.index');
 
@@ -101,9 +100,9 @@ class ToolController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show(Tool $tool)
   {
-
+    return view('tools.show', compact('tool'));
   }
 
   /**
@@ -138,6 +137,28 @@ class ToolController extends Controller
   {
 
   }
+
+
+  public function search(Request $request){
+
+
+    $data = $request->input('q');
+    $category_id = $request->input('category');
+    $categories = Category::all();
+
+    $tools = Tool::where('title','LIKE', '%'.$data.'%' )
+            ->join('category_tool', 'tools.id', '=', 'category_tool.tool_id')
+            ->where('category_tool.category_id',$category_id)
+            ->paginate(5);
+
+    return  view('tools.index')->with('tools', $tools)->with('categories',$categories);
+    }
+
+    public function list(){
+        $categories = Category::all();
+        return view('/tools/search')->with('categories', $categories);
+    }
+
 
 }
 

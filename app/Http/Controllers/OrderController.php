@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Auth;
+use Mail;
+use User;
+use Redirect;
+use Validator;
+use UploadedFile;
 use App\Model\Tool;
+use App\Model\Order;
+use App\Model\Category;
+use Illuminate\Http\Request;
+
 
 class OrderController extends Controller 
 {
+
+  public function __construct()
+      {
+          $this->middleware('auth')->only(['create', 'store']);
+      }
 
   /**
    * Display a listing of the resource.
@@ -17,16 +31,26 @@ class OrderController extends Controller
   {
     $user = auth()->user();
     $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
-    return view('order.index', ['address' => $address]);
+    return view('orders.index', ['address' => $address]);
   }
 
-  /**
-   * Show the form for creating a new resource.
+   /**
+   * Show the form for editing the specified resource.
    *
+   * @param  int  $id
    * @return Response
    */
-  public function create()
+  public function store(Request $request)
   {
+
+  }
+
+
+  public function create($id)
+  {
+      $orders = Order::all();
+
+      return view('orders.create', compact('orders'));
     
   }
 
@@ -35,10 +59,6 @@ class OrderController extends Controller
    *
    * @return Response
    */
-  public function store(Request $request)
-  {
-    
-  }
 
   /**
    * Display the specified resource.
@@ -85,5 +105,3 @@ class OrderController extends Controller
   }
   
 }
-
-?>

@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
         <div class="text-center">
-            <h1>Enregistrement des outils</h1>
+            <h1>Réservation d'un outil</h1>
         </div>
 
     </div>
