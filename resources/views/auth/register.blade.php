@@ -55,9 +55,8 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
                         </div>
-
+{{-- -------- Récupération des coordonnées GPS ------- --}}
                           <input type="hidden" name="latitude" id="form-latitude">
-
                           <input type="hidden" name="longitude" id="form-longitude">
 
 
@@ -103,30 +102,30 @@
 
 <script src="https://cdn.jsdelivr.net/npm/places.js@1.17.1"></script>
 <script>
-(function() {
-  var placesAutocomplete = places({
-    appId: 'pl5EJ6MHI6L9',
-    apiKey: '2f1f3c55274f4e4332f0cfcbf4e42ccd',
-    container: document.querySelector('#form-address'),
-    templates: {
-      value: function(suggestion) {
-        return suggestion.name;
+  (function () {
+    var placesAutocomplete = places({
+      appId: 'pl5EJ6MHI6L9',
+      apiKey: '2f1f3c55274f4e4332f0cfcbf4e42ccd',
+      container: document.querySelector('#form-address'),
+      templates: {
+        value: function (suggestion) {
+          return suggestion.name;
+        }
       }
-    }
-  }).configure({
-    type: 'address'
-  });
-  placesAutocomplete.on('change', function resultSelected(e) {
-    let coordonnees = e.suggestion.latlng;
-    document.querySelector('#form-address2').value = e.suggestion.administrative || '';
-    document.querySelector('#form-city').value = e.suggestion.city || '';
-    document.querySelector('#form-zip').value = e.suggestion.postcode || '';
-    document.querySelector('#form-latitude').value = coordonnees.lat;
-    document.querySelector('#form-longitude').value = coordonnees.lng;
+    }).configure({
+      type: 'address'
+    });
+    placesAutocomplete.on('change', function resultSelected(e) {
+      let coordonnees = e.suggestion.latlng;
+      document.querySelector('#form-address2').value = e.suggestion.administrative || '';
+      document.querySelector('#form-city').value = e.suggestion.city || '';
+      document.querySelector('#form-zip').value = e.suggestion.postcode || '';
+      document.querySelector('#form-latitude').value = coordonnees.lat;
+      document.querySelector('#form-longitude').value = coordonnees.lng;
 
-    console.log(coordonnees);
+      console.log(coordonnees);
 
-  });
-})();
+    });
+  })();
 </script>
 @endsection
