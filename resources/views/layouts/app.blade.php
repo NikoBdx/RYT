@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title class="font-weight-bold>">{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
@@ -36,7 +36,7 @@
         <div id="app">
             <nav class="navbar navbar-expand-md navbar-light head_log shadow-sm">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand font-weight-bold" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -77,12 +77,12 @@
                             <!-- Authentication Links -->
                             @guest
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
+                                    <a class="nav-link font-weight-bold" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                                 </li>
                                 @if (Route::has('register'))
                                 {{-- Lien vers l'enregistrement --}}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('registerchoices.index') }}">{{ __('S\'inscrire') }}</a>
+                                        <a class="nav-link font-weight-bold" href="{{ route('registerchoices.index') }}">{{ __('S\'inscrire') }}</a>
                                     </li>
                                 @endif
                             @else
@@ -120,6 +120,9 @@
                             <ul class="navbar-nav">
                                 <li class="nav-item">
                                 <a class="nav-link" href="{{ url('/')}}">Accueil</a>
+                                </li>
+                                <li class="nav-item">
+                                <a class="nav-link" href="infos">RYT, c'est quoi ?</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('tools.index')}}">Recherche un outil</a>
