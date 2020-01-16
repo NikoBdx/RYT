@@ -32,23 +32,43 @@
             </div>
         </div>
         <div class="col col-12 col-sm-12 col-sm-12 col-md-3 ">
-                
+
                 @if ( !empty(Auth::user()) && Auth::user()->id === $tool->user->id)
                 <p class="card-text">Vous êtes le propriétaire de cet outil</p>
                 <div class="card card-project mb-5">
                     <a class="btn btn-warning" href="/tools/{{$tool->id}}/edit">Modifier mon outils</a>
-                    
+
+                </div>
+                <div class="card card-project mb-5">
+                    <form action="{{ route('messages.create') }}" method="PUT">
+                     @csrf
+                    <input type="hidden" name="tool_id" value="{{ $tool->id }}">
+                    {{-- <input type="hidden" name="renter_id" value="{{ $tool->user->id }}">
+                    <input type="hidden" name="client_id" value="{{ Auth::user()->id }}"> --}}
+                        <div class="card card-project">
+                            <button class="btn btn-primary">Voir mes messages</button>
+                        </div>
+                    </form>
+
                 </div>
                 @else
                 <p class="card-text"></p>
                 <div class="card card-project mb-5">
-                    <button class="btn btn-primary">Contacter le client</button>
+                    <form action="{{ route('messages.create') }}" method="PUT">
+                     @csrf
+                    <input type="hidden" name="tool_id" value="{{ $tool->id }}">
+                    <input type="hidden" name="renter_id" value="{{ $tool->user->id }}">
+                    <input type="hidden" name="client_id" value="{{ Auth::user()->id }}">
+                        <div class="card card-project">
+                            <button class="btn btn-primary">Contacter le loueur</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="card card-project">
                     <button class="btn btn-success">Réserver cet outil</button>
                 </div>
-                @endif   
-            
+                @endif
+
         </div>
     </div>
 </div>

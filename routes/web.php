@@ -37,3 +37,6 @@ Route::resource('drivers', 'DriverController');
 Route::resource('registerchoices', 'RegisterChoiceController');
 
 Route::resource('formulaire', 'FormulaireController');
+
+Route::resource('messages', 'MessageController');
+

@@ -104,6 +104,7 @@
                                         </form>
                                     </div>
                                 </li>
+
                             @endguest
                         </ul>
                     </div>
@@ -118,21 +119,23 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
-                                <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/')}}">Accueil</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('tools.index')}}">Recherche un outil</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Contrat de Location</a>
-                                </li>
-                                <li class="nav-item">
-                                <a class="nav-link" href="{{ route('tools.create')}}">Publier une annonce</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('formulaire.index')}}">Contact</a>
-                                </li>
+                                <div class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ url('/')}}">Accueil</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('tools.index')}}">Recherche un outil</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Contrat de Location</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('tools.create')}}">Publier une annonce</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('formulaire.index')}}">Contact</a>
+                                    </li>
+
                             </ul>
                         </div>
                     </nav>
