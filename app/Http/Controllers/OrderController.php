@@ -12,7 +12,7 @@ use App\Model\Tool;
 use App\Model\Order;
 use App\Model\Category;
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManagerStatic as Image;
+
 
 class OrderController extends Controller 
 {
@@ -29,7 +29,9 @@ class OrderController extends Controller
    */
   public function index()
   {
-    return view('order.index');
+    $user = auth()->user();
+    $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
+    return view('orders.index', ['address' => $address]);
   }
 
    /**
@@ -130,5 +132,3 @@ class OrderController extends Controller
   }
   
 }
-
-?>
