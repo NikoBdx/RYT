@@ -42,10 +42,10 @@
                 @else
                 <p class="card-text"></p>
                 <div class="card card-project mb-5">
-                    <button class="btn btn-primary">Contacter le client</button>
+                    <a class="btn btn-primary" href="#" >Contacter le client</a>
                 </div>
                 <div class="card card-project">
-                    <button class="btn btn-success">Réserver cet outil</button>
+                <a class="btn btn-success" href="/orders/{{ $tool->id }}">Réserver cet outil</a>
                 </div>
                 @endif   
             

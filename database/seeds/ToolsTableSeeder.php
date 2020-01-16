@@ -11,6 +11,6 @@ class ToolsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Model\Tool', 50)->create();
+        factory('App\Model\Tool', 10)->create();
     }
 }

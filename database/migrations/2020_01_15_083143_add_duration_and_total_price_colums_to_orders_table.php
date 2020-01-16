@@ -14,8 +14,8 @@ class AddDurationAndTotalPriceColumsToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->integer('duration');
-            $table->integer('total_price');
+            $table->integer('duration')->nullable();
+            $table->integer('total_price')->nullable();
         });
     }
 
