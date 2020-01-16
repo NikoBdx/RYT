@@ -40,12 +40,12 @@ class OrderController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function store(Request $request)
+  public function store(Request $request, $id)
   {
 
-    $tool_id = $tool->id;
-
     $values = $request->all();
+    dd($values);
+
 
     $rules = [
       'duration' => 'required|integer',        
@@ -80,9 +80,7 @@ class OrderController extends Controller
 
   public function create($id)
   {
-      $orders = Order::all();
 
-      return view('orders.create', compact('orders'));
     
   }
 
@@ -95,7 +93,17 @@ class OrderController extends Controller
    */
   public function show($id)
   {
-    
+
+    $tool = Tool::find($id);
+    //dd($tool);
+    $order = new Order;
+
+    $order->tool_id = $id;
+    $order->user_id = $tool->user_id;
+    if($order->save()){
+      return view('orders.show')->with('tool',$tool)->with('order',$order);
+    }
+  
   }
 
   /**
