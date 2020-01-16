@@ -252,7 +252,7 @@
                                 "icon-image": "custom-markerss",
                                 }
                         });
-                                                var geoFail = function(){ // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
+                                var geoFail = function(){ // Ceci s'exécutera si l'utilisateur refuse la géolocalisation
                                 console.log("refus");
                         };
                         // La ligne ci-dessous cherche la position de l'utilisateur et déclenchera la demande d'accord

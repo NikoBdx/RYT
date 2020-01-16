@@ -131,7 +131,7 @@
                                 <a class="nav-link" href="{{ route('tools.create')}}">Publier une annonce</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact</a>
+                                    <a class="nav-link" href="{{ route('formulaire.index')}}">Contact</a>
                                 </li>
                             </ul>
                         </div>

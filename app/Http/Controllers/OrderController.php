@@ -43,6 +43,38 @@ class OrderController extends Controller
   public function store(Request $request)
   {
 
+    $tool_id = $tool->id;
+
+    $values = $request->all();
+
+    $rules = [
+      'duration' => 'required|integer',        
+    ];
+    
+    $validator = Validator::make($values, $rules,[
+      'duration.required' => 'La durée de location est obligatoire',
+    ]);
+
+    if($validator->fails()){
+    return Redirect::back()
+        ->withErrors($validator)
+        ->withInput();
+    }
+
+    $order = new Order();
+    $order->duration = $values['duration'];
+    $order->tool_id = $toolId;
+    $order->driver_id = '';
+    $order->status = 'Commande en cours';
+    $totalPrice = ($values['duration']) * ($tool->price);
+    $order->total_price = $totalPrice;
+    $order->save(); 
+
+
+    return redirect()->route('orders.index');
+
+
+
   }
 
 
@@ -54,11 +86,6 @@ class OrderController extends Controller
     
   }
 
-  /**
-   * Store a newly created resource in storage.
-   *
-   * @return Response
-   */
 
   /**
    * Display the specified resource.

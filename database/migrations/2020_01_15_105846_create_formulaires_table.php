@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddLastnameColumsToUsersTable extends Migration
+class CreateFormulairesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class AddLastnameColumsToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('formulaires', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('email');
             $table->string('lastname');
-            $table->string('role');
-            $table->string('vehicule');
-            $table->string('latitude');
-            $table->string('longitude');
-
+            $table->string('firstname');
+            $table->text('message');
+            $table->ipAddress('ip_address');
+            $table->timestamps();
         });
     }
 
@@ -30,8 +31,6 @@ class AddLastnameColumsToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('formulaires');
     }
 }
