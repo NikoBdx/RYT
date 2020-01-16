@@ -15,7 +15,7 @@
     <script src="{{ asset('js/app.js') }}" ></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
-    
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -29,7 +29,7 @@
     {{-- Mapbox --}}
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
-    
+
 </head>
 <body>
     <header>
@@ -52,14 +52,14 @@
                             <?php
                                 //  SEARCHBAR
                                 //  Get categories to display in th search bar
-                                Use App\Model\Category;  
-                                $categories = Category::All();   
+                                Use App\Model\Category;
+                                $categories = Category::All();
                             ?>
-                            
+
                             <form action="{{ action('ToolController@search') }}" method="POST" class="input-group md-form form-sm form-1 pl-0">
                                 @csrf
                                 {{-- Searchbar Input --}}
-                                
+
                                     <input type="text" class="form-control my-0 py-1" name="q" id="q" placeholder="Rechercher un outils" size="50">
                                     <select class="custom-select" id="select" name="category">
                                         <option value="">Selectionner une categorie</option>
@@ -68,9 +68,9 @@
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
-                                
+
                              </form>
-                            
+
                             </div>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -141,6 +141,34 @@
             <div class="container">
                 {{-- Contenu des views --}}
                 <main class="py-4">
+{{-- --------- Notifications -------- --}}
+                {{-- --------- Success -------- --}}
+                 @if (session()->has('success'))
+                    <div class="flash flash-success alert alert-dismissible fade show" role="alert">
+                            <span><strong>Bravo!</strong> 🎉 {{ session()->get('success') }}</span>
+                            <a data-dismiss="alert" aria-label="Close">
+                                <i class="fas fa-times"></i>
+                            </a>
+                    </div>
+                @endif
+                {{-- --------- Danger -------- --}}
+                @if (session()->has('danger'))
+                    <div class="flash flash-danger alert alert-dismissible fade show" role="alert">
+                        <span><strong>Oops!</strong> 😱 {{ session()->get('danger') }}</span>
+                        <a data-dismiss="alert" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                @endif
+                {{-- --------- Warning -------- --}}
+                @if (session()->has('warning'))
+                    <div class="flash flash-warning alert alert-dismissible fade show" role="alert">
+                        <span><strong>Mmh</strong> 🤔 {{ session()->get('xarning') }}>profile picture</a> yet.</span>
+                        <a data-dismiss="alert" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                 @endif
                     @yield('content')
                 </main>
                 {{-- Footer --}}
@@ -148,5 +176,11 @@
             </div>
         </div>
     </header>
+<script>
+    $(document).ready(function () {
+        $(".flash").fadeOut(3000);
+	});
+</script>
 </body>
 </html>
+
