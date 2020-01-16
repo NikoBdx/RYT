@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Tool;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified'])->except(['welcome']);
     }
 
     /**
@@ -24,5 +25,11 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function welcome()
+    {
+        $tools = Tool::orderBy('id', 'desc')->take(3)->get();
+        return view('welcome', compact('tools'));
     }
 }
