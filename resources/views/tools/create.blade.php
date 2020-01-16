@@ -14,7 +14,7 @@
 {{-- ------------------------------ Nom  ------------------------------ --}}
     <div class="row">
         <div class="col-md-12">
-            <form action="{{ route('tools.store') }}" method="PATCH" enctype="multipart/form-data">
+            <form action="{{ route('tools.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title-tool">Nom de l'outil </label>
@@ -74,9 +74,9 @@
                 <br>
                 <div class="form-group">
                 <img id="preview" class="img-fluid img-thumbnail" width="300" src="#" alt="">
-                </div>               
+                </div>
             </div>
-            
+
             <div class="form-group">
                 <button class="btn btn-primary">Envoyer</button>
             </div>

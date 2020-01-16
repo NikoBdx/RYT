@@ -9,7 +9,7 @@
             <h1>Modifier votre outil</h1>
         </div>
     </div>
-    
+
 {{-- ------------------------------ Nom  ------------------------------ --}}
     <div class="row">
         <div class="col-md-12">
@@ -74,7 +74,7 @@
                 <br>
                 <div class="form-group">
                 <img id="preview" class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$tool->image}")}}' alt="">
-                </div>               
+                </div>
             </div>
 {{-- ------------------------------ ID [HIDDEN] ----------------------- --}}
             <input type="hidden" name="id" value="{{$tool->id}}">
