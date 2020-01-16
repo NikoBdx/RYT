@@ -57,6 +57,11 @@
               <div class="invalid-feedback">{{ $message }}</div>
               @enderror
             </div>
+
+ <!-- -------- Récupération des coordonnées GPS ------- -->
+            <input type="hidden" name="latitude" id="form-latitude">
+            <input type="hidden" name="longitude" id="form-longitude">
+
             <div class="form-group">
               <label for="email">Email</label>
               <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email">
@@ -136,9 +141,15 @@
       type: 'address'
     });
     placesAutocomplete.on('change', function resultSelected(e) {
+      let coordonnees = e.suggestion.latlng;
       document.querySelector('#form-address2').value = e.suggestion.administrative || '';
       document.querySelector('#form-city').value = e.suggestion.city || '';
       document.querySelector('#form-zip').value = e.suggestion.postcode || '';
+      document.querySelector('#form-latitude').value = coordonnees.lat;
+      document.querySelector('#form-longitude').value = coordonnees.lng;
+
+      console.log(coordonnees);
+
     });
   })();
 </script>
