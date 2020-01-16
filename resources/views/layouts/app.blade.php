@@ -87,8 +87,8 @@
                                 @endif
                             @else
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->firstname }} <span class="caret"></span>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Bienvenue, 
+                                        {{ Auth::user()->firstname }} !<span class="caret"></span>
                                     </a>
                                     {{-- Toggle de l'utilisateur --}}
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -112,7 +112,7 @@
             <div class="container-fluid leader">
                 <div class="container">
                     {{-- Barre de navigation --}}
-                    <nav class="navbar navbar-expand-lg navbar-light">
+                    <nav class="navbar navbar-expand-lg navbar-light stroke">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
