@@ -119,22 +119,22 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/')}}">Accueil</a>
+                                <a class="nav-link" href="{{ url('/')}}"><i class="fa fa-home"></i> Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="infos">RYT, c'est quoi ?</a>
+                                <a class="nav-link" href="infos"><i class="fa fa-book"></i> RYT, c'est quoi ?</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('tools.index')}}">Recherche un outil</a>
+                                    <a class="nav-link" href="{{ route('tools.index')}}"><i class="fa fa-wrench"></i> Recherche un outil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ asset('file/modele-contrat-location-entre-particuliers.doc') }}">Contrat de Location</a>
+                                    <a class="nav-link" href="{{ asset('file/modele-contrat-location-entre-particuliers.doc') }}"><i class="fa fa-file"></i> Contrat de Location</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ route('tools.create')}}">Publier une annonce</a>
+                                <a class="nav-link" href="{{ route('tools.create')}}"><i class="fa fa-plus-circle"></i> Publier une annonce</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('formulaire.index')}}">Contact</a>
+                                    <a class="nav-link" href="{{ route('formulaire.index')}}"><i class="far fa-envelope"></i> Contact</a>
                                 </li>
                             </ul>
                         </div>
