@@ -49,3 +49,7 @@ Route::post('/comments/{tool}', 'CommentController@store')->name('comments.store
 Route::post('/tools/message', 'CommentController@index')->name('comments.show');
 Route::post('/commentReply/{comment}', 'CommentController@storeCommentReply')->name('comments.storeReply');
 Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFromNotification')->name('tools.showFromNotification');
+
+// Pdf Download
+Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
+

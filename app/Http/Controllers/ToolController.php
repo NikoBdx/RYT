@@ -190,17 +190,24 @@ class ToolController extends Controller
 
   public function search(Request $request){
 
-
     $data = $request->input('q');
-    $category_id = $request->input('category');
-    $categories = Category::all();
+    
+    if ( $request->input('category') !== null ) {
+      $category_id = $request->input('category');
+      $tools = Tool::where('title','LIKE', '%'.$data.'%' )
+              ->join('category_tool', 'tools.id', '=', 'category_tool.tool_id')
+              ->where('category_tool.category_id',$category_id)
+              ->paginate(5);
+    } else {
+      $tools = Tool::where('title','LIKE', '%'.$data.'%' )->paginate(5);
+    }
 
-    $tools = Tool::where('title','LIKE', '%'.$data.'%' )
-            ->join('category_tool', 'tools.id', '=', 'category_tool.tool_id')
-            ->where('category_tool.category_id',$category_id)
-            ->paginate(5);
 
-    return  view('tools.index')->with('tools', $tools)->with('categories',$categories);
+    return  view('tools.index')->with('tools', $tools);
+
+
+
+
     }
 
     public function list(){

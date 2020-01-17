@@ -3,6 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+
+use PDF;
+
+use App\Model\Tool;
+use App\Model\User;
+use App\Model\Order;
+use App\Model\Payment;
+
+
 
 class PaymentController extends Controller
 {
@@ -35,6 +45,21 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $values = $request->all();
+        
+        $order = Order::find($values['idOrder']);
+        $tool  = Tool::find($order->tool_id);
+
+        $payment = new Payment;
+        $payment->tool_id = $order->tool_id;
+        $payment->user_id = Auth::user()->id;
+        $payment->order_id = $order->id;
+        $payment->status = "Payer par l'utilisateur";
+        $payment->price = $tool->price * $values['day'];
+
+        if( $payment->save() ){
+            return view('payments.show')->with('payment', $payment);
+        }
+
         dd($values);
     }
 
@@ -81,5 +106,16 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export(Request $request)
+    {
+        $values = $request->all();
+        $payment = Payment::find($values['id']);
+
+        $pdf = PDF::loadView( 'payments.proof' , array('payment' => $payment))->setPaper('a4');
+        
+        return $pdf->download('order_proof.pdf');
+        //dd($payment);
     }
 }
