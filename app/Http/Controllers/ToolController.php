@@ -12,6 +12,7 @@ use App\Model\Tool;
 use App\Model\Category;
 use App\Model\Category_tool;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\DatabaseNotification;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ToolController extends Controller
@@ -171,7 +172,7 @@ class ToolController extends Controller
 
       $tool->categories()->attach($request->categories);
     };
-    return redirect()->route('tools.show', $tool->id )->with('success', 'Votre outils a bien été modifié');;
+    return redirect()->route('tools.show', $tool->id )->with('success', 'Votre outils a bien été modifié');
 
   }
 
@@ -207,6 +208,11 @@ class ToolController extends Controller
         return view('/tools/search')->with('categories', $categories);
     }
 
+    public function showFromNotification(Tool $tool, DatabaseNotification $notification)
+    {
+      $notification->markAsRead();
+      return view('tools.message', compact('tool'));
+    }
 
 }
 
