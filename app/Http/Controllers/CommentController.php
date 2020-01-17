@@ -36,22 +36,21 @@ class CommentController extends Controller
         //Notification
         $tool->user->notify(new NewCommentPosted($tool, auth()->user()));
 
-        return redirect()->route('tools.show', $tool);
+        return redirect()->route('tools.show', $tool)->with('success', 'Votre message a bien été envoyé');;
     }
 
     public function storeCommentReply(Comment $comment)
     {
-        
+
         request()->validate([
             'replyComment' => 'required|min:3'
         ]);
-            
         $commentReply = new Comment();
         $commentReply->content = request('replyComment');
         $commentReply->user_id = auth()->user()->id;
 
         $comment->comments()->save($commentReply);
-            dd('ok2');
-        return redirect()->route('tools.show', $tool);
+
+        return redirect()->route('tools.show', request()->tool_id)->with('success', 'Votre réponse a bien été envoyé');
     }
 }

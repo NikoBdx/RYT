@@ -172,7 +172,7 @@ class ToolController extends Controller
 
       $tool->categories()->attach($request->categories);
     };
-    return redirect()->route('tools.show', $tool->id )->with('success', 'Votre outils a bien été modifié');;
+    return redirect()->route('tools.show', $tool->id )->with('success', 'Votre outils a bien été modifié');
 
   }
 

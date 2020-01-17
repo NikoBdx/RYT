@@ -40,16 +40,17 @@
 
                 </div>
                 <div class="card card-project mb-5">
-                <form action="{{ route('comments.show') }}">" method="POST">
+                    <form action="{{ route('comments.show')}}" method="POST">
                      @csrf
-                    
+                        <input type="hidden" name="tool_id" value="{{$tool->id}}">
                         <div class="card card-project">
-                            <button class="btn btn-primary">Voir mes messages</button>
+                            <button class="btn btn-primary">Voir les messages</button>
                         </div>
                     </form>
-
                 </div>
                 @else
+
+
                 <p class="card-text"></p>
                 <div class="card card-project mb-5">
                     <form action="{{ route('comments.show')}}" method="POST">

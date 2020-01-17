@@ -89,9 +89,10 @@
                                     </li>
                                 @endif
                             @else
+                        {{-- --------- Notifications de messages pour le loueur-------- --}}
                                 @unless (auth()->user()->unreadNotifications->isEmpty())
                                     <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> 
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                             {{ auth()->user()->unreadNotifications->count() }} notification(s) <span class="caret"></span>
                                         </a>
                                         {{-- Toggle de l'utilisateur --}}
@@ -103,7 +104,7 @@
                                     </li>
                                 @endunless
                                 <li class="nav-item dropdown">
-                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Bienvenue, 
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Bienvenue,
                                             {{ Auth::user()->firstname }} !<span class="caret"></span>
                                         </a>
                                         {{-- Toggle de l'utilisateur --}}
