@@ -14,9 +14,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@welcome')->name('welcome');
+
 
 Auth::routes(['verify' => true]);
 
@@ -28,7 +27,7 @@ Route::post('tools/search', 'ToolController@search');
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Route::resource('users', 'UserController');
+//Route::resource('users', 'UserController');
 Route::resource('tools', 'ToolController')->middleware('verified');
 
 Route::resource('orders', 'OrderController');
@@ -36,5 +35,17 @@ Route::resource('categories', 'CategoryController');
 Route::resource('category_tool', 'Category_toolController');
 Route::resource('drivers', 'DriverController');
 Route::resource('registerchoices', 'RegisterChoiceController');
+Route::resource('payments', 'PaymentController');
 
 Route::resource('formulaire', 'FormulaireController');
+
+Route::get('infos', function()
+{
+    return view('infos');
+});
+
+// Messagerie
+Route::post('/comments/{tool}', 'CommentController@store')->name('comments.store');
+Route::post('/tools/message', 'CommentController@index')->name('comments.show');
+Route::post('/commentReply/{comment}', 'CommentController@storeCommentReply')->name('comments.storeReply');
+Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFromNotification')->name('tools.showFromNotification');

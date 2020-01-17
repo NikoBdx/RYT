@@ -9,7 +9,7 @@
             <h1>Modifier votre outil</h1>
         </div>
     </div>
-    
+
 {{-- ------------------------------ Nom  ------------------------------ --}}
     <div class="row">
         <div class="col-md-12">
@@ -26,7 +26,7 @@
 {{-- ------------------------------ Prix ------------------------------ --}}
             <div class="row">
                 <div class="col-md-3 sm-12">
-                    <label for="price-tool">Prix</label>
+                    <label for="price-tool">Prix/Jour</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroupPrepend">€</span>
@@ -72,9 +72,9 @@
                     @endif
                 </div>
                 <br>
-                <div class="form-group">
+                <div class="form-group mt-3">
                 <img id="preview" class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$tool->image}")}}' alt="">
-                </div>               
+                </div>
             </div>
 {{-- ------------------------------ ID [HIDDEN] ----------------------- --}}
             <input type="hidden" name="id" value="{{$tool->id}}">

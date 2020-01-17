@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -8,14 +7,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title class="font-weight-bold>">{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
     <script src="{{ asset('js/app.js') }}" ></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
-    
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -29,15 +28,17 @@
     {{-- Mapbox --}}
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
-    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.css' rel='stylesheet' />
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <!-- Extra-js -->
+    @yield('extra-js')
+
 </head>
 <body>
     <header>
         <div id="app">
             <nav class="navbar navbar-expand-md navbar-light head_log shadow-sm">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand font-weight-bold" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -53,14 +54,14 @@
                             <?php
                                 //  SEARCHBAR
                                 //  Get categories to display in th search bar
-                                Use App\Model\Category;  
-                                $categories = Category::All();   
+                                Use App\Model\Category;
+                                $categories = Category::All();
                             ?>
-                            
+
                             <form action="{{ action('ToolController@search') }}" method="POST" class="input-group md-form form-sm form-1 pl-0">
                                 @csrf
                                 {{-- Searchbar Input --}}
-                                
+
                                     <input type="text" class="form-control my-0 py-1" name="q" id="q" placeholder="Rechercher un outils" size="50">
                                     <select class="custom-select" id="select" name="category">
                                         <option value="">Selectionner une categorie</option>
@@ -69,42 +70,56 @@
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
-                                
+
                              </form>
-                            
+
                             </div>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Authentication Links -->
                             @guest
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Connexion') }}</a>
+                                    <a class="nav-link font-weight-bold" href="{{ route('login') }}">{{ __('Connexion') }}</a>
                                 </li>
                                 @if (Route::has('register'))
                                 {{-- Lien vers l'enregistrement --}}
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('registerchoices.index') }}">{{ __('S\'inscrire') }}</a>
+                                        <a class="nav-link font-weight-bold" href="{{ route('registerchoices.index') }}">{{ __('S\'inscrire') }}</a>
                                     </li>
                                 @endif
                             @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->firstname }} <span class="caret"></span>
-                                    </a>
-                                    {{-- Toggle de l'utilisateur --}}
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">{{ __('Mon profil') }}</a>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                            {{ __('Déconnexion') }}
+                        {{-- --------- Notifications de messages pour le loueur-------- --}}
+                                @unless (auth()->user()->unreadNotifications->isEmpty())
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ auth()->user()->unreadNotifications->count() }} notification(s) <span class="caret"></span>
                                         </a>
+                                        {{-- Toggle de l'utilisateur --}}
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            @foreach (auth()->user()->unreadNotifications as $notification)
+                                        <a href="{{ route('tools.showFromNotification',['tool' => $notification->data['toolId'], 'notification' => $notification->id]) }}" class="dropdown-item">{{ $notification->data['lastname'] }}, a posté un message sur <strong>{{ $notification->data['toolTitle'] }}</strong></a>
+                                            @endforeach
+                                        </div>
+                                    </li>
+                                @endunless
+                                <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Bienvenue,
+                                            {{ Auth::user()->firstname }} !<span class="caret"></span>
+                                        </a>
+                                        {{-- Toggle de l'utilisateur --}}
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="#">{{ __('Mon profil') }}</a>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                                {{ __('Déconnexion') }}
+                                            </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </li>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
                             @endguest
                         </ul>
                     </div>
@@ -113,26 +128,29 @@
             <div class="container-fluid leader">
                 <div class="container">
                     {{-- Barre de navigation --}}
-                    <nav class="navbar navbar-expand-lg navbar-light">
+                    <nav class="navbar navbar-expand-lg navbar-light stroke">
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/')}}">Accueil</a>
+                                <a class="nav-link" href="{{ url('/')}}"><i class="fa fa-home"></i> Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('tools.index')}}">Recherche un outil</a>
+                                <a class="nav-link" href="infos"><i class="fa fa-book"></i> RYT, c'est quoi ?</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Contrat de Location</a>
+                                    <a class="nav-link" href="{{ route('tools.index')}}"><i class="fa fa-wrench"></i> Recherche un outil</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ route('tools.create')}}">Publier une annonce</a>
+                                    <a class="nav-link" href="{{ asset('file/modele-contrat-location-entre-particuliers.doc') }}"><i class="fa fa-file"></i> Contrat de Location</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('formulaire.index')}}">Contact</a>
+                                <a class="nav-link" href="{{ route('tools.create')}}"><i class="fa fa-plus-circle"></i> Publier une annonce</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('formulaire.index')}}"><i class="far fa-envelope"></i> Contact</a>
                                 </li>
                             </ul>
                         </div>
@@ -142,6 +160,34 @@
             <div class="container">
                 {{-- Contenu des views --}}
                 <main class="py-4">
+{{-- --------- Notifications -------- --}}
+                {{-- --------- Success -------- --}}
+                 @if (session()->has('success'))
+                    <div class="flash flash-success alert alert-dismissible fade show" role="alert">
+                            <span><strong>Bravo!</strong> 🎉 {{ session()->get('success') }}</span>
+                            <a data-dismiss="alert" aria-label="Close">
+                                <i class="fas fa-times"></i>
+                            </a>
+                    </div>
+                @endif
+                {{-- --------- Danger -------- --}}
+                @if (session()->has('danger'))
+                    <div class="flash flash-danger alert alert-dismissible fade show" role="alert">
+                        <span><strong>Oops!</strong> 😱 {{ session()->get('danger') }}</span>
+                        <a data-dismiss="alert" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                @endif
+                {{-- --------- Warning -------- --}}
+                @if (session()->has('warning'))
+                    <div class="flash flash-warning alert alert-dismissible fade show" role="alert">
+                        <span><strong>Mmh</strong> 🤔 {{ session()->get('xarning') }}>profile picture</a> yet.</span>
+                        <a data-dismiss="alert" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                 @endif
                     @yield('content')
                 </main>
                 {{-- Footer --}}
@@ -149,5 +195,11 @@
             </div>
         </div>
     </header>
+<script>
+    $(document).ready(function () {
+        $(".flash").fadeOut(3000);
+	});
+</script>
 </body>
 </html>
+

@@ -20,7 +20,7 @@
                             </tr>
                             <tr>
                                 <td scope="row">Prix</td>
-                            <th colspan="2">{{$tool->price}} €</th>
+                            <th colspan="2">{{$tool->price}} €/jour</th>
                             </tr>
                             <tr>
                                 <td scope="row">Localisation</td>
@@ -32,23 +32,40 @@
             </div>
         </div>
         <div class="col col-12 col-sm-12 col-sm-12 col-md-3 ">
-                
+
                 @if ( !empty(Auth::user()) && Auth::user()->id === $tool->user->id)
                 <p class="card-text">Vous êtes le propriétaire de cet outil</p>
                 <div class="card card-project mb-5">
                     <a class="btn btn-warning" href="/tools/{{$tool->id}}/edit">Modifier mon outils</a>
-                    
+
+                </div>
+                <div class="card card-project mb-5">
+                    <form action="{{ route('comments.show')}}" method="POST">
+                     @csrf
+                        <input type="hidden" name="tool_id" value="{{$tool->id}}">
+                        <div class="card card-project">
+                            <button class="btn btn-primary">Voir les messages</button>
+                        </div>
+                    </form>
                 </div>
                 @else
+
+
                 <p class="card-text"></p>
                 <div class="card card-project mb-5">
-                    <button class="btn btn-primary">Contacter le client</button>
+                    <form action="{{ route('comments.show')}}" method="POST">
+                     @csrf
+                        <input type="hidden" name="tool_id" value="{{$tool->id}}">
+                        <div class="card card-project">
+                            <button class="btn btn-primary">Contacter le loueur</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="card card-project">
-                    <button class="btn btn-success">Réserver cet outil</button>
+                    <a class="btn btn-success" href="/orders/{{ $tool->id }}">Réserver cet outil</a>
                 </div>
-                @endif   
-            
+                @endif
+
         </div>
     </div>
 </div>

@@ -19,6 +19,8 @@ class CategoriesTableSeeder extends Seeder
           "Couverture",
           "Electroportatif",
           "Electricité",
+          "Cycle",
+          "Auto/Moto"
         ];
 
         foreach($categories as $categorie){

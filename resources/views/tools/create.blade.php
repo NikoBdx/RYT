@@ -14,7 +14,7 @@
 {{-- ------------------------------ Nom  ------------------------------ --}}
     <div class="row">
         <div class="col-md-12">
-            <form action="{{ route('tools.store') }}" method="PATCH" enctype="multipart/form-data">
+            <form action="{{ route('tools.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="title-tool">Nom de l'outil </label>
@@ -26,10 +26,10 @@
 {{-- ------------------------------ Prix ------------------------------ --}}
             <div class="row">
                 <div class="col-md-3 sm-12">
-                    <label for="price-tool">Prix</label>
+                    <label for="price-tool">Prix/Jour</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroupPrepend">€</span>
+                            <span class="input-group-text" id="inputGroupPrepend">€/jour</span>
                         </div>
                             <input type="number" class="form-control @error('price') is-invalid @enderror" value="{{ old('price') }}" min="0" step="0.01" name="price" id="price-tool" >
                         @error('price')
@@ -72,11 +72,11 @@
                     @endif
                 </div>
                 <br>
-                <div class="form-group">
+                <div class="form-group mt-3">
                 <img id="preview" class="img-fluid img-thumbnail" width="300" src="#" alt="">
-                </div>               
+                </div>
             </div>
-            
+
             <div class="form-group">
                 <button class="btn btn-primary">Envoyer</button>
             </div>
