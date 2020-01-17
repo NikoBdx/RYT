@@ -3,6 +3,10 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\Payment;
+use App\Model\User;
+use App\Model\Tool;
+
 
 class Order extends Model
 {
@@ -14,5 +18,10 @@ class Order extends Model
     public function tools()
     {
         return $this->hasOne(Tool::class);
+    }
+
+    public function payments()
+    {
+      return $this->hasOne(Payment::class);
     }
 }

@@ -43,3 +43,21 @@ Route::get('infos', function()
 {
     return view('infos');
 });
+
+// Messagerie
+Route::post('/comments/{tool}', 'CommentController@store')->name('comments.store');
+Route::post('/tools/message', 'CommentController@index')->name('comments.show');
+Route::post('/commentReply/{comment}', 'CommentController@storeCommentReply')->name('comments.storeReply');
+Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFromNotification')->name('tools.showFromNotification');
+
+
+Route::group(['middleware' => ['auth','admin']], function () {
+    
+    Route::get('/dashboard', function(){
+        return view('admin.dashboard');
+    });
+
+    Route::get('/role-register', 'Admin\DashboardController@registered');
+});
+
+

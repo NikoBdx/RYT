@@ -30,6 +30,9 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 
+    <!-- Extra-js -->
+    @yield('extra-js')
+
 </head>
 <body>
     <header>
@@ -86,24 +89,38 @@
                                     </li>
                                 @endif
                             @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Bienvenue, 
-                                        {{ Auth::user()->firstname }} !<span class="caret"></span>
-                                    </a>
-                                    {{-- Toggle de l'utilisateur --}}
-                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="#">{{ __('Mon profil') }}</a>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                            {{ __('Déconnexion') }}
+                        {{-- --------- Notifications de messages pour le loueur-------- --}}
+                                @unless (auth()->user()->unreadNotifications->isEmpty())
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            {{ auth()->user()->unreadNotifications->count() }} notification(s) <span class="caret"></span>
                                         </a>
+                                        {{-- Toggle de l'utilisateur --}}
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            @foreach (auth()->user()->unreadNotifications as $notification)
+                                        <a href="{{ route('tools.showFromNotification',['tool' => $notification->data['toolId'], 'notification' => $notification->id]) }}" class="dropdown-item">{{ $notification->data['lastname'] }}, a posté un message sur <strong>{{ $notification->data['toolTitle'] }}</strong></a>
+                                            @endforeach
+                                        </div>
+                                    </li>
+                                @endunless
+                                <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>Bienvenue,
+                                            {{ Auth::user()->firstname }} !<span class="caret"></span>
+                                        </a>
+                                        {{-- Toggle de l'utilisateur --}}
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="#">{{ __('Mon profil') }}</a>
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                                {{ __('Déconnexion') }}
+                                            </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </li>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
                             @endguest
                         </ul>
                     </div>
@@ -119,22 +136,22 @@
                         <div class="collapse navbar-collapse" id="navbarNav">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ url('/')}}">Accueil</a>
+                                <a class="nav-link" href="{{ url('/')}}"><i class="fa fa-home"></i> Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="infos">RYT, c'est quoi ?</a>
+                                <a class="nav-link" href="infos"><i class="fa fa-book"></i> RYT, c'est quoi ?</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('tools.index')}}">Recherche un outil</a>
+                                    <a class="nav-link" href="{{ route('tools.index')}}"><i class="fa fa-wrench"></i> Recherche un outil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ asset('file/modele-contrat-location-entre-particuliers.doc') }}">Contrat de Location</a>
+                                    <a class="nav-link" href="{{ asset('file/modele-contrat-location-entre-particuliers.doc') }}"><i class="fa fa-file"></i> Contrat de Location</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="{{ route('tools.create')}}">Publier une annonce</a>
+                                <a class="nav-link" href="{{ route('tools.create')}}"><i class="fa fa-plus-circle"></i> Publier une annonce</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('formulaire.index')}}">Contact</a>
+                                    <a class="nav-link" href="{{ route('formulaire.index')}}"><i class="far fa-envelope"></i> Contact</a>
                                 </li>
                             </ul>
                         </div>
