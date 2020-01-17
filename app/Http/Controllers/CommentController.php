@@ -17,7 +17,8 @@ class CommentController extends Controller
     public function index(Request $request)
     {
         $tool = Tool::where('id', $request->tool_id)->first();
-        return view('tools.message', compact('tool'));
+
+        return view('tools.message', compact('tool', 'tools'));
     }
 
     public function store(Tool $tool)
@@ -53,4 +54,6 @@ class CommentController extends Controller
 
         return redirect()->route('tools.show', request()->tool_id)->with('success', 'Votre réponse a bien été envoyé');
     }
+
+
 }
