@@ -20,7 +20,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="role-register">Gestion des rôles <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="role-register">Gestion des Utilisaterus <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Gestions des annonces</a>
@@ -74,8 +74,13 @@
                         <td>
                             <a href="/role-edit/{{ $row->id }}" class="btn btn-success">EDITION</a>
                         <td>
-                            <a href="#" class="btn btn-danger">SUPPRIMER</a>     
-                        </td>
+                            <form action="/role-delete/{{ $row->id }}" method="post">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                            <input type="hidden" name="id" value=" {{ $row->id }}">
+                            <button type="submit" class="btn btn-danger">SUPPRIMER</button>     
+                            </form>
+                          </td>
                       </tr>
                         @endforeach                      
                       
