@@ -8,11 +8,42 @@
 
 @section('content')
 
+{{-- --------- Menu du Dashboard-------- --}}
+
+<div class="row">
+  <div class="col-md-12">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="dashboard">Tableau De Bord</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item active">
+            <a class="nav-link" href="role-register">Gestion des rôles <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Gestions des annonces</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Gestion annexe</a>
+          </li>          
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
 <div class="row">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title"> Enregistrement des rôles</h4>
+                <h4 class="card-title"> Gestion des utilisateurs</h4>
+                @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                @endif
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -24,6 +55,7 @@
                       <th>Adresse</th>
                       <th>Code Postal</th>
                       <th>Ville</th>
+                      <th>Rôle</th>
                       <th>EDITER</th>
                       <th>SUPPRIMER</th>
 
@@ -32,104 +64,21 @@
                     <tbody>
                         @foreach ($users as $row)
                       <tr>
-                         <td> {{ $row->firstname }}</td>
-                        <td>Brunet</td>
-                        <td>nico@gmail.com</td>
-                        <td>25 cours du matin</td>
-                        <td>33000</td>
-                        <td>Bordeaux</td>                                                
-                        </td>
+                        <td> {{ $row->firstname }}</td>
+                        <td> {{ $row->lastname }}</td>
+                        <td> {{ $row->email }}</td>
+                        <td> {{ $row->address }}</td>
+                        <td> {{ $row->cp }}</td>
+                        <td> {{ $row->town }}</td>
+                        <td> {{ $row->role }}</td>                                             
                         <td>
-                            <a href="#" class="btn btn-success">EDITION</a>
+                            <a href="/role-edit/{{ $row->id }}" class="btn btn-success">EDITION</a>
                         <td>
                             <a href="#" class="btn btn-danger">SUPPRIMER</a>     
                         </td>
                       </tr>
-                        @endforeach
-                      <tr>
-                        <td>
-                          Minerva Hooper
-                        </td>
-                        <td>
-                          Curaçao
-                        </td>
-                        <td>
-                          Sinaai-Waas
-                        </td>
-                        <td class="text-right">
-                          $23,789
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Sage Rodriguez
-                        </td>
-                        <td>
-                          Netherlands
-                        </td>
-                        <td>
-                          Baileux
-                        </td>
-                        <td class="text-right">
-                          $56,142
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Philip Chaney
-                        </td>
-                        <td>
-                          Korea, South
-                        </td>
-                        <td>
-                          Overland Park
-                        </td>
-                        <td class="text-right">
-                          $38,735
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Doris Greene
-                        </td>
-                        <td>
-                          Malawi
-                        </td>
-                        <td>
-                          Feldkirchen in Kärnten
-                        </td>
-                        <td class="text-right">
-                          $63,542
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Mason Porter
-                        </td>
-                        <td>
-                          Chile
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td class="text-right">
-                          $78,615
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Jon Porter
-                        </td>
-                        <td>
-                          Portugal
-                        </td>
-                        <td>
-                          Gloucester
-                        </td>
-                        <td class="text-right">
-                          $98,615
-                        </td>
-                      </tr>
+                        @endforeach                      
+                      
                     </tbody>
                   </table>
                 </div>
