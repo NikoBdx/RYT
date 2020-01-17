@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+
+use PDF;
+
 use App\Model\Tool;
 use App\Model\User;
 use App\Model\Order;
@@ -103,5 +106,16 @@ class PaymentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function export(Request $request)
+    {
+        $values = $request->all();
+        $payment = Payment::find($values['id']);
+
+        $pdf = PDF::loadView( 'payments.proof' , array('payment' => $payment))->setPaper('a4');
+        
+        return $pdf->download('order_proof.pdf');
+        //dd($payment);
     }
 }
