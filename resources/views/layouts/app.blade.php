@@ -71,9 +71,25 @@
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
-
                              </form>
-
+                             <div style="position: absolute;z-index: 99; ">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Outil</th>
+                                            <th>Prix</th>
+                                            <th>Photo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th></th>
+                                            <th></th>
+                                            <th><img src="https://via.placeholder.com/150" alt=""></th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                             </div>
                             </div>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -200,6 +216,38 @@
     $(document).ready(function () {
         $(".flash").fadeOut(3000);
 	});
+
+    console.log($('#q'))
+    $('#q').keyup(function(){
+
+        console.log('SALAM');
+
+        var $data = $(this).val();
+
+        console.log($data);
+
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+        $.ajax({
+            type : 'GET',
+            url  : "{{URL::to('tools/search')}}",
+            data : $data,
+
+
+            success: function(code) {
+            console.log( $list);
+            
+        },
+
+        error: function (erreur) {
+            console.log(erreur.responseText);;
+        },
+        })
+    });
 </script>
 
 </body>

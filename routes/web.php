@@ -21,7 +21,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-Route::get( 'tools/search', 'ToolController@list');
+Route::get( 'tools/search', 'ToolController@search');
 Route::post('tools/search', 'ToolController@search');
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -50,6 +50,14 @@ Route::post('/tools/message', 'CommentController@index')->name('comments.show');
 Route::post('/commentReply/{comment}', 'CommentController@storeCommentReply')->name('comments.storeReply');
 Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFromNotification')->name('tools.showFromNotification');
 
+
+//Export PDF bon de commande
+Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
+
+//  Map Coordonnée
+Route::post('/map', 'OrderController@map')->name('orders.map');
+
 // Pdf Download
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
+
 
