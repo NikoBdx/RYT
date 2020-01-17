@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -31,8 +30,9 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 
     <!-- Extra-js -->
+    
     @yield('extra-js')
-
+    
 </head>
 <body>
     <header>
@@ -249,6 +249,7 @@
         })
     });
 </script>
+
 </body>
 </html>
 
