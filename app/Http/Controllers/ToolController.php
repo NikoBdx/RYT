@@ -190,8 +190,22 @@ class ToolController extends Controller
 
   public function search(Request $request){
 
-    $data = $request->input('q');
+    if( $request->ajax() ){
+      
+      $output = '';
+      // Requete SQL
+      $list = Tool::where('title','LIKE', '%'.$data.'%')->take(4);
+      // Boucle sur requete SQL
+      foreach ($list as $key ) {
+        //Creer HTML necessaire 
+        $output .= " ";
+      }
+
+      return response($output);
+    }
     
+    $data = $request->input('q');
+
     if ( $request->input('category') !== null ) {
       $category_id = $request->input('category');
       $tools = Tool::where('title','LIKE', '%'.$data.'%' )

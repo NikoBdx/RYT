@@ -21,7 +21,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-Route::get( 'tools/search', 'ToolController@list');
+Route::get( 'tools/search', 'ToolController@search');
 Route::post('tools/search', 'ToolController@search');
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -52,3 +52,6 @@ Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFro
 
 //Export PDF bon de commande
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
+
+//  Map Coordeonenqsdfqsfqs
+Route::post('/map', 'OrderController@map')->name('orders.map');
