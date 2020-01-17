@@ -4,16 +4,16 @@ namespace App\Model;
 
 use App\Model\Tool;
 use App\Model\Vehicule;
+use App\Model\Payment;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Cashier\Billable;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
-    use Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,6 +45,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function tools()
     {
         return $this->hasMany(Tool::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 
 }
