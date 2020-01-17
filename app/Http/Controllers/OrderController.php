@@ -30,8 +30,14 @@ class OrderController extends Controller
   public function index()
   {
     $user = auth()->user();
-    $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
-    return view('orders.index', ['address' => $address]);
+    $role = $user->role;
+    if($role == "driver"){
+      return view('orders.driver');
+    }else{
+      $userLat = floatVal($user->latitude);
+      $userLon = floatVal($user->longitude);
+      return view('orders.index', ['userLat' => $userLat, 'userLon' => $userLon]);
+    }
   }
 
    /**
