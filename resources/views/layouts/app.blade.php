@@ -30,8 +30,9 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 
     <!-- Extra-js -->
+    
     @yield('extra-js')
-
+    
 </head>
 <body>
     <header>
@@ -200,6 +201,7 @@
         $(".flash").fadeOut(3000);
 	});
 </script>
+
 </body>
 </html>
 

@@ -34,10 +34,10 @@ class OrderController extends Controller
     if($role == "driver"){
       return view('orders.driver');
     }else{
-    $userLat = floatVal($user->latitude);
-    $userLon = floatVal($user->longitude);
-    return view('orders.index', ['userLat' => $userLat, 'userLon' => $userLon]);
-  }
+      $userLat = floatVal($user->latitude);
+      $userLon = floatVal($user->longitude);
+      return view('orders.index', ['userLat' => $userLat, 'userLon' => $userLon]);
+    }
   }
 
    /**
