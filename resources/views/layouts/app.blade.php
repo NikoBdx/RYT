@@ -72,24 +72,6 @@
                                     </select>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
                              </form>
-                             <div style="position: absolute;z-index: 99; ">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th>Outil</th>
-                                            <th>Prix</th>
-                                            <th>Photo</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th></th>
-                                            <th></th>
-                                            <th><img src="https://via.placeholder.com/150" alt=""></th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                             </div>
                             </div>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
