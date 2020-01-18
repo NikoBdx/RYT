@@ -61,6 +61,9 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::get('/user-edit/{id}', 'Admin\DashboardController@registeredit');
     Route::put('/user-register-update/{id}', 'Admin\DashboardController@registerupdate');
 
+    Route::get('/post-edit/{id}', 'Admin\DashboardController@postedit');
+    Route::put('/post-register-update/{id}', 'Admin\DashboardController@postupdate');
+
     Route::delete('/user-delete/{id}', 'Admin\DashboardController@registerdelete' );
 
     Route::delete('/post-delete/{id}', 'Admin\DashboardController@postdelete');

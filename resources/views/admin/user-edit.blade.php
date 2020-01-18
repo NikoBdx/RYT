@@ -16,7 +16,7 @@ Edition des utilisateurs | RYT
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <form action="/role-register-update/{{$users->id }}" method="POST">
+                            <form action="/user-register-update/{{$users->id }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('PUT') }}
 
