@@ -12,25 +12,21 @@ class DashboardController extends Controller
     public function registered()
     {
         $users = User::all();
-        return view('admin.register')
+        return view('admin.user-register')
                 ->with('users', $users);                  
     }
 
     public function posted()
     {
         $tools = Tool::all();
-        return view('admin.post')
-                ->with('tools', $tools);      
+        return view('admin.post-register')
+                ->with('tools', $tools);  
     }
-
-
-
-
 
     public function registeredit(Request $request, $id)
     {
         $users = User::findOrFail($id);
-        return view('admin.register-edit')->with('users', $users);
+        return view('admin.user-edit')->with('users', $users);
     }
 
     public function postedit(Request $request, $id)
@@ -38,10 +34,6 @@ class DashboardController extends Controller
         $tools = User::findOrFail($id);
         return view('admin.post-edit')->with('tools', $tools);
     }
-
-
-
-
 
     public function registerupdate(Request $request, $id)
     {
@@ -55,7 +47,7 @@ class DashboardController extends Controller
         $users->role = $request->input('role');
         $users->update();
 
-        return redirect('role-register')->with('status', 'L\'utilisateur a été mis à jour');
+        return redirect('user-register')->with('status', 'L\'utilisateur a été mis à jour');
     }
 
     public function registerdelete($id)
@@ -63,8 +55,18 @@ class DashboardController extends Controller
         $users = User::findOrFail($id);
         $users->delete();
 
-        return redirect('role-register')->with('status', 'L\'utilisateur a été supprimer');
+        return redirect('user-register')->with('status', 'L\'utilisateur a été supprimé.');
     }
+
+    public function postdelete($id)
+    {
+        $tools = Tool::findOrFail($id);
+        $tools->delete();
+
+        return redirect('post-register')->with('status', 'L\'annonce a été supprimée.');
+    }   
+
+
 
 
 }

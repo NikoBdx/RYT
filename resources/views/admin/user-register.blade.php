@@ -2,7 +2,7 @@
 
 
 @section('title')
-  Enregistrement des annonces | RYT
+  Enregistrement des rôles | RYT
 @endsection
 
 
@@ -20,10 +20,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="role-register">Gestion des Utilisateurs <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="user-register">Gestion des Utilisateurs <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="role-post">Gestions des annonces</a>
+            <a class="nav-link" href="post-register">Gestions des annonces</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Gestion annexe</a>
@@ -38,7 +38,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title text-center"> Gestion des annonces</h4>
+                <h4 class="card-title text-center"> Gestion des utilisateurs</h4>
                 @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -49,30 +49,32 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                      <th>Titre</th>
-                      <th>Description</th>
-                      <th>Prix</th>
+                      <th>Prénom</th>
+                      <th>Nom</th>
+                      <th>Email</th>
+                      <th>Adresse</th>
+                      <th>Code Postal</th>
+                      <th>Ville</th>
+                      <th>Rôle</th>
                       <th>Editer</th>
                       <th>Supprimer</th>
 
 
                     </thead>
                     <tbody>
-                        @foreach ($tools as $row)
+                        @foreach ($users as $row)
                       <tr>
-                        <td> {{ $row->title }}</td>
-                        <td> {{ $row->description }}</td>
-                        <td> {{ $row->price }}</td>
+                        <td> {{ $row->firstname }}</td>
+                        <td> {{ $row->lastname }}</td>
+                        <td> {{ $row->email }}</td>
+                        <td> {{ $row->address }}</td>
+                        <td> {{ $row->cp }}</td>
+                        <td> {{ $row->town }}</td>
+                        <td> {{ $row->role }}</td>                                             
                         <td>
-                        <div class="img-square-wrapper">
-                                <img class="img-fluid image-tool py-2" src='{{asset("/storage/{$row->image}")}}'
-                                    alt="image-tool">
-                        </div>
-                        </td>                                           
+                            <a href="/user-edit/{{ $row->id }}" class="btn btn-success">Editer</a>
                         <td>
-                            <a href="/role-edit/{{ $row->id }}" class="btn btn-success">Editer</a>
-                        <td>
-                            <form action="/role-delete/{{ $row->id }}" method="post">
+                            <form action="/user-delete/{{ $row->id }}" method="post">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                             <input type="hidden" name="id" value=" {{ $row->id }}">

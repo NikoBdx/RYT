@@ -115,7 +115,7 @@ class ToolController extends Controller
    */
   public function edit($id)
   {
-    //dd($id);
+    
     $categories = Category::all();
     $tool = Tool::find($id);
 

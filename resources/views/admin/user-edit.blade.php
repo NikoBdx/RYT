@@ -49,14 +49,15 @@ Edition des utilisateurs | RYT
                             </div>
                             <div class="form-group">
                                 <select name="role">
-                            <option value="admin">Administrateur</option>
-                            <option value="customer">Client</option>
-                            <option value="driver">Livreur</option>                            
+                                    <option value="{{ $users->role }}"></option>
+                                    <option value="admin">Administrateur</option>
+                                    <option value="customer">Client</option>
+                                    <option value="driver">Livreur</option>                            
                                 </select>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success">Enregistrer la modification</button>
-                                <a href="/role-register" type="submit" class="btn btn-danger">Annuler la modification</a>
+                                <a href="/user-register" type="submit" class="btn btn-danger">Annuler la modification</a>
                             </div>
                             </form>
                         </div>

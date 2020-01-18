@@ -21,6 +21,7 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
 Route::get( 'tools/search', 'ToolController@list');
 Route::post('tools/search', 'ToolController@search');
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 
 
@@ -54,13 +55,15 @@ Route::group(['middleware' => ['auth','admin']], function () {
         return view('admin.dashboard');
     });
 
-    Route::get('/role-register', 'Admin\DashboardController@registered');
-    Route::get('/role-post', 'Admin\DashboardController@posted');
+    Route::get('/user-register', 'Admin\DashboardController@registered');
+    Route::get('/post-register', 'Admin\DashboardController@posted');
 
-    Route::get('/role-edit/{id}', 'Admin\DashboardController@registeredit');
-    Route::put('/role-register-update/{id}', 'Admin\DashboardController@registerupdate');
-    Route::delete('/role-delete/{id}', 'Admin\DashboardController@registerdelete' );
+    Route::get('/user-edit/{id}', 'Admin\DashboardController@registeredit');
+    Route::put('/user-register-update/{id}', 'Admin\DashboardController@registerupdate');
+
+    Route::delete('/user-delete/{id}', 'Admin\DashboardController@registerdelete' );
+
+    Route::delete('/post-delete/{id}', 'Admin\DashboardController@postdelete');
     
 });
-
 
