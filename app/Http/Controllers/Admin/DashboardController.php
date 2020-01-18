@@ -14,11 +14,15 @@ class DashboardController extends Controller
 {
     public function registered()
     {
+        $tools = Tool::all();
         $users = User::all();
         return view('admin.user-register')
-                ->with('users', $users);                  
+                ->with('users', $users)
+                ->with('tools', $tools);
+                              
     }
 
+    
     public function posted()
     {
         $tools = Tool::all();
@@ -53,7 +57,7 @@ class DashboardController extends Controller
         $users->role = $request->input('role');
         $users->update();
 
-        return redirect('user-register')->with('status', 'L\'utilisateur a été mis à jour');
+        return redirect('user-register')->with('success', 'L\'utilisateur a été mis à jour');
     }
 
     public function registerdelete($id)
@@ -61,7 +65,7 @@ class DashboardController extends Controller
         $users = User::findOrFail($id);
         $users->delete();
 
-        return redirect('user-register')->with('status', 'L\'utilisateur a été supprimé.');
+        return redirect('user-register')->with('success', 'L\'utilisateur a été supprimé.');
     }
 
     public function postdelete($id)
@@ -69,7 +73,7 @@ class DashboardController extends Controller
         $tools = Tool::findOrFail($id);
         $tools->delete();
 
-        return redirect('post-register')->with('status', 'L\'annonce a été supprimée.');
+        return redirect('post-register')->with('success', 'L\'annonce a été supprimée.');
     }
 
     public function postupdate(Request $request, $id)
@@ -82,7 +86,7 @@ class DashboardController extends Controller
 
         $tool = Tool::find($id);
         $tool->title = $request->input('title');
-        $tool->description = $request->input('description ');
+        $tool->description = $request->input('description');
         $tool->price = $request->input('price');
         $tool->image = $name;
         $tool->update();     
@@ -94,7 +98,7 @@ class DashboardController extends Controller
         $tool->categories()->attach($request->categories);
         };
         
-        return redirect('post-register')->with('status', 'L\'outil a été mis à jour');
+        return redirect('post-register')->with('success', 'L\'annonce a été mise à jour');
     }
 
 

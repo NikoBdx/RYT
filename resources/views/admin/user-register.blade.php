@@ -41,7 +41,7 @@
                 <h4 class="card-title text-center"> Gestion des utilisateurs</h4>
                 @if (session('status'))
                         <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+                        {{ session('status') }}
                         </div>
                 @endif
               </div>
@@ -56,6 +56,7 @@
                       <th>Code Postal</th>
                       <th>Ville</th>
                       <th>Rôle</th>
+                      <th>Nombre d'annonces</th>
                       <th>Editer</th>
                       <th>Supprimer</th>
 
@@ -70,7 +71,8 @@
                         <td> {{ $row->address }}</td>
                         <td> {{ $row->cp }}</td>
                         <td> {{ $row->town }}</td>
-                        <td> {{ $row->role }}</td>                                             
+                        <td> {{ $row->role }}</td>
+                        <td class="text-center"> {{ $row->tools->count() }}</td>                                               
                         <td>
                             <a href="/user-edit/{{ $row->id }}" class="btn btn-success">Editer</a>
                         <td>

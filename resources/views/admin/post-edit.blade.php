@@ -46,15 +46,19 @@ Edition des utilisateurs | RYT
                             </div>
 
 
-                            <div class="custom-file">
-                                <input type="file" id="image" name="image" value="{{ asset("/storage/app/public/{$tool->image}") }}"
-                                class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
-                                <label class="custom-file-label" for="image"></label>
-                                  
-                            </div>
-                            <br>
-                            <div class="form-group mt-3">
-                                <img id="preview" class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$tool->image}")}}' alt="">
+                            <div class="form-group{{ $errors->has('image') ? ' is-invalid' : '' }}">
+                                <div class="custom-file">
+                                    <input type="file" id="image" name="image" value="{{ asset("/storage/app/public/{$tool->image}") }}"
+                                    class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
+                                    <label class="custom-file-label" for="image"></label>
+                                    @if ($errors->has('image'))
+                                    <div class="invalid-feedback">{{ $errors->first('image') }}</div>
+                                    @endif
+                                </div>
+                                <br>
+                                <div class="form-group mt-3">
+                                    <img id="preview" class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$tool->image}")}}' alt="">
+                                </div>
                             </div>
                             
                             <div class="form-group">
@@ -73,6 +77,23 @@ Edition des utilisateurs | RYT
 
 @endsection
 
-@section('scripts')
+@section('script')
+
 
 @endsection
+
+<script>
+$(() => {
+    $('input[type="file"]').on('change', (e) => {
+        let that = e.currentTarget
+        if (that.files && that.files[0]) {
+            $(that).next('.custom-file-label').html(that.files[0].name)
+            let reader = new FileReader()
+            reader.onload = (e) => {
+                $('#preview').attr('src', e.target.result)
+            }
+            reader.readAsDataURL(that.files[0])
+        }
+    })
+})
+</script>

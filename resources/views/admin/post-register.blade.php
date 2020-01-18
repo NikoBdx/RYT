@@ -52,6 +52,7 @@
                       <th>Titre</th>
                       <th>Description</th>
                       <th>Prix</th>
+                      <th>Loueur</th>
                       <th>Photo</th>
                       <th>Editer</th>
                       <th>Supprimer</th>
@@ -63,10 +64,11 @@
                       <tr>
                         <td> {{ $row->title }}</td>
                         <td> {{ $row->description }}</td>
-                        <td> {{ $row->price }}</td>
+                        <td> {{ $row->price }} €/jour</td>
+                        <td> {{ $row->user->firstname }} {{ $row->user->lastname }}  </td>
                         <td>
                         <div class="img-square-wrapper">
-                                <img class="img-fluid image-tool py-2" src='{{asset("/storage/{$row->image}")}}'
+                                <img class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$row->image}")}}'
                                     alt="image-tool">
                         </div>
                         </td>                                           
