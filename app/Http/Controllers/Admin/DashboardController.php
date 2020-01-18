@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\User;
+use App\Model\Tool;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -11,15 +12,36 @@ class DashboardController extends Controller
     public function registered()
     {
         $users = User::all();
-        return view('admin.register')->with('users', $users);
-      
+        return view('admin.register')
+                ->with('users', $users);                  
     }
+
+    public function posted()
+    {
+        $tools = Tool::all();
+        return view('admin.post')
+                ->with('tools', $tools);      
+    }
+
+
+
+
 
     public function registeredit(Request $request, $id)
     {
         $users = User::findOrFail($id);
         return view('admin.register-edit')->with('users', $users);
     }
+
+    public function postedit(Request $request, $id)
+    {
+        $tools = User::findOrFail($id);
+        return view('admin.post-edit')->with('tools', $tools);
+    }
+
+
+
+
 
     public function registerupdate(Request $request, $id)
     {

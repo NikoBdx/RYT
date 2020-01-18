@@ -21,11 +21,11 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="role-register">Gestion des Utilisateurs <span class="sr-only">(current)</span></a>
+          <li class="nav-item">
+            <a class="nav-link" href="role-register">Gestion des Utilisateurs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Gestions des Annonces</a>
+            <a class="nav-link" href="role-post">Gestions des Annonces</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Gestion annexe</a>

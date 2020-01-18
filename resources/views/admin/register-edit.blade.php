@@ -11,7 +11,7 @@ Edition des utilisateurs | RYT
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>Edition de l'utilisateur</h3>
+                    <h3 class ="text-center">Edition de l'utilisateur</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">

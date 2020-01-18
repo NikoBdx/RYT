@@ -2,7 +2,7 @@
 
 
 @section('title')
-  Enregistrement des rôles | RYT
+  Enregistrement des annonces | RYT
 @endsection
 
 
@@ -38,7 +38,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h4 class="card-title text-center"> Gestion des utilisateurs</h4>
+                <h4 class="card-title text-center"> Gestion des annonces</h4>
                 @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -49,28 +49,26 @@
                 <div class="table-responsive">
                   <table class="table">
                     <thead class=" text-primary">
-                      <th>Prénom</th>
-                      <th>Nom</th>
-                      <th>Email</th>
-                      <th>Adresse</th>
-                      <th>Code Postal</th>
-                      <th>Ville</th>
-                      <th>Rôle</th>
+                      <th>Titre</th>
+                      <th>Description</th>
+                      <th>Prix</th>
                       <th>Editer</th>
                       <th>Supprimer</th>
 
 
                     </thead>
                     <tbody>
-                        @foreach ($users as $row)
+                        @foreach ($tools as $row)
                       <tr>
-                        <td> {{ $row->firstname }}</td>
-                        <td> {{ $row->lastname }}</td>
-                        <td> {{ $row->email }}</td>
-                        <td> {{ $row->address }}</td>
-                        <td> {{ $row->cp }}</td>
-                        <td> {{ $row->town }}</td>
-                        <td> {{ $row->role }}</td>                                             
+                        <td> {{ $row->title }}</td>
+                        <td> {{ $row->description }}</td>
+                        <td> {{ $row->price }}</td>
+                        <td>
+                        <div class="img-square-wrapper">
+                                <img class="img-fluid image-tool py-2" src='{{asset("/storage/{$row->image}")}}'
+                                    alt="image-tool">
+                        </div>
+                        </td>                                           
                         <td>
                             <a href="/role-edit/{{ $row->id }}" class="btn btn-success">Editer</a>
                         <td>
