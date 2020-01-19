@@ -34,7 +34,7 @@ Route::resource('orders', 'OrderController');
 Route::resource('categories', 'CategoryController');
 Route::resource('category_tool', 'Category_toolController');
 Route::resource('drivers', 'DriverController');
-Route::resource('registerchoices', 'RegisterChoiceController');
+Route::resource('register_choice', 'Register_choiceController');
 Route::resource('payments', 'PaymentController');
 
 Route::resource('formulaire', 'FormulaireController');
@@ -59,5 +59,10 @@ Route::post('/map', 'OrderController@map')->name('orders.map');
 
 // Pdf Download
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
+
+// Debug
+Route::get('/phpinfo', function() {
+    return phpinfo();
+});
 
 

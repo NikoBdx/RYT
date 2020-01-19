@@ -24,7 +24,7 @@ class Category_toolController extends Controller
    */
   public function create()
   {
-
+    //
   }
 
   /**

@@ -14,7 +14,7 @@
                     <div class="card card-product">
                         <div class="card-horizontal">
                             <div class="img-square-wrapper">
-                                <img class="img-fluid image-tool py-2" src='{{asset("/storage/{$tool->image}")}}'
+                                <img class="img-fluid image-tool py-2" src='{{public_path("/storage/{$tool->image}")}}'
                                     alt="image-tool">
                             </div>
                             <div class="card-body">
