@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Mail;
 use User;
+use File;
 use Redirect;
 use Validator;
 use UploadedFile;
