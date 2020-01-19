@@ -75,14 +75,14 @@ Edition des utilisateurs | RYT
     </div>
 </div>
 
-@endsection
-
-@section('script')
-
-
-@endsection
 
 <script>
+
+$(document).ready(function() {
+    $('.js-select').select2();
+});
+
+
 $(() => {
     $('input[type="file"]').on('change', (e) => {
         let that = e.currentTarget
@@ -96,4 +96,7 @@ $(() => {
         }
     })
 })
+
 </script>
+
+@endsection

@@ -39,6 +39,10 @@
             <div class="card">
               <div class="card-header">
                 <h4 class="card-title text-center"> Gestion des utilisateurs</h4>
+                <div>Nombre total d'utilisateurs: {{ $users->count()}}</div>
+                <div>Nombre total d'administrateurs: {{ $users->where('role', 'admin')->count()}}</div>
+                <div>Nombre total de clients:  {{ $users->where('role', 'customer')->count()}}</div>
+                <div>Nombre total de livreurs:  {{ $users->where('role', 'driver')->count()}}</div>
                 @if (session('status'))
                         <div class="alert alert-success" role="alert">
                         {{ session('status') }}
@@ -71,17 +75,32 @@
                         <td> {{ $row->address }}</td>
                         <td> {{ $row->cp }}</td>
                         <td> {{ $row->town }}</td>
-                        <td> {{ $row->role }}</td>
-                        <td class="text-center"> {{ $row->tools->count() }}</td>                                               
-                        <td>
-                            <a href="/user-edit/{{ $row->id }}" class="btn btn-success">Editer</a>
-                        <td>
-                            <form action="/user-delete/{{ $row->id }}" method="post">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-                            <input type="hidden" name="id" value=" {{ $row->id }}">
-                            <button type="submit" class="btn btn-danger">Supprimer</button>     
-                            </form>
+                        <td>                 
+                        <?php switch ($row->role) {
+                                case 'customer':
+                                  echo'Client';
+                                  break;
+                                case 'admin':
+                                  echo"Administrateur";
+                                  break;
+                                case 'driver':
+                                  echo "Livreur";
+                                  break;                       
+                                default:
+                                  echo"aucun";
+                                    break;
+                          } ?>
+                          </td>
+                          <td class="text-center"> {{ $row->tools->count() }}</td>                                               
+                          <td>
+                              <a href="/user-edit/{{ $row->id }}" class="btn btn-success">Editer</a>
+                          <td>
+                              <form action="/user-delete/{{ $row->id }}" method="post">
+                                  {{ csrf_field() }}
+                                  {{ method_field('DELETE') }}
+                              <input type="hidden" name="id" value=" {{ $row->id }}">
+                              <button type="submit" class="btn btn-danger">Supprimer</button>     
+                              </form>
                           </td>
                       </tr>
                         @endforeach                      

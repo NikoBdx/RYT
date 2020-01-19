@@ -16,6 +16,7 @@
     "click here to request another":"cliquez ici pour en demander un autre",
     "A fresh verification link has been sent to your email address.":"Un nouveau lien de vérification a été envoyé à votre adresse e-mail", 
     "You are logged in!":"Vous êtes authentifié!",
-    "Dashboard":"Tableau de bord"
+    "Dashboard":"Tableau de bord",
+    "customer":"client"
 
 }
