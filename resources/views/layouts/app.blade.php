@@ -83,7 +83,7 @@
                                 @if (Route::has('register'))
                                 {{-- Lien vers l'enregistrement --}}
                                     <li class="nav-item">
-                                        <a class="nav-link font-weight-bold" href="{{ route('registerchoices.index') }}">{{ __('S\'inscrire') }}</a>
+                                        <a class="nav-link font-weight-bold" href=""{{ route('tools.index')}}">{{ __('S\'inscrire') }}</a>
                                     </li>
                                 @endif
                             @else
