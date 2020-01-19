@@ -80,7 +80,11 @@ class ToolController extends Controller
       $image_resize = Image::make($image->getRealPath());
       $image_resize->resize(400, 400);
       $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-      $image_resize->save(public_path('storage/' .$name));
+      $newPath = public_path('/storage/');
+            if (!file_exists($newPath)) {
+                File::makeDirectory($newPath, $mode = 0777, true, true);
+            }
+      $image_resize->save(($newPath .$name));
       $tool = new Tool();
       $tool->title = $values['title'];
       $tool->description = $values['description'];
