@@ -18,7 +18,7 @@ class CommentController extends Controller
     {
         $tool = Tool::where('id', $request->tool_id)->first();
 
-        return view('tools.message', compact('tool', 'tools'));
+        return view('tools.message', compact('tool'));
     }
 
     public function store(Tool $tool)
