@@ -45,6 +45,14 @@
 
       <table class="table">
         <tbody>
+
+          <tr>      
+            <th class="text-primary">Date de la dernière inscription</th>
+            @foreach ( $lastuser as $last)          
+            <td>{{ date('d/m/Y H:i:s', strtotime($last->created_at)) }}</td>
+            @endforeach
+          </tr>
+
           <tr>
             <th class="text-primary"><strong>Nombre total d'utilisateurs</strong></th>          
             <td class="text-left"><strong>{{ $users->count() }}</strong></td>
@@ -76,17 +84,18 @@
 
       <table class="table">
         <tbody>
-          <tr>
-            <th class="text-primary">Nombre total d'annonces</th>          
-            <td><strong>{{ $tools->count()}}</strong></td>
-          </tr>
 
           <tr>      
             <th class="text-primary">Date de la dernière annonce</th>
             @foreach ( $lasttool as $last)          
             <td>{{ date('d/m/Y H:i:s', strtotime($last->created_at)) }}</td>
             @endforeach
-          </tr>    
+          </tr>
+
+          <tr>
+            <th class="text-primary">Nombre total d'annonces</th>          
+            <td><strong>{{ $tools->count()}}</strong></td>
+          </tr>       
                              
         </tbody>
       </table>  

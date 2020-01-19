@@ -16,10 +16,13 @@ class DashboardController extends Controller
     {
         $tools = Tool::all();
         $users = User::all();
+        $usersinc = User::all()->sortBy('lastname');
+        $usersdesc = User::all()->sortBy('lastname');
         return view('admin.user-register')
                 ->with('users', $users)
-                ->with('tools', $tools);
-                              
+                ->with('usersinc', $usersinc)
+                ->with('usersdesc', $usersdesc)
+                ->with('tools', $tools);                              
     }
 
     
@@ -106,9 +109,12 @@ class DashboardController extends Controller
         $tools = Tool::all();
         $users = User::all();
         $lasttool = Tool::orderBy('id', 'desc')->take(1)->get();
+        $lastuser = User::orderBy('id', 'desc')->take(1)->get();
+
         return view('admin.dashboard')
                 ->with('users', $users)
                 ->with('tools', $tools)
+                ->with('lastuser', $lastuser)
                 ->with('lasttool', $lasttool);                             
     }         
 

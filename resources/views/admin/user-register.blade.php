@@ -48,9 +48,9 @@
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
-                    <thead class=" text-primary">
-                      <th>Prénom</th>
+                    <thead class=" text-primary">                      
                       <th>Nom</th>
+                      <th>Prénom</th>
                       <th>Email</th>
                       <th>Adresse</th>
                       <th>Code Postal</th>
@@ -63,10 +63,17 @@
 
                     </thead>
                     <tbody>
+                        
+                          <select name="ordre" id="tri">
+                            <option value="none"></option>
+                            <option value="1">Croissant</option>
+                            <option value="2">Décroissant</option>
+                          </select>                       
+
                         @foreach ($users as $row)
-                      <tr>
-                        <td> {{ $row->firstname }}</td>
+                      <tr>                        
                         <td> {{ $row->lastname }}</td>
+                        <td> {{ $row->firstname }}</td>
                         <td> {{ $row->email }}</td>
                         <td> {{ $row->address }}</td>
                         <td> {{ $row->cp }}</td>
@@ -86,6 +93,7 @@
                                   echo"aucun";
                                     break;
                           } ?>
+
                           </td>
                           <td class="text-center"> {{ $row->tools->count() }}</td>                                               
                           <td>
@@ -99,8 +107,8 @@
                               </form>
                           </td>
                       </tr>
-                        @endforeach                      
-                      
+                        @endforeach               
+                                             
                     </tbody>
                   </table>
                 </div>
@@ -111,5 +119,16 @@
 </div>
 @endsection
 
-@section('script')
-@endsection
+<script>
+
+console.log($('#tri'));
+  
+
+
+if ($('#tri').val("1") == "Croissant") {
+  $users = $usersinc;
+} else if ($('#tri').val("2") == "Décroissant") {
+  $users = $usersdesc;
+}
+
+</script>
