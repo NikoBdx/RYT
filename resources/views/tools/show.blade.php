@@ -5,7 +5,7 @@
 </div>
 <div class="container">
   <div class="text-center mb-3">
-  <img class="img-fluid" src='{{public_path("/storage/{$tool->image}")}}' alt="image-tool">
+  <img class="img-fluid" src='{{asset("/storage/{$tool->image}")}}' alt="image-tool">
   </div>
     <div class="row">
         <div class="col col-12 col-sm-12 col-md-9 mb-3">
