@@ -34,7 +34,7 @@ Route::resource('orders', 'OrderController');
 Route::resource('categories', 'CategoryController');
 Route::resource('category_tool', 'Category_toolController');
 Route::resource('drivers', 'DriverController');
-Route::resource('registerchoices', 'RegisterChoiceController');
+Route::resource('register_choice', 'Register_choiceController');
 Route::resource('payments', 'PaymentController');
 
 Route::resource('formulaire', 'FormulaireController');

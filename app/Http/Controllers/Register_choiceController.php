@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\RegisterChoice;
 use Illuminate\Http\Request;
 
-class RegisterchoiceController extends Controller
+class Register_choiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +14,6 @@ class RegisterchoiceController extends Controller
      */
     public function index()
     {
-        return view('register.index');
+        return view('register_choice.index');
     }
 }
