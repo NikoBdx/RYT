@@ -101,7 +101,16 @@ class DashboardController extends Controller
         return redirect('post-register')->with('success', 'L\'annonce a été mise à jour');
     }
 
-
+    public function data()
+    {
+        $tools = Tool::all();
+        $users = User::all();
+        $lasttool = Tool::orderBy('id', 'desc')->take(1)->get();
+        return view('admin.dashboard')
+                ->with('users', $users)
+                ->with('tools', $tools)
+                ->with('lasttool', $lasttool);                             
+    }         
 
 }
 

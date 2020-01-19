@@ -51,10 +51,8 @@ Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFro
 
 Route::group(['middleware' => ['auth','admin']], function () {
     
-    Route::get('/dashboard', function(){
-        return view('admin.dashboard');
-    });
-
+    Route::get('/dashboard', 'Admin\DashboardController@data');   
+            
     Route::get('/user-register', 'Admin\DashboardController@registered');
     Route::get('/post-register', 'Admin\DashboardController@posted');
 

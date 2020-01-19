@@ -39,10 +39,6 @@
             <div class="card">
               <div class="card-header">
                 <h4 class="card-title text-center"> Gestion des utilisateurs</h4>
-                <div>Nombre total d'utilisateurs: {{ $users->count()}}</div>
-                <div>Nombre total d'administrateurs: {{ $users->where('role', 'admin')->count()}}</div>
-                <div>Nombre total de clients:  {{ $users->where('role', 'customer')->count()}}</div>
-                <div>Nombre total de livreurs:  {{ $users->where('role', 'driver')->count()}}</div>
                 @if (session('status'))
                         <div class="alert alert-success" role="alert">
                         {{ session('status') }}
