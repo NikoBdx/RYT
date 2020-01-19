@@ -60,4 +60,9 @@ Route::post('/map', 'OrderController@map')->name('orders.map');
 // Pdf Download
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
+// Debug
+Route::get('/phpinfo', function() {
+    return phpinfo();
+});
+
 
