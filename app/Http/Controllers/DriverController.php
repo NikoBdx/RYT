@@ -14,11 +14,27 @@ class DriverController extends Controller
    *
    * @return Response
    */
+
+  public function redirectTo(){
+
+    // User role
+    $role = Auth::user()->role->driver;
+
+    // Check user role
+    switch ($role) {
+        case 'driver':
+                return '/hello';
+            break;
+        default:
+                return '/';
+            break;
+    }
+  }
+
   public function index()
   {
     return view('driver.index');
   }
-
 
   /**
    * Show the form for creating a new resource.
