@@ -57,10 +57,10 @@ Edition des utilisateurs | RYT
                                 </div>
                                 <br>
                                 <div class="form-group mt-3">
-                                    <img id="preview" class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$tool->image}")}}' alt="">
+                                    <img id="preview" class="img-fluid img-thumbnail" width="300" src="{{$tool->image}}" alt="{{$tool->name}}">
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success">Enregistrer la modification</button>
                                 <a href="/post-register" type="submit" class="btn btn-danger">Annuler la modification</a>

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\User;
 use File;
 use App\Model\Tool;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Model\User;
 use App\Model\Category;
 use App\Model\Category_tool;
+use Illuminate\Http\Request;
+use JD\Cloudder\Facades\Cloudder;
+use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class DashboardController extends Controller
@@ -83,20 +84,17 @@ class DashboardController extends Controller
     public function postupdate(Request $request, $id)
     {
         $image = $request->file('image');
-        $image_resize = Image::make($image->getRealPath());
-        $image_resize->resize(400, 400);
-        $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-        $newPath = public_path('/storage/');
-            if (!file_exists($newPath)) {
-                File::makeDirectory($newPath, $mode = 0777, true, true);
-            }
-      $image_resize->save(($newPath .$name));
+        $name = $request->file('image')->getClientOriginalName();
+        $image_name = $request->file('image')->getRealPath();
+        Cloudder::upload($image, null);
+        list($width, $height) = getimagesize($image_name);
+        $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
 
         $tool = Tool::find($id);
         $tool->title = $request->input('title');
         $tool->description = $request->input('description');
         $tool->price = $request->input('price');
-        $tool->image = $name;
+        $tool->image = $image_url;
         $tool->update();
 
 

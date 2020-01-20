@@ -27,7 +27,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Gestion annexe</a>
-          </li>          
+          </li>
         </ul>
       </div>
     </nav>
@@ -68,10 +68,10 @@
                         <td> {{ $row->user->firstname }} {{ $row->user->lastname }}  </td>
                         <td>
                         <div class="img-square-wrapper">
-                                <img class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$row->image}")}}'
-                                    alt="image-tool">
+                                <img class="img-fluid img-thumbnail" width="125" src="{{$row->image}}" alt="{{$row->name}}">
+
                         </div>
-                        </td>                                           
+                        </td>
                         <td>
                             <a href="/post-edit/{{ $row->id }}" class="btn btn-success">Editer</a>
                         <td>
@@ -79,19 +79,19 @@
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
                             <input type="hidden" name="id" value=" {{ $row->id }}">
-                            <button type="submit" class="btn btn-danger">Supprimer</button>     
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
                             </form>
                           </td>
                       </tr>
-                        @endforeach                      
-                      
+                        @endforeach
+
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-        
+
 </div>
 @endsection
 
