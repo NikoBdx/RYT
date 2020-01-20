@@ -69,6 +69,10 @@ Route::group(['middleware' => ['auth','admin']], function () {
 
 });
 
+Route::get('/profile', 'ProfileController@registered');
+
+
+
 //Export PDF bon de commande
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
