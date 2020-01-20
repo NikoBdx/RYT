@@ -22,15 +22,15 @@ class DashboardController extends Controller
                 ->with('users', $users)
                 ->with('usersinc', $usersinc)
                 ->with('usersdesc', $usersdesc)
-                ->with('tools', $tools);                              
+                ->with('tools', $tools);
     }
 
-    
+
     public function posted()
     {
         $tools = Tool::all();
         return view('admin.post-register')
-                ->with('tools', $tools);  
+                ->with('tools', $tools);
     }
 
     public function registeredit(Request $request, $id)
@@ -85,22 +85,26 @@ class DashboardController extends Controller
         $image_resize = Image::make($image->getRealPath());
         $image_resize->resize(400, 400);
         $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-        $image_resize->save(public_path('storage/' .$name));
+        $newPath = public_path('/storage/');
+            if (!file_exists($newPath)) {
+                File::makeDirectory($newPath, $mode = 0777, true, true);
+            }
+      $image_resize->save(($newPath .$name));
 
         $tool = Tool::find($id);
         $tool->title = $request->input('title');
         $tool->description = $request->input('description');
         $tool->price = $request->input('price');
         $tool->image = $name;
-        $tool->update();     
-        
+        $tool->update();
+
 
         if ($tool->save()){
         $cat_to_delete = Category_tool::where('tool_id', $request->input('id'))->delete();
 
         $tool->categories()->attach($request->categories);
         };
-        
+
         return redirect('post-register')->with('success', 'L\'annonce a été mise à jour');
     }
 
@@ -115,8 +119,8 @@ class DashboardController extends Controller
                 ->with('users', $users)
                 ->with('tools', $tools)
                 ->with('lastuser', $lastuser)
-                ->with('lasttool', $lasttool);                             
-    }         
+                ->with('lasttool', $lasttool);
+    }
 
 }
 
