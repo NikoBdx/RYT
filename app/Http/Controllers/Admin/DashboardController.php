@@ -88,7 +88,7 @@ class DashboardController extends Controller
         $image_name = $request->file('image')->getRealPath();
         Cloudder::upload($image, null);
         list($width, $height) = getimagesize($image_name);
-        $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
+        $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => 300, "height"=>300]);
 
         $tool = Tool::find($id);
         $tool->title = $request->input('title');
