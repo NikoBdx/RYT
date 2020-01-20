@@ -14,8 +14,9 @@
                     <div class="card card-product">
                         <div class="card-horizontal">
                             <div class="img-square-wrapper">
-                                <img class="img-fluid image-tool py-2" src='{{asset("/storage/{$tool->image}")}}'
-                                    alt="image-tool">
+
+                                <img src="{{$tool->image}}" class="img-responsive" alt="{{$tool->name}}">
+
                             </div>
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">

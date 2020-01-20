@@ -51,9 +51,9 @@ Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFro
 
 
 Route::group(['middleware' => ['auth','admin']], function () {
-    
-    Route::get('/dashboard', 'Admin\DashboardController@data');   
-            
+
+    Route::get('/dashboard', 'Admin\DashboardController@data');
+
     Route::get('/user-register', 'Admin\DashboardController@registered');
     Route::get('/post-register', 'Admin\DashboardController@posted');
 
@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::delete('/user-delete/{id}', 'Admin\DashboardController@registerdelete' );
 
     Route::delete('/post-delete/{id}', 'Admin\DashboardController@postdelete');
-    
+
 });
 
 //Export PDF bon de commande
@@ -78,5 +78,10 @@ Route::post('/map', 'OrderController@map')->name('orders.map');
 // Pdf Download
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
+//Cloudinary
+Route::post('/upload/images', [
+  'uses'   =>  'ImageUploadController@uploadImages',
+  'as'     =>  'uploadImage'
+]);
 
 
