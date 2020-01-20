@@ -11,6 +11,6 @@ $factory->define(Tool::class, function (Faker $faker) {
         'title' => $faker->word,
         'description' => $faker->text($maxNbChars = 200)   ,
         'price' => $faker->randomNumber(3),
-        'image' =>  $faker->imageUrl($width = 640, $height = 480),
+        'image' =>  'https://picsum.photos/300/300',
     ];
 });

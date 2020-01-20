@@ -2,18 +2,18 @@
 #ajax{
     position: absolute;
     z-index: 99;
-    background-color: lightblue;
+    background-color: white;
     table-layout: fixed;
     max-width : 35% ;
+    border-radius: none;
+    border: none;
 }
 
-// .flow-h{
-//     max-width : 20vw ;
-//     color: blue;
-//     overflow: hidden;
-//     text-overflow: ellipsis;
-//     white-space: nowrap;
-// }
+.h-160{
+    height: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 @media only screen and (max-width: 600px) {
     #ajax{
