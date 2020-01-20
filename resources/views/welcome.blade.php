@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
+
 <div class="container">
 	<div class="text-center mb-3">
 		<h1 class="text-script">
@@ -14,6 +15,8 @@
       <img class= "img-fluid mx-auto d-block logo-welcome" src='{{asset("/img/RYT-logo-medium.png")}}' alt="logo">
 
 	</div>
+
+
 
 </div>
 <h1 class="text-center">Les derniers outils proposés</h1>
@@ -45,6 +48,7 @@
 
   @endforeach
 </div>
+
 
 <script>
 var TxtType = function(el, toRotate, period) {
