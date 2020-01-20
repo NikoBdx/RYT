@@ -52,3 +52,6 @@ Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFro
 
 //Export PDF bon de commande
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
+
+// Route 
+Route::get('/map', 'DriverController@order')->name('drivers.map');

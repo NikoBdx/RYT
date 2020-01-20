@@ -30,14 +30,9 @@ class OrderController extends Controller
   public function index()
   {
     $user = auth()->user();
-    $role = $user->role;
-    if($role == "driver"){
-      return view('orders.driver');
-    }else{
-      $userLat = floatVal($user->latitude);
-      $userLon = floatVal($user->longitude);
-      return view('orders.index', ['userLat' => $userLat, 'userLon' => $userLon]);
-    }
+    $userLon = $user->longitude;
+    $userLat = $user->latitude;
+    return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon]);
   }
 
    /**
@@ -78,7 +73,6 @@ class OrderController extends Controller
 
 
     return redirect()->route('orders.index');
-
 
 
   }
@@ -144,5 +138,26 @@ class OrderController extends Controller
   {
     
   }
+
+  public function map(Request $request)
+  {
+    // $values = $request->all();
+    
+    $user = auth()->user();
+    $userLon = $user->longitude;
+    $userLat = $user->latitude;
+    
+    // $toto = Order::find($values['id']);
+    // $toto_lat = $toto->user->latitude;
+    // $toto_long = $toto->user->longitude;
+
+    // $user = auth()->user();
+    // $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
+    return view('orders.index', ['userLat' => $userLat, 'userLon' => $userLon]);
+    // return view('orders.index', ['address' => $address]);
+
+  }
+  
+
   
 }
