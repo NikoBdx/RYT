@@ -64,7 +64,7 @@
                                 @csrf
                                 {{-- Searchbar Input --}}
 
-                                    <input type="text" class="form-control my-0 py-1" name="q" id="q" placeholder="Rechercher un outils" size="50">
+                                    <input type="text" class="form-control my-0 py-1" name="q" id="q" placeholder="Rechercher un outils" size="50" autocomplete="off">
                                     <select class="custom-select" id="select" name="category">
                                         <option value="">Selectionner une categorie</option>
                                         @foreach ($categories as $category)
@@ -214,6 +214,8 @@
 	});
     $(document).click(function(){
         $('#ajax').html(' ');
+        $('#ajax').css('border-radius', '0px');
+        $('#ajax').css('border', 'none');
     });
     console.log($('#q'))
     $('#q').keyup(function(){
@@ -239,6 +241,8 @@
             success: function(code) {
 
             console.log('succes 1');
+            $('#ajax').css('border-radius', '5px');
+            $('#ajax').css('border', 'whitesmoke 5px solid');
             $('#ajax').html(code);
             console.log('succes 2');
             

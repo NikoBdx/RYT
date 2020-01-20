@@ -66,7 +66,10 @@ class OrderController extends Controller
     $order = new Order;
 
     $order->tool_id = $id;
-    $order->user_id = $tool->user_id;
+    $order->renter_id = $tool->user_id;
+    $order->client_id = Auth::user()->id;
+    $order->status = 'start';
+    // Timestamp date format  --> date('Y-m-d H:i:s')
     if($order->save()){
       return view('orders.show')->with('tool',$tool)->with('order',$order);
     }
