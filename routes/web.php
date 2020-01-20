@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +20,7 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
 
 Route::get( 'tools/search', 'ToolController@search');
 Route::post('tools/search', 'ToolController@search');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -51,6 +49,26 @@ Route::post('/commentReply/{comment}', 'CommentController@storeCommentReply')->n
 Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFromNotification')->name('tools.showFromNotification');
 
 
+
+Route::group(['middleware' => ['auth','admin']], function () {
+    
+    Route::get('/dashboard', 'Admin\DashboardController@data');   
+            
+    Route::get('/user-register', 'Admin\DashboardController@registered');
+    Route::get('/post-register', 'Admin\DashboardController@posted');
+
+    Route::get('/user-edit/{id}', 'Admin\DashboardController@registeredit');
+    Route::put('/user-register-update/{id}', 'Admin\DashboardController@registerupdate');
+
+    Route::get('/post-edit/{id}', 'Admin\DashboardController@postedit');
+    Route::put('/post-register-update/{id}', 'Admin\DashboardController@postupdate');
+
+    Route::delete('/user-delete/{id}', 'Admin\DashboardController@registerdelete' );
+
+    Route::delete('/post-delete/{id}', 'Admin\DashboardController@postdelete');
+    
+});
+
 //Export PDF bon de commande
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
@@ -60,9 +78,5 @@ Route::post('/map', 'OrderController@map')->name('orders.map');
 // Pdf Download
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
-// Debug
-Route::get('/phpinfo', function() {
-    return phpinfo();
-});
 
 

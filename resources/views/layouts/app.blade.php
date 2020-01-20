@@ -33,6 +33,7 @@
     
     @yield('extra-js')
     
+
 </head>
 <body>
     <header>
@@ -121,6 +122,16 @@
                                     </li>
                             @endguest
                         </ul>
+                                
+                                
+                        @auth
+                        @if (Auth::user()->role=='admin')
+                        <div>                     
+                        <a href="/dashboard" type="submit" class="btn btn-warning">Tableau de Bord</a>
+                        </div>
+                        @endif
+                        @endauth
+                                              
                     </div>
                 </div>
             </nav>

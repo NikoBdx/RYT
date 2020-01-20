@@ -12,15 +12,15 @@ class UsersSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'firstname' => 'Admin',
-            'lastname'  => 'website',
+            'firstname' => 'Nicolas',
+            'lastname'  => 'Brunet',
             'email' => 'admin@gmail.com',
-            'password' => bcrypt('1234'),
+            'password' => bcrypt('password'),
             'email_verified_at' => '2020-01-01 00:00:00',
             'role'  => 'admin',
-            'address' => '18-rue Abbé de l\'epée',
+            'address' => '62-rue Abbé de l\'epée',
             'town'  => 'Bordeaux',
-            'cp'    => '33800',
+            'cp'    => '33000',
             'vehicule'  => 'null',
             'latitude'  => 'null',
             'longitude' => 'null',
