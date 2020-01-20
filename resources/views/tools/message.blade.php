@@ -76,8 +76,6 @@
         </form>
     @endif
 
-@endsection
-
 
 {{-- --------- JS Toogle sur Réponse --------- --}}
 <script>
