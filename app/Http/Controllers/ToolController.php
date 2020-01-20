@@ -198,27 +198,30 @@ class ToolController extends Controller
 
     if( $request->ajax() ){
 
-
-      $output = '';
-
-      $output = '<div class="container ">
-
-                ';
+      $output = '<div class="container ">';
 
       // Requete SQL
       $list = Tool::where('title','LIKE', '%'.$_GET['q'].'%')->take(3)->get();
       // Boucle sur requete SQL
       //dd($list);
       foreach ($list as $key ) {
+<<<<<<< HEAD
 
         //Creer HTML necessaire
         $output .= "  <a href=\"/tools/$key->id\">
                         <div class=\"row\">
                             <div class=\"col-6 p-2\">
                                 <p>$key->title  | $key->price</p>
+=======
+        //Creer HTML necessaire 
+        $output .= "  <a href=\"/tools/$key->id\">
+                        <div class=\"row h-50\">
+                            <div class=\"col-6 p-2 h-160\" >
+                                <p>$key->title  | $key->price</p> 
+>>>>>>> 02ad20f89edc00b779429b7b5d2ec9692ba84a14
                                 <p>$key->description</p>
                             </div>
-                            <div class=\"col-6 p-2\"><img class=\"float-right\" src='{{asset(\"/storage/{$key->image}\")}}' alt=\"\"></div>
+                            <div class=\"col-6 p-2 h-160\"><img class=\"float-right\" src=\"$key->image\" alt=\"image\" height=\"150\"></div>
                         </div>
                     </a>";
 

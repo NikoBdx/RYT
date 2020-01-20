@@ -9,10 +9,10 @@ nav li a{
     color: black;
 }
 .head_log{
-    background-color:hsl(8, 76%, 30%);
+    background-color:  #18EEAC;
 }
 .leader{
-    background-color: hsla(8, 84%, 48%, 0.76);
+    background-color: #EEAC18;
 }
 
 /* page infos style */

@@ -99,6 +99,10 @@ class DriverController extends Controller
   {
 
   }
+  public function order()
+  {
+    return view('drivers.order');
+  }
 
 }
 
