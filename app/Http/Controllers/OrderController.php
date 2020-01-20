@@ -110,7 +110,7 @@ class OrderController extends Controller
   {
     $values = $request->all();
 
-    
+
     
     $toto = Order::find($values['id']);
     $toto_lat = $toto->user->latitude;

@@ -52,7 +52,7 @@
                         <ul class="navbar-nav mr-auto">
 
                         </ul>
-                        <div>
+                        <div >
                             <?php
                                 //  SEARCHBAR
                                 //  Get categories to display in th search bar
@@ -72,8 +72,11 @@
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
-                             </form>
+                            </form>
+                            <div id="ajax">
+
                             </div>
+                        </div>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Authentication Links -->
@@ -209,13 +212,15 @@
     $(document).ready(function () {
         $(".flash").fadeOut(3000);
 	});
-
+    $(document).click(function(){
+        $('#ajax').html(' ');
+    });
     console.log($('#q'))
     $('#q').keyup(function(){
 
         console.log('SALAM');
 
-        var $data = $(this).val();
+        let $data = $(this).serialize();
 
         console.log($data);
 
@@ -232,12 +237,15 @@
 
 
             success: function(code) {
-            console.log( $list);
+
+            console.log('succes 1');
+            $('#ajax').html(code);
+            console.log('succes 2');
             
         },
 
         error: function (erreur) {
-            console.log(erreur.responseText);;
+            console.log('ERROR :' + erreur.responseText);;
         },
         })
     });

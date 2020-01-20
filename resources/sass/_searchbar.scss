@@ -1,0 +1,22 @@
+
+#ajax{
+    position: absolute;
+    z-index: 99;
+    background-color: lightblue;
+    table-layout: fixed;
+    max-width : 35% ;
+}
+
+// .flow-h{
+//     max-width : 20vw ;
+//     color: blue;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     white-space: nowrap;
+// }
+
+@media only screen and (max-width: 600px) {
+    #ajax{
+        max-width : 90% ;
+    }
+  }
