@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -31,7 +30,9 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 
     <!-- Extra-js -->
+    
     @yield('extra-js')
+    
 
 </head>
 <body>
@@ -71,9 +72,7 @@
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
-
                              </form>
-
                             </div>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -85,7 +84,7 @@
                                 @if (Route::has('register'))
                                 {{-- Lien vers l'enregistrement --}}
                                     <li class="nav-item">
-                                        <a class="nav-link font-weight-bold" href="{{ route('registerchoices.index') }}">{{ __('S\'inscrire') }}</a>
+                                        <a class="nav-link font-weight-bold" href="{{ route('register_choice.index')}}">{{ __('S\'inscrire') }}</a>
                                     </li>
                                 @endif
                             @else
@@ -210,7 +209,40 @@
     $(document).ready(function () {
         $(".flash").fadeOut(3000);
 	});
+
+    console.log($('#q'))
+    $('#q').keyup(function(){
+
+        console.log('SALAM');
+
+        var $data = $(this).val();
+
+        console.log($data);
+
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+        $.ajax({
+            type : 'GET',
+            url  : "{{URL::to('tools/search')}}",
+            data : $data,
+
+
+            success: function(code) {
+            console.log( $list);
+            
+        },
+
+        error: function (erreur) {
+            console.log(erreur.responseText);;
+        },
+        })
+    });
 </script>
+
 </body>
 </html>
 

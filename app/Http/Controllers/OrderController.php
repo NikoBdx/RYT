@@ -29,9 +29,7 @@ class OrderController extends Controller
    */
   public function index()
   {
-    $user = auth()->user();
-    $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
-    return view('orders.index', ['address' => $address]);
+
   }
 
    /**
@@ -42,37 +40,6 @@ class OrderController extends Controller
    */
   public function store(Request $request, $id)
   {
-
-    $values = $request->all();
-    dd($values);
-
-
-    $rules = [
-      'duration' => 'required|integer',        
-    ];
-    
-    $validator = Validator::make($values, $rules,[
-      'duration.required' => 'La durée de location est obligatoire',
-    ]);
-
-    if($validator->fails()){
-    return Redirect::back()
-        ->withErrors($validator)
-        ->withInput();
-    }
-
-    $order = new Order();
-    $order->duration = $values['duration'];
-    $order->tool_id = $toolId;
-    $order->driver_id = '';
-    $order->status = 'Commande en cours';
-    $totalPrice = ($values['duration']) * ($tool->price);
-    $order->total_price = $totalPrice;
-    $order->save(); 
-
-
-    return redirect()->route('orders.index');
-
 
 
   }
@@ -137,6 +104,22 @@ class OrderController extends Controller
   public function destroy($id)
   {
     
+  }
+
+  public function map(Request $request)
+  {
+    $values = $request->all();
+
+    
+    
+    $toto = Order::find($values['id']);
+    $toto_lat = $toto->user->latitude;
+    $toto_long = $toto->user->longitude;
+
+    $user = auth()->user();
+    $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
+    return view('orders.index', ['address' => $address]);
+
   }
   
 }

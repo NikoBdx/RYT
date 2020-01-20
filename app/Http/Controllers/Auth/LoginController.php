@@ -28,6 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
+
     protected function redirectTo()
     {
         if(Auth::user()->role == 'admin')
@@ -40,6 +41,7 @@ class LoginController extends Controller
         }
 
     }
+
 
     /**
      * Create a new controller instance.

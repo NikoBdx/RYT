@@ -18,7 +18,7 @@ Auth::routes(['verify' => true]);
 
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 
-Route::get( 'tools/search', 'ToolController@list');
+Route::get( 'tools/search', 'ToolController@search');
 Route::post('tools/search', 'ToolController@search');
 
 
@@ -32,7 +32,7 @@ Route::resource('orders', 'OrderController');
 Route::resource('categories', 'CategoryController');
 Route::resource('category_tool', 'Category_toolController');
 Route::resource('drivers', 'DriverController');
-Route::resource('registerchoices', 'RegisterChoiceController');
+Route::resource('register_choice', 'Register_choiceController');
 Route::resource('payments', 'PaymentController');
 
 Route::resource('formulaire', 'FormulaireController');
@@ -47,6 +47,7 @@ Route::post('/comments/{tool}', 'CommentController@store')->name('comments.store
 Route::post('/tools/message', 'CommentController@index')->name('comments.show');
 Route::post('/commentReply/{comment}', 'CommentController@storeCommentReply')->name('comments.storeReply');
 Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFromNotification')->name('tools.showFromNotification');
+
 
 
 Route::group(['middleware' => ['auth','admin']], function () {
@@ -67,4 +68,15 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::delete('/post-delete/{id}', 'Admin\DashboardController@postdelete');
     
 });
+
+//Export PDF bon de commande
+Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
+
+//  Map Coordonnée
+Route::post('/map', 'OrderController@map')->name('orders.map');
+
+// Pdf Download
+Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
+
+
 

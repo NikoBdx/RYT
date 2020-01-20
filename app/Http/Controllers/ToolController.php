@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Mail;
 use User;
+use File;
 use Redirect;
 use Validator;
 use UploadedFile;
@@ -80,7 +81,11 @@ class ToolController extends Controller
       $image_resize = Image::make($image->getRealPath());
       $image_resize->resize(400, 400);
       $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-      $image_resize->save(public_path('storage/' .$name));
+      $newPath = public_path('/storage/');
+            if (!file_exists($newPath)) {
+                File::makeDirectory($newPath, $mode = 0777, true, true);
+            }
+      $image_resize->save(($newPath .$name));
       $tool = new Tool();
       $tool->title = $values['title'];
       $tool->description = $values['description'];
@@ -158,7 +163,11 @@ class ToolController extends Controller
     $image_resize = Image::make($image->getRealPath());
     $image_resize->resize(400, 400);
     $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-    $image_resize->save(public_path('storage/' .$name));
+    $newPath = public_path('/storage/');
+            if (!file_exists($newPath)) {
+                File::makeDirectory($newPath, $mode = 0777, true, true);
+            }
+      $image_resize->save(($newPath .$name));
 
     $tool = Tool::find($values['id']);
 
@@ -190,17 +199,38 @@ class ToolController extends Controller
 
   public function search(Request $request){
 
+    if( $request->ajax() ){
+      
+      $output = '';
+      // Requete SQL
+      $list = Tool::where('title','LIKE', '%'.$data.'%')->take(4);
+      // Boucle sur requete SQL
+      foreach ($list as $key ) {
+        //Creer HTML necessaire 
+        $output .= " ";
+      }
 
+      return response($output);
+    }
+    
     $data = $request->input('q');
-    $category_id = $request->input('category');
-    $categories = Category::all();
 
-    $tools = Tool::where('title','LIKE', '%'.$data.'%' )
-            ->join('category_tool', 'tools.id', '=', 'category_tool.tool_id')
-            ->where('category_tool.category_id',$category_id)
-            ->paginate(5);
+    if ( $request->input('category') !== null ) {
+      $category_id = $request->input('category');
+      $tools = Tool::where('title','LIKE', '%'.$data.'%' )
+              ->join('category_tool', 'tools.id', '=', 'category_tool.tool_id')
+              ->where('category_tool.category_id',$category_id)
+              ->paginate(5);
+    } else {
+      $tools = Tool::where('title','LIKE', '%'.$data.'%' )->paginate(5);
+    }
 
-    return  view('tools.index')->with('tools', $tools)->with('categories',$categories);
+
+    return  view('tools.index')->with('tools', $tools);
+
+
+
+
     }
 
     public function list(){
