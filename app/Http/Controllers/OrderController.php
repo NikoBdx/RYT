@@ -29,7 +29,10 @@ class OrderController extends Controller
    */
   public function index()
   {
-
+    $user = auth()->user();
+    $userLon = $user->longitude;
+    $userLat = $user->latitude;
+    return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon]);
   }
 
    /**
