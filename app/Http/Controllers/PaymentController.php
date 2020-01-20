@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Auth;
 
 use PDF;
-
 use App\Model\Tool;
 use App\Model\User;
 use App\Model\Order;

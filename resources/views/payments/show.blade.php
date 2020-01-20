@@ -57,12 +57,5 @@
           </table>
 
     </div>
-    <div class="container">
-        <form action="{{ route('payments.export')}}" method="GET">
-            @csrf
-            <input type="hidden" name="id" value="{{ $payment->id}}">
-            <button class="btn btn-primary">Exporter au format PDF</button>  
-        </form>
-    </div>
 
 @endsection

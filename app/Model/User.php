@@ -5,6 +5,9 @@ namespace App\Model;
 use App\Model\Tool;
 use App\Model\Vehicule;
 use App\Model\Payment;
+use App\Model\Order;
+
+
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -49,6 +52,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Orders::class);
     }
 
 }

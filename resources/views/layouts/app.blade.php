@@ -33,6 +33,7 @@
     
     @yield('extra-js')
     
+
 </head>
 <body>
     <header>
@@ -51,7 +52,7 @@
                         <ul class="navbar-nav mr-auto">
 
                         </ul>
-                        <div>
+                        <div >
                             <?php
                                 //  SEARCHBAR
                                 //  Get categories to display in th search bar
@@ -71,10 +72,11 @@
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
-
-                             </form>
+                            </form>
+                            <div id="ajax">
 
                             </div>
+                        </div>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Authentication Links -->
@@ -85,7 +87,7 @@
                                 @if (Route::has('register'))
                                 {{-- Lien vers l'enregistrement --}}
                                     <li class="nav-item">
-                                        <a class="nav-link font-weight-bold" href="{{ route('registerchoices.index') }}">{{ __('S\'inscrire') }}</a>
+                                        <a class="nav-link font-weight-bold" href="{{ route('register_choice.index')}}">{{ __('S\'inscrire') }}</a>
                                     </li>
                                 @endif
                             @else
@@ -123,6 +125,16 @@
                                     </li>
                             @endguest
                         </ul>
+                                
+                                
+                        @auth
+                        @if (Auth::user()->role=='admin')
+                        <div>                     
+                        <a href="/dashboard" type="submit" class="btn btn-warning">Tableau de Bord</a>
+                        </div>
+                        @endif
+                        @endauth
+                                              
                     </div>
                 </div>
             </nav>
@@ -200,6 +212,43 @@
     $(document).ready(function () {
         $(".flash").fadeOut(3000);
 	});
+    $(document).click(function(){
+        $('#ajax').html(' ');
+    });
+    console.log($('#q'))
+    $('#q').keyup(function(){
+
+        console.log('SALAM');
+
+        let $data = $(this).serialize();
+
+        console.log($data);
+
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+        $.ajax({
+            type : 'GET',
+            url  : "{{URL::to('tools/search')}}",
+            data : $data,
+
+
+            success: function(code) {
+
+            console.log('succes 1');
+            $('#ajax').html(code);
+            console.log('succes 2');
+            
+        },
+
+        error: function (erreur) {
+            console.log('ERROR :' + erreur.responseText);;
+        },
+        })
+    });
 </script>
 
 </body>

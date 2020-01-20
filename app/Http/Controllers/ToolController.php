@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use File;
 use Mail;
 use User;
 use Redirect;
@@ -12,8 +13,10 @@ use App\Model\Tool;
 use App\Model\Category;
 use App\Model\Category_tool;
 use Illuminate\Http\Request;
+use JD\Cloudder\Facades\Cloudder;
 use Illuminate\Notifications\DatabaseNotification;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Upload;
 
 class ToolController extends Controller
 {
@@ -75,17 +78,18 @@ class ToolController extends Controller
           ->withErrors($validator)
           ->withInput();
       }
-
       $image = $request->file('image');
-      $image_resize = Image::make($image->getRealPath());
-      $image_resize->resize(400, 400);
-      $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-      $image_resize->save(public_path('storage/' .$name));
+      $name = $request->file('image')->getClientOriginalName();
+      $image_name = $request->file('image')->getRealPath();
+      Cloudder::upload($image, null);
+      list($width, $height) = getimagesize($image_name);
+      $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
+
       $tool = new Tool();
       $tool->title = $values['title'];
       $tool->description = $values['description'];
       $tool->price = $values['price'];
-      $tool->image = $name;
+      $tool->image = $image_url;
       $tool->user_id = $user_id;
 
       if ($tool->save()){
@@ -115,7 +119,7 @@ class ToolController extends Controller
    */
   public function edit($id)
   {
-    //dd($id);
+
     $categories = Category::all();
     $tool = Tool::find($id);
 
@@ -154,18 +158,19 @@ class ToolController extends Controller
         ->withInput();
     }
 
-    $image = $request->file('image');
-    $image_resize = Image::make($image->getRealPath());
-    $image_resize->resize(400, 400);
-    $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-    $image_resize->save(public_path('storage/' .$name));
+      $image = $request->file('image');
+      $name = $request->file('image')->getClientOriginalName();
+      $image_name = $request->file('image')->getRealPath();
+      Cloudder::upload($image, null);
+      list($width, $height) = getimagesize($image_name);
+      $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
 
     $tool = Tool::find($values['id']);
 
       $tool->title = $values['title'];
       $tool->description = $values['description'];
       $tool->price = $values['price'];
-      $tool->image = $name;
+      $tool->image = $image_url;
 
     if ($tool->save()){
       $cat_to_delete = Category_tool::where('tool_id', $values['id'])->delete();
@@ -190,17 +195,57 @@ class ToolController extends Controller
 
   public function search(Request $request){
 
+    if( $request->ajax() ){
+
+
+      $output = '';
+
+      $output = '<div class="container ">
+
+                ';
+
+      // Requete SQL
+      $list = Tool::where('title','LIKE', '%'.$_GET['q'].'%')->take(3)->get();
+      // Boucle sur requete SQL
+      //dd($list);
+      foreach ($list as $key ) {
+
+        //Creer HTML necessaire 
+        $output .= "  <a href=\"/tools/$key->id\">
+                        <div class=\"row\">
+                            <div class=\"col-6 p-2\">
+                                <p>$key->title  | $key->price</p> 
+                                <p>$key->description</p>
+                            </div>
+                            <div class=\"col-6 p-2\"><img class=\"float-right\" src='{{asset(\"/storage/{$key->image}\")}}' alt=\"\"></div>
+                        </div>
+                    </a>";
+
+      }
+      $output .= "</div> ";
+
+
+      return response($output);
+    }
 
     $data = $request->input('q');
-    $category_id = $request->input('category');
-    $categories = Category::all();
 
-    $tools = Tool::where('title','LIKE', '%'.$data.'%' )
-            ->join('category_tool', 'tools.id', '=', 'category_tool.tool_id')
-            ->where('category_tool.category_id',$category_id)
-            ->paginate(5);
+    if ( $request->input('category') !== null ) {
+      $category_id = $request->input('category');
+      $tools = Tool::where('title','LIKE', '%'.$data.'%' )
+              ->join('category_tool', 'tools.id', '=', 'category_tool.tool_id')
+              ->where('category_tool.category_id',$category_id)
+              ->paginate(5);
+    } else {
+      $tools = Tool::where('title','LIKE', '%'.$data.'%' )->paginate(5);
+    }
 
-    return  view('tools.index')->with('tools', $tools)->with('categories',$categories);
+
+    return  view('tools.index')->with('tools', $tools);
+
+
+
+
     }
 
     public function list(){

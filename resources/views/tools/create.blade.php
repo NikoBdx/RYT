@@ -62,25 +62,38 @@
             </div>
 
 {{-- ------------------------------ Image ------------------------------ --}}
-            <div class="form-group{{ $errors->has('image') ? ' is-invalid' : '' }}">
-                <div class="custom-file">
-                    <input type="file" id="image" name="image"
-                           class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
-                    <label class="custom-file-label" for="image"></label>
-                    @if ($errors->has('image'))
-                        <div class="invalid-feedback">{{ $errors->first('image') }}</div>
-                    @endif
+
+
+
+
                 </div>
-                <br>
-                <div class="form-group mt-3">
-                <img id="preview" class="img-fluid img-thumbnail" width="300" src="#" alt="">
-                </div>
+
             </div>
+
+            <div class="custom-file">
+            <div class="form-group{{ $errors->has('image') ? ' is-invalid' : '' }}">
+                <input type="file" id="image" name="image"
+                           class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" >
+                    <label class="custom-file-label" for="image"></label>
+                @if ($errors->has('image'))
+            <div class="invalid-feedback">{{ $errors->first('image') }}</div>
+            @endif
+            </div>
+
+
+                <div class="form-group mt-2">
+                    <img id="preview" class="img-fluid img-thumbnail" width="300" src="#" alt="">
+                </div>
 
             <div class="form-group">
                 <button class="btn btn-primary">Envoyer</button>
             </div>
-            </form>
+
+
+
+
+           </div>
+       </div>
         </div>
     </div>
 </div>

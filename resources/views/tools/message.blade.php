@@ -1,15 +1,7 @@
 @extends('layouts.app')
-{{-- --------- JS Toogle sur Réponse --------- --}}
-@section('extra-js')
-    <script>
-        function toggleReplyComment(id)
-        {
-            let element = document.getElementById('replyComment-' + id);
-            element.classList.toggle('d-none');
-        }
-    </script>
-@endsection
 @section('content')
+
+
 {{-- --------- On affiche les messages --------- --}}
 
     <h5>Messages</h5>
@@ -60,19 +52,6 @@
                     <button type="submit" class="btn btn-primary mb-3">Envoyer la réponse</button>
             </form>
             <button class="btn btn-danger btn-sm mt-2 mb-2" onclick="toggleReplyComment({{ $comment->id}})">Effacer</button>
-{{-- --------- Effacer la question --------- --}}
-            <form action="{{ route('comments.storeReply', $comment) }}" method="POST" class="ml-5 d-none" id="replyComment-{{ $comment->id}}">
-                @csrf
-                    <div class="form-group">
-                        <label for="replyComment">Ma réponse</label>
-                        <textarea name="replyComment" class="form-control @error('replyComment') is-invalid @enderror" id="replyComment" rows="3"></textarea>
-                        @error('replyComment')
-                    <div class="invalid-feddback">{{ $errors->first('replyComment') }}</div>
-                        @enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-3">Envoyer la réponse</button>
-            </form>
-
         @endif
 
         @endauth
@@ -96,4 +75,16 @@
             <button type="submit" class="btn btn-primary">Envoyer le message</button>
         </form>
     @endif
+
+
+{{-- --------- JS Toogle sur Réponse --------- --}}
+<script>
+    function toggleReplyComment(id)
+    {
+        let element = document.getElementById('replyComment-' + id);
+        element.classList.toggle('d-none');
+    }
+</script>
 @endsection
+
+

@@ -171,6 +171,24 @@ i {
   margin-top: -4em;
 }
 
+.text-script {
+  font-size: 2em !important;
+}
+
+#ajax {
+  position: absolute;
+  z-index: 99;
+  background-color: lightblue;
+  table-layout: fixed;
+  max-width: 35%;
+}
+
+@media only screen and (max-width: 600px) {
+  #ajax {
+    max-width: 90%;
+  }
+}
+
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors

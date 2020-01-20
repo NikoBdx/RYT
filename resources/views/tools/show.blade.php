@@ -5,7 +5,7 @@
 </div>
 <div class="container">
   <div class="text-center mb-3">
-  <img class="img-fluid" src='{{asset("/storage/{$tool->image}")}}' alt="image-tool">
+  <img class="img-fluid" src="{{$tool->image}}" class="img-responsive" alt="{{$tool->name}}">
   </div>
     <div class="row">
         <div class="col col-12 col-sm-12 col-md-9 mb-3">
@@ -64,6 +64,7 @@
                 <div class="card card-project">
                     <a class="btn btn-success" href="/orders/{{ $tool->id }}">Réserver cet outil</a>
                 </div>
+
                 @endif
 
         </div>
