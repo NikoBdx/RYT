@@ -165,7 +165,8 @@ class ToolController extends Controller
       list($width, $height) = getimagesize($image_name);
       $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => $width, "height"=>$height]);
 
-    $tool = Tool::find($values['id']);
+
+      $tool = Tool::find($values['id']);
 
       $tool->title = $values['title'];
       $tool->description = $values['description'];
@@ -204,11 +205,12 @@ class ToolController extends Controller
       // Boucle sur requete SQL
       //dd($list);
       foreach ($list as $key ) {
-        //Creer HTML necessaire 
+
+        //Creer HTML necessaire
         $output .= "  <a href=\"/tools/$key->id\">
                         <div class=\"row h-50\">
                             <div class=\"col-6 p-2 h-160\" >
-                                <p>$key->title  | $key->price</p> 
+                                <p>$key->title  | $key->price</p>
                                 <p>$key->description</p>
                             </div>
                             <div class=\"col-6 p-2 h-160\"><img class=\"float-right\" src=\"$key->image\" alt=\"image\" height=\"150\"></div>
