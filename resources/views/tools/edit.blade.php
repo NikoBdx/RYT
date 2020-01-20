@@ -73,8 +73,8 @@
                 </div>
                 <br>
                 <div class="form-group mt-3">
-                <img id="preview" class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$tool->image}")}}' alt="">
-                </div>
+                <img id="preview" class="img-fluid img-thumbnail" width="300" src="{{$tool->image}}" class="img-responsive" alt="{{$tool->name}}">
+
             </div>
 {{-- ------------------------------ ID [HIDDEN] ----------------------- --}}
             <input type="hidden" name="id" value="{{$tool->id}}">
