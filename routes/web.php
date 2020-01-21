@@ -61,6 +61,10 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::put('/post-register-update/{id}', 'Admin\DashboardController@postupdate');
     Route::delete('/user-delete/{id}', 'Admin\DashboardController@registerdelete' );
     Route::delete('/post-delete/{id}', 'Admin\DashboardController@postdelete');
+    Route::get('/post-by-user/{id}', 'Admin\DashboardController@postbyuser');
+
+
+
 });
 
 //Drivers

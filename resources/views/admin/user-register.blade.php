@@ -62,13 +62,8 @@
 
 
                     </thead>
-                    <tbody>
-                        
-                          <select name="ordre" id="tri">
-                            <option value="none"></option>
-                            <option value="1">Croissant</option>
-                            <option value="2">Décroissant</option>
-                          </select>                       
+                    <tbody>                        
+                              
 
                         @foreach ($users as $row)
                       <tr>                        
@@ -95,7 +90,9 @@
                           } ?>
 
                           </td>
-                          <td class="text-center"> {{ $row->tools->count() }}</td>                                               
+                          <td class="text-center">
+                              <a class="nav-link" href="/post-by-user/{{ $row->id }}">{{ $row->tools->count() }}</a>
+                          </td>                                               
                           <td>
                               <a href="/user-edit/{{ $row->id }}" class="btn btn-success">Editer</a>
                           <td>

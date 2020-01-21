@@ -35,6 +35,17 @@ class DashboardController extends Controller
                 ->with('tools', $tools);
     }
 
+    public function postbyuser(Request $request, $id)
+    {
+        $user_id = $id;
+        $tools = Tool::where('user_id', $user_id)->get();
+        return view('admin.post-register')                  
+                    ->with('tools', $tools);
+
+    }
+
+
+
     public function registeredit(Request $request, $id)
     {
         $users = User::findOrFail($id);

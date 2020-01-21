@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Model\Tool;
 use App\Model\User;
+use App\Model\Order;
 use App\Model\Category;
 use App\Model\Category_tool;
 use Illuminate\Http\Request;
@@ -18,10 +19,12 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $user_id = Auth::user()->id;
+        $orders = Order::where('user_id', $user_id)->get();
         $tools = Tool::where('user_id', $user_id)->get();
             return view('profile.profile')
                 ->with('user', $user)
-                ->with('tools', $tools);
+                ->with('tools', $tools)
+                ->with('orders', $orders);
     }
 
     public function profiledit(Request $request, $user_id)
