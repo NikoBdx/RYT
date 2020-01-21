@@ -86,9 +86,9 @@ Route::put('/mypost-update/{id}', 'ProfileController@mypostupdate');
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
 //  Map Coordonnée
-Route::group(['middleware' => ['map.driver']], function (){
+// Route::group(['middleware' => ['map.driver']], function (){
   Route::get('/map', 'DriverController@order')->name('orders.map');
-});
+// });
 
 
 // Pdf Download

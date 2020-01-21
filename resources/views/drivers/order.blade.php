@@ -319,6 +319,7 @@
     function getLocation() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(updatePosition);
+            console.log(updatePosition)
         }
         return null;
     };
@@ -336,21 +337,15 @@
         }
     }
 
-    setInterval(function(){updatePosition(getLocation());}, 10000);
+    setInterval(function(){updatePosition(getLocation());}, 3000);
     function currentLocation() {       
         return {lat:window.lat, lng:window.lng, accuracy:window.accuracy};
     }
     setInterval(function() {
         pubnub.publish({channel:pnChannel, message:currentLocation()});
-        }, 5000);
+        }, 3000);
 
     var start = [window.lng,window.lat,window.accuracy]
-    function circlePoint(time) {
-        var radius = 0.01;
-        var x = Math.cos(time) * radius;
-        var y = Math.sin(time) * radius;
-        return {lat:window.lat + y, lng:window.lng + x, accuracy:window.accuracy};
-    }
     var size = "8"
     var map;
     var mark;

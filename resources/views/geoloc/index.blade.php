@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-{{-- @auth --}}
+@auth
 <div class="d-flex justify-content-center">
     <h1 class="justify-content-center">Commande en cours</h1>
 </div>
@@ -11,12 +11,12 @@
 </div>
 <div id="comment"></div>
 <div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
-{{-- @endauth --}}
-{{-- @guest
+@endauth
+@guest
    
     <a href="{{ URL::previous() }}"></a>
 
-@endguest --}}
+@endguest
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.min.js"></script>
 <script>
     // Coordonnées
@@ -24,11 +24,8 @@
     var startLng = -0.467547;
     var endLat = {{$userLat}};
     var endLng = {{$userLon}};
-    var start = [-0.467547,44.935585] // Emetteur
-    var end = [{{$userLon}},{{$userLat}}] // Receveur
-
-    var lat = "";
-    var lng = "";
+    var start = [startLng,startLat] // Emetteur
+    var end = [endLng,endLat] // Receveur
 
     // Calcul de la distance en kilomètre
     function distance(lat1, lon1, lat2, lon2, unit) {
@@ -93,7 +90,6 @@
         channels: ['pubnub_onboarding_channel'],
         withPresence: true
     });
-    // console.log(pubnub.addListener(e))
     pubnub.addListener({
         message: function(event)  {      
             mlat = event.message.lat;
@@ -122,12 +118,11 @@
                 }
             }
             var distanceDriver = distance2(mlat, mlng, endLat, endLng, 'K');
-            console.log(distanceDriver)
             if (distanceDriver > 0.01){
-                coco = Math.round(distanceDriver * 60 / 10)
+                time = Math.round(distanceDriver * 60 / 10)
                 
                 var instruction = document.querySelector('#time');
-                instruction.innerText = coco + ' min';
+                instruction.innerText = time + ' min';
             }
 
             // On affiche le marqueur si la précision est inférieure à 15 et non vide  
@@ -135,16 +130,16 @@
                 // var marker = new mapboxgl.Marker();               
                 // marker.setLngLat([mlng,mlat]);
                 // marker.addTo(map);
-                var marker2 = new mapboxgl.Marker();
+                var marker = new mapboxgl.Marker();
                 function animateMarker(timestamp) {
                     var radius = 20;
                     
                     // Update the data to a new position based on the animation timestamp. The
                     // divisor in the expression `timestamp / 1000` controls the animation speed.
-                    marker2.setLngLat([mlng,mlat]);
+                    marker.setLngLat([mlng,mlat]);
                     
                     // Ensure it's added to the map. This is safe to call if it's already added.
-                    marker2.addTo(map);
+                    marker.addTo(map);
                     
                     // Request the next frame of the animation.
                     requestAnimationFrame(animateMarker);
