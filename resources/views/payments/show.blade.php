@@ -62,7 +62,7 @@
         <button type="submit" class="btn btn-primary">Exporter votre bon de commande au format PDF</button>
     </form>
     <div>
-        <a href="{{ route('profiles.myprofile') }}" class="btn btn-primary">Votre Profil</a>
+        <a href="/profile" class="btn btn-primary">Votre Profil</a>
     </div>
 
 @endsection
