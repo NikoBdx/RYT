@@ -47,7 +47,6 @@ class PaymentController extends Controller
         
         $order = Order::find($values['idOrder']);
         $tool  = Tool::find($order->tool_id);
-        dd($order->user);
         $payment = new Payment;
         $payment->tool_id = $order->tool_id;
         $payment->user_id = Auth::user()->id;
