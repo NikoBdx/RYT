@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@auth
+{{-- @auth --}}
 <div class="d-flex justify-content-center">
     <h1 class="justify-content-center">Commande en cours</h1>
 </div>
@@ -11,16 +11,24 @@
 </div>
 <div id="comment"></div>
 <div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
-@endauth
-@guest
-{{ url()->previous() }}
-@endguest
+{{-- @endauth --}}
+{{-- @guest
+   
+    <a href="{{ URL::previous() }}"></a>
+
+@endguest --}}
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.min.js"></script>
 <script>
+    // Coordonnées
+    var startLat = 44.935585;
+    var startLng = -0.467547;
+    var endLat = {{$userLat}};
+    var endLng = {{$userLon}};
+    var start = [-0.467547,44.935585] // Emetteur
+    var end = [{{$userLon}},{{$userLat}}] // Receveur
+
     var lat = "";
     var lng = "";
-    // On place les coordonnéees du l'émetteur
-    var start = [-0.467547,44.935585];
 
     // Calcul de la distance en kilomètre
     function distance(lat1, lon1, lat2, lon2, unit) {
@@ -44,11 +52,11 @@
             return dist;
         }
     }
-    var distance = distance({{$userLat}}, {{$userLon}}, 44.935585, -0.467547, 'K');
+    var distance = distance(endLat, endLng, startLat, startLng, 'K');
 
     // Calculs centre du trajet
-    var centerLon = ({{$userLon}}-0.467547) /2;
-    var centerLat = ({{$userLat}} + 44.935585) /2;
+    var centerLon = (endLng + startLng) /2;
+    var centerLat = (endLat + startLat) /2;
 
     if(distance <= 10){
         var size = 15;
@@ -113,10 +121,10 @@
                     return dist;
                 }
             }
-            var distanceDriver = distance2(mlat, mlng, {{$userLat}}, {{$userLon}}, 'K');
+            var distanceDriver = distance2(mlat, mlng, endLat, endLng, 'K');
             console.log(distanceDriver)
             if (distanceDriver > 0.01){
-                coco = Math.round(distanceDriver * 60 / 30)
+                coco = Math.round(distanceDriver * 60 / 10)
                 
                 var instruction = document.querySelector('#time');
                 instruction.innerText = coco + ' min';
@@ -233,7 +241,7 @@
     map.on('load', function() {
         // On créé la route
         getRoute(start);
-        var coords =  [{{$userLon}},{{$userLat}}] //Les coordonnées d'arrivée qu'on utilise dans end
+        var coords =  [endLng,endLat] //Les coordonnées d'arrivée qu'on utilise dans end
         var end = {
             type: 'FeatureCollection',
             features: [{

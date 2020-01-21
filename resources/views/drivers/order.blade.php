@@ -20,7 +20,7 @@
     </div>
     <div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
 {{-- @endauth --}}
-    {{-- @guest
+{{-- @guest
    
     <a href="{{ URL::previous() }}"></a>
 

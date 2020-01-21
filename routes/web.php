@@ -74,7 +74,10 @@ Route::group(['middleware' => ['auth','driver']], function () {
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
 //  Map Coordonnée
-Route::get('/map', 'DriverController@order')->name('orders.map');
+Route::group(['middleware' => ['map.driver']], function (){
+  Route::get('/map', 'DriverController@order')->name('orders.map');
+});
+
 
 // Pdf Download
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
