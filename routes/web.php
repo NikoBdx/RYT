@@ -69,12 +69,25 @@ Route::group(['middleware' => ['auth','driver']], function () {
   Route::get('/courses', 'DriverController@index')->name('courses');
 });
 
+// profil utilisateur
+
+Route::get('/profile', 'ProfileController@myprofile');
+Route::get('/profile-edit/{id}', 'ProfileController@profiledit');
+Route::put('/profile-update/{id}', 'ProfileController@profileupdate');
+Route::delete('/profile-delete/{id}', 'ProfileController@profiledelete');
+
+Route::get('/mypost-edit/{id}', 'ProfileController@mypostedit');
+Route::put('/mypost-update/{id}', 'ProfileController@mypostupdate');
+
+
+
 
 //Export PDF bon de commande
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
 //  Map Coordonnée
-Route::get('/map', 'DriverController@order')->name('orders.map');
+
+Route::get('/map/{order}', 'DriverController@order');
 
 // Pdf Download
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
