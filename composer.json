@@ -15,7 +15,7 @@
         "dompdf/dompdf": "^0.8.3",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
-        "jrm2k6/cloudder": "0.4.*",
+        "jrm2k6/cloudder": "^0.6.0",
         "laravel/cashier": "^10.5",
         "laravel/framework": "^6.2",
         "laravel/scout": "^7.2",

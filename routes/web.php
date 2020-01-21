@@ -49,25 +49,26 @@ Route::post('/commentReply/{comment}', 'CommentController@storeCommentReply')->n
 Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFromNotification')->name('tools.showFromNotification');
 
 
-
+// Administrateur
 Route::group(['middleware' => ['auth','admin']], function () {
 
     Route::get('/dashboard', 'Admin\DashboardController@data');
-
     Route::get('/user-register', 'Admin\DashboardController@registered');
     Route::get('/post-register', 'Admin\DashboardController@posted');
-
     Route::get('/user-edit/{id}', 'Admin\DashboardController@registeredit');
     Route::put('/user-register-update/{id}', 'Admin\DashboardController@registerupdate');
-
     Route::get('/post-edit/{id}', 'Admin\DashboardController@postedit');
     Route::put('/post-register-update/{id}', 'Admin\DashboardController@postupdate');
-
     Route::delete('/user-delete/{id}', 'Admin\DashboardController@registerdelete' );
-
     Route::delete('/post-delete/{id}', 'Admin\DashboardController@postdelete');
-
 });
+
+//Drivers
+
+Route::group(['middleware' => ['auth','driver']], function () {
+  Route::get('/courses', 'DriverController@index')->name('courses');
+});
+
 
 //Export PDF bon de commande
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
@@ -83,5 +84,4 @@ Route::post('/upload/images', [
   'uses'   =>  'ImageUploadController@uploadImages',
   'as'     =>  'uploadImage'
 ]);
-
 

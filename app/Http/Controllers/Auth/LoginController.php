@@ -40,7 +40,7 @@ class LoginController extends Controller
                 return '/dashboard';
             break;
         case 'driver':
-                return '/';
+                return 'courses';
             break;
         default:
                 return '/';
