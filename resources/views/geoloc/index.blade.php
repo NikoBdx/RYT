@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@auth
 <div class="d-flex justify-content-center">
     <h1 class="justify-content-center">Commande en cours</h1>
 </div>
@@ -9,7 +10,11 @@
     <div id="map" style="width:100%;height:400px"></div>  
 </div>
 <div id="comment"></div>
-
+<div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
+@endauth
+@guest
+{{ url()->previous() }}
+@endguest
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.min.js"></script>
 <script>
     var lat = "";
@@ -86,12 +91,57 @@
             mlat = event.message.lat;
             mlng = event.message.lng;
             macc = event.message.accuracy
+
+            function distance2(lat1, lon1, lat2, lon2, unit) {
+                if ((lat1 == lat2) && (lon1 == lon2)) {
+                    return 0;
+                }
+                else {
+                    var radlat1 = Math.PI * lat1/180;
+                    var radlat2 = Math.PI * lat2/180;
+                    var theta = lon1-lon2;
+                    var radtheta = Math.PI * theta/180;
+                    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+                    if (dist > 1) {
+                        dist = 1;
+                    }
+                    dist = Math.acos(dist);
+                    dist = dist * 180/Math.PI;
+                    dist = dist * 60 * 1.1515;
+                    if (unit=="K") { dist = dist * 1.609344 }
+                    if (unit=="N") { dist = dist * 0.8684 }
+                    return dist;
+                }
+            }
+            var distanceDriver = distance2(mlat, mlng, {{$userLat}}, {{$userLon}}, 'K');
+            console.log(distanceDriver)
+            if (distanceDriver > 0.01){
+                coco = Math.round(distanceDriver * 60 / 30)
+                
+                var instruction = document.querySelector('#time');
+                instruction.innerText = coco + ' min';
+            }
+
             // On affiche le marqueur si la précision est inférieure à 15 et non vide  
             if (macc < 15 && macc !== ""){
-                var marker = new mapboxgl.Marker();               
-                marker.remove();
-                marker.setLngLat([mlng,mlat]);
-                marker.addTo(map);
+                // var marker = new mapboxgl.Marker();               
+                // marker.setLngLat([mlng,mlat]);
+                // marker.addTo(map);
+                var marker2 = new mapboxgl.Marker();
+                function animateMarker(timestamp) {
+                    var radius = 20;
+                    
+                    // Update the data to a new position based on the animation timestamp. The
+                    // divisor in the expression `timestamp / 1000` controls the animation speed.
+                    marker2.setLngLat([mlng,mlat]);
+                    
+                    // Ensure it's added to the map. This is safe to call if it's already added.
+                    marker2.addTo(map);
+                    
+                    // Request the next frame of the animation.
+                    requestAnimationFrame(animateMarker);
+                }
+                requestAnimationFrame(animateMarker);
             }
         },
         presence: function(event) {
@@ -173,7 +223,7 @@
             var time = Math.floor(data.duration / 60);
             if(time != 0){
                 var instructions = document.querySelector('#comment');          
-                instructions.insertAdjacentHTML('afterend', '<row class="d-flex justify-content-center"><span class="duration">Temps de transport estimé à : ' + Math.floor(data.duration / 60 * 1.5) + ' min ' + vehicule + '</span></row>');
+                instructions.insertAdjacentHTML('afterend', '<row class="d-flex justify-content-center"><span class="duration">Temps de transport total estimé à : ' + Math.floor(data.duration / 60 * 1.5) + ' min ' + vehicule + '</span></row>');
             }
         };
         // On envoie la requête
