@@ -89,8 +89,4 @@ class ProfileController extends Controller
         return redirect('profile')->with('success', 'L\'annonce a été mise à jour');
     }
 
-
-
-
-
 }
