@@ -14,8 +14,11 @@
     <div class="row d-flex justify-content-center" id="map-container map-canvas">
         <div id="map" style="width:100%;height:400px"></div>
     </div>
-    <div class="row d-flex justify-content-center" id="comment">
-        <button><a href="#">Commande terminée</a></button>
+    <div class="col text-center mt-3">
+          <form action="/done-order/{{$order->id}}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-primary">Course terminée </button>
+          </form>
     </div>
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.19.0.min.js"></script>
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js'></script>

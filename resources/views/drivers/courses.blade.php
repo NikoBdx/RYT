@@ -5,49 +5,75 @@
 
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-start" role="tab"
       aria-controls="nav-home" aria-selected="true">Disponible(s)</a>
-    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-pending" role="tab"
       aria-controls="nav-profile" aria-selected="false">En cours</a>
-    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+    <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-done" role="tab"
       aria-controls="nav-contact" aria-selected="false">Terminée(s)</a>
   </div>
 </nav>
+
+<!-- ---------------------------------- START COMMANDS ---------------------------------- -->
 <div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">@foreach ($orders as $order)
+  <div class="tab-pane fade show active" id="nav-start" role="tabpanel" aria-labelledby="nav-home-tab">
+
+@foreach ($orders_start as $order_start)
+
   <div class="card  mb-2">
     <div class="row no-gutters">
-      <div class="col-md-3"">
-                  <img src=" {{$order->tool->image}}" class="card-img-top h-100 p-2" alt="...">
+      <div class="col-md-3">
+        <img src=" {{$order_start->tool->image}}" class="card-img-top h-100 p-2" alt="...">
       </div>
       <div class="col-md-6">
         <div class="card-body">
-          <h5 class="card-title">{{$order->tool->title}}</h5>
-          <h5 class="card-title">{{$order->renter->town}} ({{$order->renter->cp}})</h5>
-          <p class="card-text">Alice is a freelance web designer and developer based in London. She is specialized in
-            HTML5, CSS3, JavaScript, Bootstrap, etc.</p>
-        </div>
+          <h5 class="card-title">{{$order_start->tool->title}}</h5>
+          <h5 class="card-title">{{$order_start->renter->town}} ({{$order_start->renter->cp}})</h5>
+          <p class="card-text text-center"><em>Vous gagnerez pour cette course : ?? €</em></div>
       </div>
       <div class="col-md-3 row align-items-center">
         <div class="col text-center">
-          <a class="btn btn-primary" href="/map/{{ $order->id }}">Réserver cette course</a>
+          <form action="/drivers/{{ $order_start->id }}"" method="post">
+            @csrf
+            <button type="submit" class="btn btn-primary">Réserver</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  @endforeach</div>
-
-
-
-
-
-
-
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+  @endforeach
 </div>
+<!-- ---------------------------------- PENDING COMMANDS ---------------------------------- -->
 
+  <div class="tab-pane fade" id="nav-pending" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-
+    @foreach ($orders_pending as $order_pending)
+    @if (($order_pending->driver_id) === (Auth::user()->id))
+      <div class="card  mb-2">
+        <div class="row no-gutters">
+          <div class="col-md-3">
+            <img src=" {{$order_pending->tool->image}}" class="card-img-top h-100 p-2" alt="...">
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">{{$order_pending->tool->title}}</h5>
+              <h5 class="card-title">{{$order_pending->renter->town}} ({{$order_pending->renter->cp}})</h5>
+              <p class="card-text text-center"><em>Vous gagnerez pour cette course : ?? €</em>
+            </div>
+          </div>
+            <div class="col-md-3 row align-items-center">
+              <div class="col text-center">
+                  <a class="btn btn-primary" href="/drivers/order/{{ $order_pending->id }}">Voir la course</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      @endif
+      @endforeach
+  </div>
+<!-- ---------------------------------- DONE COMMANDS ---------------------------------- -->
+<div class="tab-pane fade" id="nav-done" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <h1>Hello</h1>
+</div>
 
 @endsection
