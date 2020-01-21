@@ -171,23 +171,12 @@
               <tr>
                 @foreach ($orders as $order)                        
                 <td> {{ $order->id }}</td>
-                <td> {{ $order->tool_id->title }}</td>
+                <td> {{ $order->tool->title }}</td>
                 <td> {{ $order->total_price }}</td>
                 <td> {{ $order->duration }}</td> 
                 <td> {{ $order->created_at }}</td>               
-              
-                                                             
-                  <td>
-                      <a href="/profile-edit/{{ $user->id }}" class="btn btn-success">Editer</a>
-                  <td>
-                      <form action="/user-delete/{{ $user->id }}" method="post">
-                          {{ csrf_field() }}
-                          {{ method_field('DELETE') }}
-                      <input type="hidden" name="id" value=" {{ $user->id }}">
-                      <button type="submit" class="btn btn-danger">Supprimer</button>     
-                      </form>
-                  </td>
-                  @endforeach
+                        
+                @endforeach
               </tr>
                     
             </tbody>
