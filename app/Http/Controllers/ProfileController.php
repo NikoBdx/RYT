@@ -19,7 +19,7 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $user_id = Auth::user()->id;
-        $orders = Order::where('user_id', $user_id)->get();
+        $orders = Order::where('client_id', $user_id)->get();
         $tools = Tool::where('user_id', $user_id)->get();
             return view('profile.profile')
                 ->with('user', $user)
