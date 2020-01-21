@@ -14,87 +14,83 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class ProfileController extends Controller
 {
-    public function registered()
+    public function myprofile()
     {
         $user = Auth::user();
-        return view('profile.profile')
-                ->with('user', $user);
-    }    
+        $user_id = Auth::user()->id;
+        $tools = Tool::where('user_id', $user_id)->get();
+            return view('profile.profile')
+                ->with('user', $user)
+                ->with('tools', $tools);
+    }
+
+    public function profiledit(Request $request, $user_id)
+    {
+        $user= Auth::user();
+        return view('profile.profile-edit')->with('user', $user);
+    }
     
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+    public function profileupdate(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $user->firstname = $request->input('firstname');
+        $user->lastname = $request->input('lastname');
+        $user->email = $request->input('email');
+        $user->address = $request->input('address');
+        $user->cp = $request->input('cp');
+        $user->town = $request->input('town');
+        $user->update();
+
+        return redirect('profile')->with('success', 'Le profil a été mis à jour');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function profiledelete($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect('profile')->with('success', 'Votre compte et vos annonces ont été supprimés.');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function mypostedit(Request $request, $id)
     {
-        //
+        $categories = Category::all();
+        $tool = Tool::findOrFail($id);
+        return view('profile.mypost-edit')
+                ->with('tool', $tool)
+                ->with('categories', $categories);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
+
+    public function mypostupdate(Request $request, $id)
     {
-        return view ('profile.profile', compact ('user'));
+        $image = $request->file('image');
+        $name = $request->file('image')->getClientOriginalName();
+        $image_name = $request->file('image')->getRealPath();
+        Cloudder::upload($image, null);
+        list($width, $height) = getimagesize($image_name);
+        $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => 300, "height"=>300]);
+
+        $tool = Tool::find($id);
+        $tool->title = $request->input('title');
+        $tool->description = $request->input('description');
+        $tool->price = $request->input('price');
+        $tool->image = $image_url;
+        $tool->update();
+
+
+        if ($tool->save()){
+        $cat_to_delete = Category_tool::where('tool_id', $request->input('id'))->delete();
+
+        $tool->categories()->attach($request->categories);
+        };
+
+        return redirect('profile')->with('success', 'L\'annonce a été mise à jour');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+
+
 }

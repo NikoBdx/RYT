@@ -49,27 +49,36 @@ Route::post('/commentReply/{comment}', 'CommentController@storeCommentReply')->n
 Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFromNotification')->name('tools.showFromNotification');
 
 
-
+// Administrateur
 Route::group(['middleware' => ['auth','admin']], function () {
 
     Route::get('/dashboard', 'Admin\DashboardController@data');
-
     Route::get('/user-register', 'Admin\DashboardController@registered');
     Route::get('/post-register', 'Admin\DashboardController@posted');
-
     Route::get('/user-edit/{id}', 'Admin\DashboardController@registeredit');
     Route::put('/user-register-update/{id}', 'Admin\DashboardController@registerupdate');
-
     Route::get('/post-edit/{id}', 'Admin\DashboardController@postedit');
     Route::put('/post-register-update/{id}', 'Admin\DashboardController@postupdate');
-
     Route::delete('/user-delete/{id}', 'Admin\DashboardController@registerdelete' );
-
     Route::delete('/post-delete/{id}', 'Admin\DashboardController@postdelete');
-
 });
 
-Route::get('/profile', 'ProfileController@registered');
+//Drivers
+
+Route::group(['middleware' => ['auth','driver']], function () {
+  Route::get('/courses', 'DriverController@index')->name('courses');
+});
+
+// profil utilisateur
+
+Route::get('/profile', 'ProfileController@myprofile');
+Route::get('/profile-edit/{id}', 'ProfileController@profiledit');
+Route::put('/profile-update/{id}', 'ProfileController@profileupdate');
+Route::delete('/profile-delete/{id}', 'ProfileController@profiledelete');
+
+Route::get('/mypost-edit/{id}', 'ProfileController@mypostedit');
+Route::put('/mypost-update/{id}', 'ProfileController@mypostupdate');
+
 
 
 
@@ -87,5 +96,4 @@ Route::post('/upload/images', [
   'uses'   =>  'ImageUploadController@uploadImages',
   'as'     =>  'uploadImage'
 ]);
-
 
