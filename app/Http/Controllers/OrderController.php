@@ -63,16 +63,33 @@ class OrderController extends Controller
    */
   public function show($id)
   {
-
     $tool = Tool::find($id);
-    //dd($tool);
-    $order = new Order;
 
+    // Create ORDER 
+    // DUPLICATE PREVENT -> Check if Data with same tool_id and same client_id have been already made in the previous 3 DAYS
+    $is_order = Order::where([
+                ['tool_id', "=",$tool->id],
+                ['client_id', "=",Auth::user()->id],
+                ])->whereNotBetween('created_at' , [ date('Y-m-d H:i:s') , date('Y-m-d H:i:s', strtotime('-3 days'))])
+                ->exists();
+    if( $is_order === true){
+      // If find a value take this as the Order for update
+      $order = Order::where([
+        ['tool_id', "=",$tool->id],
+        ['client_id', "=",Auth::user()->id],
+        ])->whereNotBetween('created_at' , [ date('Y-m-d H:i:s') , date('Y-m-d H:i:s', strtotime('-3 days'))])
+        ->latest('created_at')
+        ->first();
+    }else{
+      //If not create a new Order
+      $order = new Order;
+    }
+    // Insert proper value in the order
     $order->tool_id = $id;
     $order->renter_id = $tool->user_id;
     $order->client_id = Auth::user()->id;
-    $order->status = 'start';
-    // Timestamp date format  --> date('Y-m-d H:i:s')
+    $order->status = 'Step 1';
+
     if($order->save()){
       return view('orders.show')->with('tool',$tool)->with('order',$order);
     }
