@@ -10,18 +10,25 @@ use App\Model\Tool;
 
 class Order extends Model
 {
-    public function user()
+
+    public function renter()
     {
-      return $this->belongsToMany(User::class);
+      return $this->belongsTo(User::class, 'renter_id');
     }
 
-    public function tools()
+    public function client()
     {
-        return $this->hasOne(Tool::class);
+      return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function tool()
+    {
+        return $this->belongsTo(Tool::class, 'tool_id');
     }
 
     public function payments()
     {
       return $this->hasOne(Payment::class);
     }
+
 }

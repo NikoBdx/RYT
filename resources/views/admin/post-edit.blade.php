@@ -12,6 +12,7 @@ Edition des utilisateurs | RYT
             <div class="card">
                 <div class="card-header">
                     <h3 class ="text-center">Edition des annonces</h3>
+                    <h4>Annonce publiée par {{ $tool->user->firstname }} {{ $tool->user->lastname }}</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">

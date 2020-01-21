@@ -57,5 +57,12 @@
           </table>
 
     </div>
+    <form action="{{ route('payments.export')}}" method="GET">
+        <input type="hidden" name="id" value="{{$payment->id}}">
+        <button type="submit" class="btn btn-primary">Exporter votre bon de commande au format PDF</button>
+    </form>
+    <div>
+        <a href="/profile" class="btn btn-primary">Votre Profil</a>
+    </div>
 
 @endsection

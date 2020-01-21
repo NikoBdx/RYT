@@ -24,10 +24,12 @@ class Tool extends Model
     {
         return $this->hasMany(Category::class);
     }
-  
+
     public function comments()
     {
       return $this->morphMany('App\Model\Comment', 'commentable')->latest();
     }
+
+
 
 }

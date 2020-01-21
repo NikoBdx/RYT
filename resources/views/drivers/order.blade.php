@@ -1,22 +1,23 @@
 @extends('layouts.app')
 @section('content')
-{{-- @auth --}}
     <div class="row justify-content-center">
         <h1 class="text-center">Votre course !</h1>
-    </div>  
+    </div>
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-3"><p>Départ : </p></div>
-        <div class="col-md-3"><p>Arrivée : </p></div>
+        <div class="col-md-3"><p>Départ : {{ $order->renter->address }} {{ $order->renter->town }} ({{ $order->renter->cp }})</p></div> <!--Adresse du renter-->
+        <div class="col-md-3"><p>Arrivée : {{ $order->client->address }} {{ $order->client->town }} ({{ $order->client->cp }})</p></div> <!--Adresse du client-->
         <div class="col-md-3"></div>
-           
-    </div> 
-    <div class="row d-flex justify-content-center" id="map-container map-canvas">
-        <div id="map" style="width:100%;height:400px"></div>  
+
     </div>
-    <div class="row d-flex justify-content-center" id="comment">
-        
-        <button><a href="#">Commande terminée</a></button>
+    <div class="row d-flex justify-content-center" id="map-container map-canvas">
+        <div id="map" style="width:100%;height:400px"></div>
+    </div>
+    <div class="col text-center mt-3">
+          <form action="/done-order/{{$order->id}}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-primary">Course terminée </button>
+          </form>
     </div>
     <div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
 {{-- @endauth --}}
@@ -29,12 +30,12 @@
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js'></script>
 <script>
     // Map
-    var startLat = 44.935585;
-    var startLng = -0.467547;
-    var endLat = 44.939585;
-    var endLng = -0.457547;
-    var start = [-0.467547,44.935585]
-    var end = [-0.457547,44.939585]
+    var startLat = {{ $order->renter->latitude }}; // latitude renter
+    var startLng = {{ $order->renter->longitude }}; // longitude renter
+    var endLat = {{ $order->client->latitude }}; // latitude client
+    var endLng = {{ $order->client->longitude }}; // longitude client
+    var start = [startLng,startLat]
+    var end = [endLng,endLat]
     function distance(lat1, lon1, lat2, lon2, unit) {
         if ((lat1 == lat2) && (lon1 == lon2)) {
             return 0;
@@ -175,7 +176,7 @@
         };
         if (map.getLayer('end')) {
             map.getSource('end').setData(end);
-        } else {           
+        } else {
             map.addLayer({
                 id: 'end',
                 type: 'circle',
@@ -222,10 +223,10 @@
             paint: {
                 'circle-radius': 10,
                 'circle-color': '#3887be'
-            }          
-        });        
+            }
+        });
     });
-    map.on();   
+    map.on();
 
     const uuid = PubNub.generateUUID();
     const pubnub = new PubNub({
@@ -234,9 +235,9 @@
         uuid: uuid
     });
 
-   
 
-    
+
+
 
     pubnub.subscribe({
         channels: ['pubnub_onboarding_channel'],
@@ -330,7 +331,7 @@
     pubnub.addListener({ message : redraw });
 
     function updatePosition(position) {
-        if (position) {    
+        if (position) {
             window.lat = position.coords.latitude;
             window.lng = position.coords.longitude;
             window.accuracy = position.coords.accuracy;

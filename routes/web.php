@@ -61,12 +61,20 @@ Route::group(['middleware' => ['auth','admin']], function () {
     Route::put('/post-register-update/{id}', 'Admin\DashboardController@postupdate');
     Route::delete('/user-delete/{id}', 'Admin\DashboardController@registerdelete' );
     Route::delete('/post-delete/{id}', 'Admin\DashboardController@postdelete');
+    Route::get('/post-by-user/{id}', 'Admin\DashboardController@postbyuser');
+
+
+
 });
 
 //Drivers
 
 Route::group(['middleware' => ['auth','driver']], function () {
-  Route::get('/courses', 'DriverController@index')->name('courses');
+Route::get('/courses', 'DriverController@index')->name('courses');
+Route::post('/done-order/{id}', 'DriverController@done' );
+//  Map Coordonnée
+Route::post('/drivers/{order}', 'DriverController@order');
+Route::get('/drivers/{order}', 'DriverController@show_map');
 });
 
 // profil utilisateur
@@ -86,10 +94,8 @@ Route::put('/mypost-update/{id}', 'ProfileController@mypostupdate');
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
 //  Map Coordonnée
-// Route::group(['middleware' => ['map.driver']], function (){
-  Route::get('/map', 'DriverController@order')->name('orders.map');
-// });
 
+Route::post('/map/{order}', 'DriverController@order');
 
 // Pdf Download
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
@@ -97,6 +103,6 @@ Route::get('/download_pdf', 'PaymentController@export')->name('payments.export')
 //Cloudinary
 Route::post('/upload/images', [
   'uses'   =>  'ImageUploadController@uploadImages',
-  'as'     =>  'uploadImage'
+  'as'     =>  'uploadImage',
 ]);
 
