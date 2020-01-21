@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'driver' => \App\Http\Middleware\DriverMiddleware::class,
+        'map.driver' => \App\Http\Middleware\MapDriverMiddleware::class,
     ];
 
     /**

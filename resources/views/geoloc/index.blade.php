@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@auth
 <div class="d-flex justify-content-center">
     <h1 class="justify-content-center">Commande en cours</h1>
 </div>
@@ -9,13 +10,22 @@
     <div id="map" style="width:100%;height:400px"></div>  
 </div>
 <div id="comment"></div>
+<div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
+@endauth
+@guest
+   
+    <a href="{{ URL::previous() }}"></a>
 
+@endguest
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.min.js"></script>
 <script>
-    var lat = "";
-    var lng = "";
-    // On place les coordonnéees du l'émetteur
-    var start = [-0.467547,44.935585];
+    // Coordonnées
+    var startLat = 44.935585;
+    var startLng = -0.467547;
+    var endLat = {{$userLat}};
+    var endLng = {{$userLon}};
+    var start = [startLng,startLat] // Emetteur
+    var end = [endLng,endLat] // Receveur
 
     // Calcul de la distance en kilomètre
     function distance(lat1, lon1, lat2, lon2, unit) {
@@ -39,11 +49,11 @@
             return dist;
         }
     }
-    var distance = distance({{$userLat}}, {{$userLon}}, 44.935585, -0.467547, 'K');
+    var distance = distance(endLat, endLng, startLat, startLng, 'K');
 
     // Calculs centre du trajet
-    var centerLon = ({{$userLon}}-0.467547) /2;
-    var centerLat = ({{$userLat}} + 44.935585) /2;
+    var centerLon = (endLng + startLng) /2;
+    var centerLat = (endLat + startLat) /2;
 
     if(distance <= 10){
         var size = 15;
@@ -80,18 +90,61 @@
         channels: ['pubnub_onboarding_channel'],
         withPresence: true
     });
-    // console.log(pubnub.addListener(e))
     pubnub.addListener({
         message: function(event)  {      
             mlat = event.message.lat;
             mlng = event.message.lng;
             macc = event.message.accuracy
+
+            function distance2(lat1, lon1, lat2, lon2, unit) {
+                if ((lat1 == lat2) && (lon1 == lon2)) {
+                    return 0;
+                }
+                else {
+                    var radlat1 = Math.PI * lat1/180;
+                    var radlat2 = Math.PI * lat2/180;
+                    var theta = lon1-lon2;
+                    var radtheta = Math.PI * theta/180;
+                    var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+                    if (dist > 1) {
+                        dist = 1;
+                    }
+                    dist = Math.acos(dist);
+                    dist = dist * 180/Math.PI;
+                    dist = dist * 60 * 1.1515;
+                    if (unit=="K") { dist = dist * 1.609344 }
+                    if (unit=="N") { dist = dist * 0.8684 }
+                    return dist;
+                }
+            }
+            var distanceDriver = distance2(mlat, mlng, endLat, endLng, 'K');
+            if (distanceDriver > 0.01){
+                time = Math.round(distanceDriver * 60 / 10)
+                
+                var instruction = document.querySelector('#time');
+                instruction.innerText = time + ' min';
+            }
+
             // On affiche le marqueur si la précision est inférieure à 15 et non vide  
             if (macc < 15 && macc !== ""){
-                var marker = new mapboxgl.Marker();               
-                marker.remove();
-                marker.setLngLat([mlng,mlat]);
-                marker.addTo(map);
+                // var marker = new mapboxgl.Marker();               
+                // marker.setLngLat([mlng,mlat]);
+                // marker.addTo(map);
+                var marker = new mapboxgl.Marker();
+                function animateMarker(timestamp) {
+                    var radius = 20;
+                    
+                    // Update the data to a new position based on the animation timestamp. The
+                    // divisor in the expression `timestamp / 1000` controls the animation speed.
+                    marker.setLngLat([mlng,mlat]);
+                    
+                    // Ensure it's added to the map. This is safe to call if it's already added.
+                    marker.addTo(map);
+                    
+                    // Request the next frame of the animation.
+                    requestAnimationFrame(animateMarker);
+                }
+                requestAnimationFrame(animateMarker);
             }
         },
         presence: function(event) {
@@ -173,7 +226,7 @@
             var time = Math.floor(data.duration / 60);
             if(time != 0){
                 var instructions = document.querySelector('#comment');          
-                instructions.insertAdjacentHTML('afterend', '<row class="d-flex justify-content-center"><span class="duration">Temps de transport estimé à : ' + Math.floor(data.duration / 60 * 1.5) + ' min ' + vehicule + '</span></row>');
+                instructions.insertAdjacentHTML('afterend', '<row class="d-flex justify-content-center"><span class="duration">Temps de transport total estimé à : ' + Math.floor(data.duration / 60 * 1.5) + ' min ' + vehicule + '</span></row>');
             }
         };
         // On envoie la requête
@@ -183,7 +236,7 @@
     map.on('load', function() {
         // On créé la route
         getRoute(start);
-        var coords =  [{{$userLon}},{{$userLat}}] //Les coordonnées d'arrivée qu'on utilise dans end
+        var coords =  [endLng,endLat] //Les coordonnées d'arrivée qu'on utilise dans end
         var end = {
             type: 'FeatureCollection',
             features: [{
