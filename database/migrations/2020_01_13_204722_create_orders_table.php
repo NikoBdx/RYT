@@ -24,6 +24,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('driver_id')->nullable();
             $table->foreign('driver_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('status')->nullable();
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
             $table->timestamps();
 
         });
