@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Tool;
+use App\Model\Order;
 use App\Model\Driver;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,8 +19,8 @@ class DriverController extends Controller
 
   public function index()
   {
-
-    return view('drivers.courses');
+    $orders = Order::all();
+    return view('drivers.courses', compact('orders'));
   }
 
   /**
@@ -84,9 +86,10 @@ class DriverController extends Controller
   {
 
   }
-  public function order()
+  public function order(Order $order)
   {
-    return view('drivers.order');
+
+    return view('drivers.order', compact('order'));
   }
 
 }

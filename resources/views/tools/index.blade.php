@@ -30,8 +30,7 @@
                                         <h2 class="card-title">{{ $tool->price }} €/jour</h2>
                                     </div>
                                 </div>
-                                <p>Some quick example text to build on the card title and make up the bulk of the card's
-                                    content.</p>
+                                <p>{{ $tool->description}}</p>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between">

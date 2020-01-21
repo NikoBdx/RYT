@@ -44,10 +44,9 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $values = $request->all();
-        
+
         $order = Order::find($values['idOrder']);
         $tool  = Tool::find($order->tool_id);
-        dd($order->user);
         $payment = new Payment;
         $payment->tool_id = $order->tool_id;
         $payment->user_id = Auth::user()->id;
@@ -113,7 +112,7 @@ class PaymentController extends Controller
         $payment = Payment::find($values['id']);
 
         $pdf = PDF::loadView( 'payments.proof' , array('payment' => $payment))->setPaper('a4');
-        
+
         return $pdf->download('order_proof.pdf');
     }
 }

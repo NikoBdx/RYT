@@ -1,17 +1,18 @@
 @extends('layouts.app')
 @section('content')
+
     <div class="row justify-content-center">
         <h1 class="text-center">Votre course !</h1>
-    </div>  
+    </div>
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-3"><p>Départ : </p></div>
-        <div class="col-md-3"><p>Arrivée : </p></div>
+        <div class="col-md-3"><p>Départ : {{ $order->renter->address }} {{ $order->renter->town }} ({{ $order->renter->cp }})</p></div> <!--Adresse du renter-->
+        <div class="col-md-3"><p>Arrivée : {{ $order->client->address }} {{ $order->client->town }} ({{ $order->client->cp }})</p></div> <!--Adresse du client-->
         <div class="col-md-3"></div>
-           
-    </div> 
+
+    </div>
     <div class="row d-flex justify-content-center" id="map-container map-canvas">
-        <div id="map" style="width:100%;height:400px"></div>  
+        <div id="map" style="width:100%;height:400px"></div>
     </div>
     <div class="row d-flex justify-content-center" id="comment">
         <button><a href="#">Commande terminée</a></button>
@@ -20,12 +21,12 @@
 <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.6.1/mapbox-gl.js'></script>
 <script>
     // Map
-    var startLat = 44.935585;
-    var startLng = -0.467547;
-    var endLat = 44.939585;
-    var endLng = -0.457547;
-    var start = [-0.467547,44.935585]
-    var end = [-0.457547,44.939585]
+    var startLat = {{ $order->renter->latitude }}; // latitude renter
+    var startLng = {{ $order->renter->longitude }}; // longitude renter
+    var endLat = {{ $order->client->latitude }}; // latitude client
+    var endLng = {{ $order->client->longitude }}; // longitude client
+    var start = [startLng,startLat]
+    var end = [endLng,endLat]
     function distance(lat1, lon1, lat2, lon2, unit) {
         if ((lat1 == lat2) && (lon1 == lon2)) {
             return 0;
@@ -138,7 +139,7 @@
             }
             var time = Math.floor(data.duration / 60);
             if(time != 0){
-                var instructions = document.querySelector('#comment');          
+                var instructions = document.querySelector('#comment');
                 instructions.insertAdjacentHTML('afterend', '<row class="d-flex justify-content-center"><span class="duration">Temps de transport estimé à : ' + Math.floor(data.duration / 60 * 1.5) + ' min ' + vehicule + '</span></row>');
             }
         };
@@ -163,7 +164,7 @@
         };
         if (map.getLayer('end')) {
             map.getSource('end').setData(end);
-        } else {           
+        } else {
             map.addLayer({
                 id: 'end',
                 type: 'circle',
@@ -210,10 +211,10 @@
             paint: {
                 'circle-radius': 10,
                 'circle-color': '#3887be'
-            }          
-        });        
+            }
+        });
     });
-    map.on();   
+    map.on();
 
     const uuid = PubNub.generateUUID();
     const pubnub = new PubNub({
@@ -222,9 +223,9 @@
         uuid: uuid
     });
 
-   
 
-    
+
+
 
     pubnub.subscribe({
         channels: ['pubnub_onboarding_channel'],
@@ -236,9 +237,9 @@
             mlat = event.message.lat;
             mlng = event.message.lng;
             macc = event.message.accuracy
-            // On affiche le marqueur si la précision est inférieure à 15 et non vide  
+            // On affiche le marqueur si la précision est inférieure à 15 et non vide
             if (macc < 15 && macc !== ""){
-                var marker = new mapboxgl.Marker();               
+                var marker = new mapboxgl.Marker();
                 marker.remove();
                 marker.setLngLat([mlng,mlat]);
                 marker.addTo(map);
@@ -279,7 +280,7 @@
     pubnub.addListener({ message : redraw });
 
     function updatePosition(position) {
-        if (position) {    
+        if (position) {
             window.lat = position.coords.latitude;
             window.lng = position.coords.longitude;
             window.accuracy = position.coords.accuracy;
@@ -287,7 +288,7 @@
     }
 
     setInterval(function(){updatePosition(getLocation());}, 10000);
-    function currentLocation() {       
+    function currentLocation() {
         return {lat:window.lat, lng:window.lng, accuracy:window.accuracy};
     }
     setInterval(function() {
