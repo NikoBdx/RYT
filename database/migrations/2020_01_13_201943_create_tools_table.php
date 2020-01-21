@@ -16,7 +16,7 @@ class CreateToolsTable extends Migration
         Schema::create('tools', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('user_id')->index()->references('id')->on('users')->onDelete('cascade');;
             $table->text('description');
             $table->integer('price');
             $table->string('image')->nullable();

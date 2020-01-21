@@ -12,7 +12,7 @@
 	</div>
     <div class="row">
 
-      <img class= "img-fluid mx-auto d-block logo-welcome" src='{{asset("/img/RYT-logo-medium.png")}}' alt="logo">
+      <img class= "img-fluid mx-auto d-block logo-welcome" src='{{asset("/img/RYT-logo.png")}}' alt="logo">
 
 	</div>
 
