@@ -30,9 +30,9 @@
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 
     <!-- Extra-js -->
-    
+
     @yield('extra-js')
-    
+
 
 </head>
 <body>
@@ -125,16 +125,16 @@
                                     </li>
                             @endguest
                         </ul>
-                                
-                                
+
+
                         @auth
                         @if (Auth::user()->role=='admin')
-                        <div>                     
-                        <a href="/dashboard" type="submit" class="btn btn-warning">Tableau de Bord</a>
-                        </div>
+                            <div>
+                                <a href="/dashboard" type="submit" class="btn btn-warning">Tableau de Bord</a>
+                            </div>
                         @endif
                         @endauth
-                                              
+
                     </div>
                 </div>
             </nav>
@@ -245,7 +245,7 @@
             $('#ajax').css('border', 'whitesmoke 5px solid');
             $('#ajax').html(code);
             console.log('succes 2');
-            
+
         },
 
         error: function (erreur) {

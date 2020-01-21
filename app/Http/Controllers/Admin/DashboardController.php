@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Model\User;
+use File;
 use App\Model\Tool;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Model\User;
 use App\Model\Category;
 use App\Model\Category_tool;
+use Illuminate\Http\Request;
+use JD\Cloudder\Facades\Cloudder;
+use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class DashboardController extends Controller
@@ -22,15 +24,15 @@ class DashboardController extends Controller
                 ->with('users', $users)
                 ->with('usersinc', $usersinc)
                 ->with('usersdesc', $usersdesc)
-                ->with('tools', $tools);                              
+                ->with('tools', $tools);
     }
 
-    
+
     public function posted()
     {
         $tools = Tool::all();
         return view('admin.post-register')
-                ->with('tools', $tools);  
+                ->with('tools', $tools);
     }
 
     public function registeredit(Request $request, $id)
@@ -82,25 +84,26 @@ class DashboardController extends Controller
     public function postupdate(Request $request, $id)
     {
         $image = $request->file('image');
-        $image_resize = Image::make($image->getRealPath());
-        $image_resize->resize(400, 400);
-        $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-        $image_resize->save(public_path('storage/' .$name));
+        $name = $request->file('image')->getClientOriginalName();
+        $image_name = $request->file('image')->getRealPath();
+        Cloudder::upload($image, null);
+        list($width, $height) = getimagesize($image_name);
+        $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => 300, "height"=>300]);
 
         $tool = Tool::find($id);
         $tool->title = $request->input('title');
         $tool->description = $request->input('description');
         $tool->price = $request->input('price');
-        $tool->image = $name;
-        $tool->update();     
-        
+        $tool->image = $image_url;
+        $tool->update();
+
 
         if ($tool->save()){
         $cat_to_delete = Category_tool::where('tool_id', $request->input('id'))->delete();
 
         $tool->categories()->attach($request->categories);
         };
-        
+
         return redirect('post-register')->with('success', 'L\'annonce a été mise à jour');
     }
 
@@ -115,8 +118,8 @@ class DashboardController extends Controller
                 ->with('users', $users)
                 ->with('tools', $tools)
                 ->with('lastuser', $lastuser)
-                ->with('lasttool', $lasttool);                             
-    }         
+                ->with('lasttool', $lasttool);
+    }
 
 }
 

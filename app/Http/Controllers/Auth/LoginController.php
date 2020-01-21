@@ -31,15 +31,21 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        if(Auth::user()->role == 'admin')
-        {
-            return 'dashboard';
-        }
-        else
-        {
-            return '/';
-        }
+         // User role
+    $role = Auth::user()->role;
 
+    // Check user role
+    switch ($role) {
+        case 'admin':
+                return '/dashboard';
+            break;
+        case 'driver':
+                return 'courses';
+            break;
+        default:
+                return '/';
+            break;
+        }
     }
 
 
@@ -53,3 +59,5 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 }
+
+

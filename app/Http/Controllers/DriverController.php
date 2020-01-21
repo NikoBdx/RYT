@@ -14,11 +14,12 @@ class DriverController extends Controller
    *
    * @return Response
    */
+
   public function index()
   {
-    return view('driver.index');
-  }
 
+    return view('drivers.courses');
+  }
 
   /**
    * Show the form for creating a new resource.
@@ -82,6 +83,10 @@ class DriverController extends Controller
   public function destroy($id)
   {
 
+  }
+  public function order()
+  {
+    return view('drivers.order');
   }
 
 }

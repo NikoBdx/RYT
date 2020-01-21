@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
+
 <div class="container">
 	<div class="text-center mb-3">
 		<h1 class="text-script">
@@ -15,6 +16,8 @@
 
 	</div>
 
+
+
 </div>
 <h1 class="text-center">Les derniers outils proposés</h1>
 <div class="card-deck mt-3">
@@ -22,7 +25,7 @@
 
     <div class="card card-home">
 			<a href="/tools/{{ $tool->id }}">
-				<img class="card-img-top" src='{{asset("/storage/{$tool->image}")}}' alt="{{$tool->title}}">
+				<img class="card-img-top" src="{{$tool->image}}" class="img-responsive" alt="{{$tool->name}}">
 			</a>
 
 					<div class="card-body">
@@ -45,6 +48,7 @@
 
   @endforeach
 </div>
+
 
 <script>
 var TxtType = function(el, toRotate, period) {
@@ -103,7 +107,7 @@ var TxtType = function(el, toRotate, period) {
         css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
         document.body.appendChild(css);
     };
-      
+
 </script>
 
 @endsection
