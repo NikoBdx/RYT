@@ -162,8 +162,9 @@
               <th>Prix total</th>
               <th>Durée</th>
               <th>Date de début de location</th>              
-              <th>Editer</th>
-              <th>Supprimer</th>
+              <th>Date de fin de location</th>
+              <th>Statut de la location</th>   
+              
             </thead>
             <tbody>
                               
@@ -172,10 +173,26 @@
                 @foreach ($orders as $order)                        
                 <td> {{ $order->id }}</td>
                 <td> {{ $order->tool->title }}</td>
-                <td> {{ $order->total_price }}</td>
-                <td> {{ $order->duration }}</td> 
-                <td> {{ $order->created_at }}</td>               
-                        
+                <td> {{ $order->total_price }} €</td>
+                <td> {{ $order->duration }} jours</td> 
+                <td> {{ $order->start_date }}</td>
+                <td> {{ $order->end_date }}</td>  
+                <td>
+                <?php switch ($order->status) {
+                                case 'Step 1':
+                                  echo'En attente livreur';
+                                  break;
+                                case 'Step 2':
+                                  echo"Livré, chez le locataire";
+                                  break;
+                                case 'Step 3':
+                                  echo "Location terminé";
+                                  break;                       
+                                default:
+                                  echo"aucun";
+                                    break;
+                          } ?>              
+                </td>        
                 @endforeach
               </tr>
                     
