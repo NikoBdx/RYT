@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -14,7 +14,7 @@ use App\Model\Category;
 use Illuminate\Http\Request;
 
 
-class OrderController extends Controller 
+class OrderController extends Controller
 {
 
   public function __construct()
@@ -51,7 +51,7 @@ class OrderController extends Controller
   public function create($id)
   {
 
-    
+
   }
 
 
@@ -65,7 +65,7 @@ class OrderController extends Controller
   {
     $tool = Tool::find($id);
 
-    // Create ORDER 
+    // Create ORDER
     // DUPLICATE PREVENT -> Check if Data with same tool_id and same client_id have been already made in the previous 3 DAYS
     $is_order = Order::where([
                 ['tool_id', "=",$tool->id],
@@ -88,12 +88,12 @@ class OrderController extends Controller
     $order->tool_id = $id;
     $order->renter_id = $tool->user_id;
     $order->client_id = Auth::user()->id;
-    $order->status = 'Step 1';
+    $order->status = 'Start';
 
     if($order->save()){
       return view('orders.show')->with('tool',$tool)->with('order',$order);
     }
-  
+
   }
 
   /**
@@ -104,7 +104,7 @@ class OrderController extends Controller
    */
   public function edit($id)
   {
-    
+
   }
 
   /**
@@ -115,7 +115,7 @@ class OrderController extends Controller
    */
   public function update($id)
   {
-    
+
   }
 
   /**
@@ -126,7 +126,7 @@ class OrderController extends Controller
    */
   public function destroy($id)
   {
-    
+
   }
 
   public function map(Request $request)
@@ -134,7 +134,7 @@ class OrderController extends Controller
     $values = $request->all();
 
 
-    
+
     $toto = Order::find($values['id']);
     $toto_lat = $toto->user->latitude;
     $toto_long = $toto->user->longitude;
@@ -144,5 +144,5 @@ class OrderController extends Controller
     return view('orders.index', ['address' => $address]);
 
   }
-  
+
 }

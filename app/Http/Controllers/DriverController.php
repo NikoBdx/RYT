@@ -21,7 +21,9 @@ class DriverController extends Controller
 
   public function index()
   {
+
     $orders_start = Order::where('status', 'start')->latest()->get();
+    dd($orders_start);
     $orders_pending = Order::where('status', 'pending')->latest()->get();
     return view('drivers.courses', compact('orders_start', 'orders_pending'));
   }
