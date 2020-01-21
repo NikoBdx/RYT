@@ -24,7 +24,8 @@ class DriverController extends Controller
 
     $orders_start = Order::where('status', 'start')->latest()->get();
     $orders_pending = Order::where('status', 'pending')->latest()->get();
-    return view('drivers.courses', compact('orders_start', 'orders_pending'));
+    $orders_done = Order::where('status', 'done')->latest()->get();
+    return view('drivers.courses', compact('orders_start', 'orders_pending', 'orders_done'));
   }
 
   public function order(Order $order)
@@ -37,15 +38,10 @@ class DriverController extends Controller
 
   public function done($id)
     {
-        $order_done = Order::where('id', ($id))->get();
+        $order_done = Order::where('id', ($id))->first();
         $order_done->status = 'done';
         $order_done->save();
-        return redirect('/')->with('success', 'L\'utilisateur a été supprimé.');
-    }
-
-   public function show_map($id)
-    {
-       return view("drivers/$id");
+        return redirect('/courses')->with('success', 'Votre course est terminée');
     }
 
     /**
