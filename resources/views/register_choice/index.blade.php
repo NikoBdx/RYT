@@ -5,10 +5,10 @@
 
                 <div class="row">
                         <div class="col-md-6 text-center">
-                                <div class="mb-3">
+                                <div class="mb-3" >
                                         <a href="{{ route('register') }}"><i class="icon-register fas fa-user"></i></a>
                                 </div>
-                                <p>Utilisateur</p>
+                                <p class="Txt-bold">Utilisateur</p>
                         </div>
                         <div class="col-md-6 text-center">
                         <div>
@@ -17,7 +17,7 @@
                                         <a href="{{ route('drivers.create')}}"><i class="icon-register fas fa-truck"></i></a>
 
                                 </div>
-                                <p>Livreur</p>
+                                <p class="Txt-bold" >Livreur</p>
                         </div>
 
 

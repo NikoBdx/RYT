@@ -166,7 +166,7 @@
                                     <a class="nav-link" href="{{ route('tools.index')}}"><i class="fa fa-wrench"></i> Recherche un outil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ asset('file/contrat-location-entre-particuliers.pdf') }}"><i class="fa fa-file"></i> Contrat de Location</a>
+                                    <a class="nav-link" href="{{ asset('file/contrat-location-entre-particuliers.pdf') }}" target="_blank"><i class="fa fa-file"></i> Contrat de Location</a>
                                 </li>
                                 <li class="nav-item">
                                 <a class="nav-link" href="{{ route('tools.create')}}"><i class="fa fa-plus-circle"></i> Publier une annonce</a>

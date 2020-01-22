@@ -33,7 +33,7 @@
             <form action="{{ route('payments.store')  }}" method="POST">
                 @csrf
                 <label for="date">Je desire louer cet outil à partir du</label>
-                <input type='text' id='date' name="date" class='datepicker-here' data-language='fr' data-date-format="yyyy-mm-dd" data-timepicker="true" data-time-format='hh:ii' required autocomplete="off"/>
+                <input type='text' id='date' name="date" class='datepicker-here' data-language='fr' data-date-format="yyyy-mm-dd" data-time-format='hh:ii' required autocomplete="off"/>
                 <label for="day">et je desire louer cet outil pour une durée de</label>
                 <div class="input-group mb-3">
                     <input type="number" class="form-control" name="day" id="day" value="1" min="1" >
@@ -60,7 +60,6 @@
     $( document ).ready(function(){
             console.log(startdate);
             $('#date').datepicker({ 
-                timepicker: true ,
                 minDate: startdate,
                 });
             $('#day').change(function(){

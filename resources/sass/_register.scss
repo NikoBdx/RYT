@@ -1,14 +1,17 @@
 .icon-register{
   font-size: 10em;
+  color: rgba($color-2, 0.5);
 }
 
 .icon-register:hover{
-  color: $color-1;
+  color: $color-2;
 }
 
 .locomotion-icon{
   font-size: 5em;
 }
+
+
 
 /* HIDE RADIO */
 [type=radio] {

@@ -203,15 +203,14 @@ class ToolController extends Controller
       // Requete SQL
       $list = Tool::where('title','LIKE', '%'.$_GET['q'].'%')->take(3)->get();
       // Boucle sur requete SQL
-      //dd($list);
       foreach ($list as $key ) {
 
         //Creer HTML necessaire
         $output .= "  <a href=\"/tools/$key->id\">
-                        <div class=\"row h-50\">
+                        <div class=\"row \">
                             <div class=\"col-6 p-2 h-160\" >
-                                <p>$key->title  | $key->price</p>
-                                <p>$key->description</p>
+                                <p class=\"Txt-search\">$key->title  | $key->price €/j </p>
+                                <p class=\"text-dark\">$key->description</p>
                             </div>
                             <div class=\"col-6 p-2 h-160\"><img class=\"float-right\" src=\"$key->image\" alt=\"image\" height=\"150\"></div>
                         </div>

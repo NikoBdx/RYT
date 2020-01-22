@@ -50,12 +50,8 @@ class PaymentController extends Controller
         $order = Order::find($values['idOrder']);
         $tool  = Tool::find($order->tool_id);
 
-
         // Date manipulation
-        $date = $values['date'].':00';
-        if( $date < date('Y-m-d H:i:s',strtotime( ' + 2 days')) ){
-            // return view with error message: date must be in 2 days or further
-        }
+        $date = $values['date'].' 00:00:00';
         
         $end_date = date( 'Y-m-d H:i:s',strtotime( $date. ' + '. $values['day']. ' days'));
         
