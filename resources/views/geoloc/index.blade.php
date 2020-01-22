@@ -15,8 +15,8 @@
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.min.js"></script>
 <script>
     // Coordonnées
-    var startLat = 44.935585;
-    var startLng = -0.467547;
+    var startLat = {{$renterLat}};
+    var startLng = {{$renterLng}};
     var endLat = {{$userLat}};
     var endLng = {{$userLon}};
     var start = [startLng,startLat] // Emetteur
