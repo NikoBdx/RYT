@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use File;
 use Mail;
 use User;
-use File;
 use Redirect;
 use Validator;
 use UploadedFile;
@@ -13,14 +13,16 @@ use App\Model\Tool;
 use App\Model\Category;
 use App\Model\Category_tool;
 use Illuminate\Http\Request;
+use JD\Cloudder\Facades\Cloudder;
 use Illuminate\Notifications\DatabaseNotification;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\Upload;
 
 class ToolController extends Controller
 {
     public function __construct()
       {
-          $this->middleware('auth')->only(['create', 'store']);
+          $this->middleware('auth')->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
       }
 
     public function index()
@@ -76,28 +78,25 @@ class ToolController extends Controller
           ->withErrors($validator)
           ->withInput();
       }
-
       $image = $request->file('image');
-      $image_resize = Image::make($image->getRealPath());
-      $image_resize->resize(400, 400);
-      $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-      $newPath = public_path('/storage/');
-            if (!file_exists($newPath)) {
-                File::makeDirectory($newPath, $mode = 0777, true, true);
-            }
-      $image_resize->save(($newPath .$name));
+      $name = $request->file('image')->getClientOriginalName();
+      $image_name = $request->file('image')->getRealPath();
+      Cloudder::upload($image, null);
+      list($width, $height) = getimagesize($image_name);
+      $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => 300, "height"=>300]);
+
       $tool = new Tool();
       $tool->title = $values['title'];
       $tool->description = $values['description'];
       $tool->price = $values['price'];
-      $tool->image = $name;
+      $tool->image = $image_url;
       $tool->user_id = $user_id;
 
       if ($tool->save()){
         $tool->categories()->attach($request->categories);
       };
 
-      return redirect()->route('welcome')->with('success', 'Votre outils a bien été ajouté');
+      return redirect()->route('profile')->with('success', 'Votre outils a bien été ajouté');
 
   }
 
@@ -120,7 +119,7 @@ class ToolController extends Controller
    */
   public function edit($id)
   {
-    //dd($id);
+
     $categories = Category::all();
     $tool = Tool::find($id);
 
@@ -159,22 +158,20 @@ class ToolController extends Controller
         ->withInput();
     }
 
-    $image = $request->file('image');
-    $image_resize = Image::make($image->getRealPath());
-    $image_resize->resize(400, 400);
-    $name = md5(uniqid(rand(), true)). '.' . $image->getClientOriginalExtension();
-    $newPath = public_path('/storage/');
-            if (!file_exists($newPath)) {
-                File::makeDirectory($newPath, $mode = 0777, true, true);
-            }
-      $image_resize->save(($newPath .$name));
+      $image = $request->file('image');
+      $name = $request->file('image')->getClientOriginalName();
+      $image_name = $request->file('image')->getRealPath();
+      Cloudder::upload($image, null);
+      list($width, $height) = getimagesize($image_name);
+      $image_url= Cloudder::show(Cloudder::getPublicId(), ["width" => 300, "height"=>300]);
 
-    $tool = Tool::find($values['id']);
+
+      $tool = Tool::find($values['id']);
 
       $tool->title = $values['title'];
       $tool->description = $values['description'];
       $tool->price = $values['price'];
-      $tool->image = $name;
+      $tool->image = $image_url;
 
     if ($tool->save()){
       $cat_to_delete = Category_tool::where('tool_id', $values['id'])->delete();
@@ -200,19 +197,32 @@ class ToolController extends Controller
   public function search(Request $request){
 
     if( $request->ajax() ){
-      
-      $output = '';
+
+      $output = '<div class="container ">';
+
       // Requete SQL
-      $list = Tool::where('title','LIKE', '%'.$data.'%')->take(4);
+      $list = Tool::where('title','LIKE', '%'.$_GET['q'].'%')->take(3)->get();
       // Boucle sur requete SQL
       foreach ($list as $key ) {
-        //Creer HTML necessaire 
-        $output .= " ";
+
+        //Creer HTML necessaire
+        $output .= "  <a href=\"/tools/$key->id\">
+                        <div class=\"row \">
+                            <div class=\"col-6 p-2 h-160\" >
+                                <p class=\"Txt-search\">$key->title  | $key->price €/j </p>
+                                <p class=\"text-dark\">$key->description</p>
+                            </div>
+                            <div class=\"col-6 p-2 h-160\"><img class=\"float-right\" src=\"$key->image\" alt=\"image\" height=\"150\"></div>
+                        </div>
+                    </a>";
+
       }
+      $output .= "</div> ";
+
 
       return response($output);
     }
-    
+
     $data = $request->input('q');
 
     if ( $request->input('category') !== null ) {

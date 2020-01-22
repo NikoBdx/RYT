@@ -1,0 +1,27 @@
+
+#ajax{
+    position: absolute;
+    z-index: 99;
+    background-color: white;
+    table-layout: fixed;
+    max-width : 35% ;
+    border-radius: none;
+    border: none;
+}
+
+.Txt-search{
+    color: $color-1;
+    font-size: 2em;
+  }
+
+.h-160{
+    height: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media only screen and (max-width: 600px) {
+    #ajax{
+        max-width : 90% ;
+    }
+  }

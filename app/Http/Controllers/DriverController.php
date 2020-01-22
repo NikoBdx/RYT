@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Tool;
+use App\Model\Order;
 use App\Model\Driver;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class DriverController extends Controller
@@ -14,13 +18,33 @@ class DriverController extends Controller
    *
    * @return Response
    */
+
   public function index()
   {
-    return view('driver.index');
+
+    $orders_start = Order::where('status', 'start')->latest()->get();
+    $orders_pending = Order::where('status', 'pending')->latest()->get();
+    $orders_done = Order::where('status', 'done')->latest()->get();
+    return view('drivers.courses', compact('orders_start', 'orders_pending', 'orders_done'));
   }
 
+  public function order(Order $order)
+  {
+    $order->status = 'pending';
+    $order->driver_id = Auth::user()->id;
+    $order->save();
+    return view('drivers.order', compact('order'));
+  }
 
-  /**
+  public function done($id)
+    {
+        $order_done = Order::where('id', ($id))->first();
+        $order_done->status = 'done';
+        $order_done->save();
+        return redirect('/courses')->with('success', 'Votre course est terminée');
+    }
+
+    /**
    * Show the form for creating a new resource.
    *
    * @return Response

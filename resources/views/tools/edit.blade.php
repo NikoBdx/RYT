@@ -65,7 +65,7 @@
             <div class="form-group{{ $errors->has('image') ? ' is-invalid' : '' }}">
                 <div class="custom-file">
                     <input type="file" id="image" name="image" value="{{ asset("/storage/app/public/{$tool->image}") }}"
-                           class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input" required>
+                           class="{{ $errors->has('image') ? ' is-invalid ' : '' }}custom-file-input">
                     <label class="custom-file-label" for="image"></label>
                     @if ($errors->has('image'))
                         <div class="invalid-feedback">{{ $errors->first('image') }}</div>
@@ -73,8 +73,8 @@
                 </div>
                 <br>
                 <div class="form-group mt-3">
-                <img id="preview" class="img-fluid img-thumbnail" width="300" src='{{asset("/storage/{$tool->image}")}}' alt="">
-                </div>
+                <img id="preview" class="img-fluid img-thumbnail" width="300" src="{{$tool->image}}" class="img-responsive" alt="{{$tool->name}}">
+
             </div>
 {{-- ------------------------------ ID [HIDDEN] ----------------------- --}}
             <input type="hidden" name="id" value="{{$tool->id}}">

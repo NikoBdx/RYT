@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
+
 <div class="container">
 	<div class="text-center mb-3">
 		<h1 class="text-script">
@@ -11,23 +12,25 @@
 	</div>
     <div class="row">
 
-      <img class= "img-fluid mx-auto d-block logo-welcome" src='{{asset("/img/RYT-logo-medium.png")}}' alt="logo">
+      <img class= "img-fluid mx-auto d-block logo-welcome" src='{{asset("/img/RYT-logo.png")}}' alt="logo">
 
 	</div>
 
+
+
 </div>
-<h1 class="text-center">Les derniers outils proposés</h1>
+<h1 class="text-center Txt-bold">Les derniers outils proposés</h1>
 <div class="card-deck mt-3">
   @foreach ( $tools as $tool)
 
     <div class="card card-home">
 			<a href="/tools/{{ $tool->id }}">
-				<img class="card-img-top" src='{{asset("/storage/{$tool->image}")}}' alt="{{$tool->title}}">
+				<img class="card-img-top" src="{{$tool->image}}" class="img-responsive" alt="{{$tool->name}}">
 			</a>
 
 					<div class="card-body">
 						<a href="/tools/{{ $tool->id }}">
-							<h4 class="card-title text-center">{{$tool->title}}</h4>
+							<h4 class="card-title text-center Txt-bold">{{$tool->title}}</h4>
 							<p class="card-text">{{$tool->description}}</p>
 						</a>
 					</div>
@@ -45,6 +48,7 @@
 
   @endforeach
 </div>
+
 
 <script>
 var TxtType = function(el, toRotate, period) {
@@ -103,7 +107,7 @@ var TxtType = function(el, toRotate, period) {
         css.innerHTML = ".typewrite > .wrap { border-right: 0.08em solid #fff}";
         document.body.appendChild(css);
     };
-      
+
 </script>
 
 @endsection

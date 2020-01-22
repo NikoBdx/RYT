@@ -57,19 +57,12 @@
           </table>
 
     </div>
-    <div class="container">
-        <form action="{{ route('payments.export')}}" method="GET">
-            @csrf
-            <input type="hidden" name="id" value="{{ $payment->id}}">
-            <button class="btn btn-primary">Exporter au format PDF</button>  
-        </form>
-    </div>
-    <div class="container">
-        <form action="{{ route('orders.map')}}" method="POST">
-            @csrf
-            <input type="hidden" name="id" value="{{ $payment->order_id }}">
-            <button class="btn btn-primary">Suivre la commande</button>  
-        </form>
+    <form action="{{ route('payments.export')}}" method="GET">
+        <input type="hidden" name="id" value="{{$payment->id}}">
+        <button type="submit" class="btn btn-primary">Exporter votre bon de commande au format PDF</button>
+    </form>
+    <div>
+        <a href="/profile" class="btn btn-primary">Votre Profil</a>
     </div>
 
 @endsection

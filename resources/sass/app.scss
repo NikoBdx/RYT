@@ -8,7 +8,29 @@
 @import 'register.scss';
 @import 'notifications';
 @import 'welcome';
-@import 'dropzone';
+=======
+@import 'searchbar';
+@import 'drivers_pages';
+
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+.Txt-bold{
+    color: $color-2;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 3em;
+    font-weight: 900;
+}
+
+
+.btn-primary{
+  background-color: $color-1;
+  border-color: $color-1;
+}
+.btn-primary:hover{
+  background-color: rgba($color-1, 0.75);
+  border-color: rgba($color-1,0.75);
+}
+

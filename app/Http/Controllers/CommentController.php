@@ -55,5 +55,4 @@ class CommentController extends Controller
         return redirect()->route('tools.show', request()->tool_id)->with('success', 'Votre réponse a bien été envoyé');
     }
 
-
 }

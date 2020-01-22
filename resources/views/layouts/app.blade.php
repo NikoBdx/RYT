@@ -14,7 +14,7 @@
     <script src="{{ asset('js/app.js') }}" ></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
+    <script src="{{ URL::asset('dist/js/datepicker.min.js') }}"></script>
 
 
     <!-- Fonts -->
@@ -31,15 +31,16 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link href="{{ URL::asset('dist/css/datepicker.min.css')}}" rel="stylesheet" type="text/css">
 
     {{-- Mapbox --}}
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 
     <!-- Extra-js -->
-    
+    <script src="{{ URL::asset('dist/js/i18n/datepicker.fr.js')}}"></script>
     @yield('extra-js')
-    
+
 </head>
 <body>
     <header>
@@ -58,10 +59,10 @@
                         <ul class="navbar-nav mr-auto">
 
                         </ul>
-                        <div>
+                        <div >
                             <?php
                                 //  SEARCHBAR
-                                //  Get categories to display in th search bar
+                                //  Get categories to display in the search bar
                                 Use App\Model\Category;
                                 $categories = Category::All();
                             ?>
@@ -70,7 +71,7 @@
                                 @csrf
                                 {{-- Searchbar Input --}}
 
-                                    <input type="text" class="form-control my-0 py-1" name="q" id="q" placeholder="Rechercher un outils" size="50">
+                                    <input type="text" class="form-control my-0 py-1" name="q" id="q" placeholder="Rechercher un outils" size="50" autocomplete="off">
                                     <select class="custom-select" id="select" name="category">
                                         <option value="">Selectionner une categorie</option>
                                         @foreach ($categories as $category)
@@ -78,8 +79,11 @@
                                         @endforeach
                                     </select>
                                     <button type="submit" class="btn btn-primary"><i class="fas fa-search text-white" aria-hidden="true"></i></button>
-                             </form>
+                            </form>
+                            <div id="ajax">
+
                             </div>
+                        </div>
                         <!-- Right Side Of Navbar -->
                         <ul class="navbar-nav ml-auto">
                             <!-- Authentication Links -->
@@ -114,12 +118,14 @@
                                         </a>
                                         {{-- Toggle de l'utilisateur --}}
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="#">{{ __('Mon profil') }}</a>
+                                            @auth
+                                            <a class="dropdown-item" href="/profile">{{ __('Mon profil') }}</a>
                                             <a class="dropdown-item" href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                             document.getElementById('logout-form').submit();">
                                                 {{ __('Déconnexion') }}
                                             </a>
+                                            @endauth
 
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                 @csrf
@@ -128,6 +134,23 @@
                                     </li>
                             @endguest
                         </ul>
+                        {{-- Toggle utilisateur --}}
+                        @auth
+                        @if (Auth::user()->role=='admin')
+                            <div>
+                                <a href="/dashboard" type="submit" class="btn btn-warning">Tableau de Bord</a>
+                            </div>
+                        @endif
+                        @endauth
+
+                        @auth
+                        @if (Auth::user()->role=='driver')
+                            <div>
+                                <a href="/courses" type="submit" class="btn btn-success">Courses</a>
+                            </div>
+                        @endif
+                        @endauth
+
                     </div>
                 </div>
             </nav>
@@ -144,13 +167,13 @@
                                 <a class="nav-link" href="{{ url('/')}}"><i class="fa fa-home"></i> Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                <a class="nav-link" href="infos"><i class="fa fa-book"></i> RYT, c'est quoi ?</a>
+                                <a class="nav-link" href="/infos"><i class="fa fa-book"></i> RYT, c'est quoi ?</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('tools.index')}}"><i class="fa fa-wrench"></i> Recherche un outil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ asset('file/modele-contrat-location-entre-particuliers.doc') }}"><i class="fa fa-file"></i> Contrat de Location</a>
+                                    <a class="nav-link" href="{{ asset('file/contrat-location-entre-particuliers.pdf') }}" target="_blank"><i class="fa fa-file"></i> Contrat de Location</a>
                                 </li>
                                 <li class="nav-item">
                                 <a class="nav-link" href="{{ route('tools.create')}}"><i class="fa fa-plus-circle"></i> Publier une annonce</a>
@@ -162,7 +185,7 @@
                         </div>
                     </nav>
                 </div>
-            </div>
+            </div>                            
             <div class="container">
                 {{-- Contenu des views --}}
                 <main class="py-4">
@@ -196,24 +219,27 @@
                  @endif
                     @yield('content')
                 </main>
-                {{-- Footer --}}
-                @extends('layouts.footer')
             </div>
         </div>
     </header>
+    {{-- Footer --}}
+    @extends('layouts.footer')
 <script>
     $(document).ready(function () {
         $(".flash").fadeOut(3000);
 	});
 
-    console.log($('#q'))
+    //On Click stop displaying Ajax research
+    $(document).click(function(){
+        $('#ajax').html(' ');
+        $('#ajax').css('border-radius', '0px');
+        $('#ajax').css('border', 'none');
+    });
+
+    // On KeyUp In Searchbar Input text call ajax method
     $('#q').keyup(function(){
-
-        console.log('SALAM');
-
-        var $data = $(this).val();
-
-        console.log($data);
+        // Fetch data from input text
+        let $data = $(this).serialize();
 
         $.ajaxSetup({
         headers: {
@@ -221,20 +247,23 @@
         }
         });
 
+
         $.ajax({
-            type : 'GET',
-            url  : "{{URL::to('tools/search')}}",
-            data : $data,
+            type : 'GET',                           // Ajax send data via method : GET
+            url  : "{{URL::to('tools/search')}}",   // URL to Controller method : ToolController@search
+            data : $data,                           // Data to send to method
 
-
+            // On succed Ajax display result
             success: function(code) {
-            console.log( $list);
-            
-        },
+            $('#ajax').css('border-radius', '5px');
+            $('#ajax').css('border', 'whitesmoke 5px solid');
+            $('#ajax').html(code);
+            },
 
-        error: function (erreur) {
-            console.log(erreur.responseText);;
-        },
+            // On fail log error message
+            error: function (erreur) {
+                console.log('ERROR :' + erreur.responseText);;
+            },
         })
     });
 </script>

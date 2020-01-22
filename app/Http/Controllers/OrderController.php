@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -8,13 +8,14 @@ use User;
 use Redirect;
 use Validator;
 use UploadedFile;
+use App\Model\User as Renter;
 use App\Model\Tool;
 use App\Model\Order;
 use App\Model\Category;
 use Illuminate\Http\Request;
 
 
-class OrderController extends Controller 
+class OrderController extends Controller
 {
 
   public function __construct()
@@ -27,9 +28,16 @@ class OrderController extends Controller
    *
    * @return Response
    */
-  public function index()
+  public function index($renter_id)
   {
-
+    $renter = Renter::find($renter_id);
+    $vehicule = $renter->vehicule;
+    $renterLat = $renter->latitude;
+    $renterLng = $renter->longitude;
+    $user = auth()->user();
+    $userLon = $user->longitude;
+    $userLat = $user->latitude;
+    return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon, 'renterLat' => $renterLat, 'renterLng' => $renterLng, 'vehicule' => $vehicule]);
   }
 
    /**
@@ -48,7 +56,7 @@ class OrderController extends Controller
   public function create($id)
   {
 
-    
+
   }
 
 
@@ -60,17 +68,37 @@ class OrderController extends Controller
    */
   public function show($id)
   {
-
     $tool = Tool::find($id);
-    //dd($tool);
-    $order = new Order;
 
+    // Create ORDER
+    // DUPLICATE PREVENT -> Check if Data with same tool_id and same client_id have been already made in the previous 3 DAYS
+    $is_order = Order::where([
+                ['tool_id', "=",$tool->id],
+                ['client_id', "=",Auth::user()->id],
+                ])->whereNotBetween('created_at' , [ date('Y-m-d H:i:s') , date('Y-m-d H:i:s', strtotime('-3 days'))])
+                ->exists();
+    if( $is_order === true){
+      // If find a value take this as the Order for update
+      $order = Order::where([
+        ['tool_id', "=",$tool->id],
+        ['client_id', "=",Auth::user()->id],
+        ])->whereNotBetween('created_at' , [ date('Y-m-d H:i:s') , date('Y-m-d H:i:s', strtotime('-3 days'))])
+        ->latest('created_at')
+        ->first();
+    }else{
+      //If not create a new Order
+      $order = new Order;
+    }
+    // Insert proper value in the order
     $order->tool_id = $id;
-    $order->user_id = $tool->user_id;
+    $order->renter_id = $tool->user_id;
+    $order->client_id = Auth::user()->id;
+    $order->status = 'start';
+
     if($order->save()){
       return view('orders.show')->with('tool',$tool)->with('order',$order);
     }
-  
+
   }
 
   /**
@@ -81,7 +109,7 @@ class OrderController extends Controller
    */
   public function edit($id)
   {
-    
+
   }
 
   /**
@@ -92,7 +120,7 @@ class OrderController extends Controller
    */
   public function update($id)
   {
-    
+
   }
 
   /**
@@ -103,23 +131,7 @@ class OrderController extends Controller
    */
   public function destroy($id)
   {
-    
-  }
-
-  public function map(Request $request)
-  {
-    $values = $request->all();
-
-    
-    
-    $toto = Order::find($values['id']);
-    $toto_lat = $toto->user->latitude;
-    $toto_long = $toto->user->longitude;
-
-    $user = auth()->user();
-    $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
-    return view('orders.index', ['address' => $address]);
 
   }
-  
+
 }

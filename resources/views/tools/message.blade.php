@@ -1,6 +1,6 @@
 @extends('layouts.app')
-
 @section('content')
+
 
 {{-- --------- On affiche les messages --------- --}}
 
@@ -76,6 +76,7 @@
         </form>
     @endif
 
+
 {{-- --------- JS Toogle sur Réponse --------- --}}
 <script>
     function toggleReplyComment(id)
@@ -85,70 +86,5 @@
     }
 </script>
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
