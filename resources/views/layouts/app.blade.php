@@ -136,6 +136,14 @@
                         @endif
                         @endauth
 
+                        @auth
+                        @if (Auth::user()->role=='driver')
+                            <div>
+                                <a href="/courses" type="submit" class="btn btn-success">Courses</a>
+                            </div>
+                        @endif
+                        @endauth
+
                     </div>
                 </div>
             </nav>
@@ -170,7 +178,7 @@
                         </div>
                     </nav>
                 </div>
-            </div>
+            </div>                            
             <div class="container">
                 {{-- Contenu des views --}}
                 <main class="py-4">
