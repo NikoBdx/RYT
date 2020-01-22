@@ -38,9 +38,9 @@ class OrderController extends Controller
     $userLon = $user->longitude;
     $userLat = $user->latitude;
     // $orders = Order::all();
-    
+
     // $renter = Coco::where('id', );
-    
+
     return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon, 'renterLat' => $renterLat, 'renterLng' => $renterLng]);
   }
 
@@ -97,7 +97,7 @@ class OrderController extends Controller
     $order->tool_id = $id;
     $order->renter_id = $tool->user_id;
     $order->client_id = Auth::user()->id;
-    $order->status = 'Start';
+    $order->status = 'start';
 
     if($order->save()){
       return view('orders.show')->with('tool',$tool)->with('order',$order);

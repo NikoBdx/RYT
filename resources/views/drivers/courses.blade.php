@@ -3,6 +3,7 @@
 
 <h1 class="text-center mb-5">Bonjour {{Auth::user()->firstname}}</h1>
 
+
 <ul class="nav nav-tabs" id="myTab" role="tablist">
   <li class="nav-item">
     <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Disponible<span class="ml-2 {{($orders_start->count() === 0) ? 'numberCircle2' : 'numberCircle'}}"> {{$orders_start->count()}}</span></a>
@@ -71,7 +72,7 @@
           <div class="col-md-6">
             <div class="card-body">
                 <h5 class="card-title">{{$order_pending->tool->title}}</h5>
-                <h6 class="card-title">{{$order_pending->renter->town}} ({{$order_pending->renter->cp}} ---> {{$order_pending->client->town}} ({{$order_pending->client->cp}})</h6>
+                <h6 class="card-title">{{$order_pending->renter->town}} ({{$order_pending->renter->cp}}) ---> {{$order_pending->client->town}} ({{$order_pending->client->cp}})</h6>
               </div>
           </div>
       <div class="col-md-3 row align-items-center">
@@ -109,7 +110,7 @@
               <div class="col-md-6">
                 <div class="card-body">
                   <h5 class="card-title">{{$order_done->tool->title}}</h5>
-                  <h6 class="card-title">{{$order_done->renter->town}} ({{$order_done->renter->cp}} ---> {{$order_done->client->town}} ({{$order_done->client->cp}})</h6>
+                  <h6 class="card-title">{{$order_done->renter->town}} ({{$order_done->renter->cp}}) ---> {{$order_done->client->town}} ({{$order_done->client->cp}})</h6>
                 </div>
             </div>
           </div>
