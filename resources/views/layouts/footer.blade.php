@@ -5,7 +5,7 @@
             <div class="col-md-6">
                 <h3>Aide & Conseils</h3>
                 <ul>
-                    <li><a href="{{ asset('file/modele-contrat-location-entre-particuliers.doc') }}">Le contrat de location</a></li>
+                    <li><a href="{{ asset('file/contrat-location-entre-particuliers.pdf') }}" target="_blank">Le contrat de location</a></li>
                     <li><a href="/infos">RYT, c'est quoi?</a></li>
                     <li><a href="{{ route('formulaire.index')}}">Contact</a></li>        
                 </ul>

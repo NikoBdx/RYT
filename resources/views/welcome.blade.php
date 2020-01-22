@@ -19,7 +19,7 @@
 
 
 </div>
-<h1 class="text-center">Les derniers outils proposés</h1>
+<h1 class="text-center Txt-bold">Les derniers outils proposés</h1>
 <div class="card-deck mt-3">
   @foreach ( $tools as $tool)
 
@@ -30,7 +30,7 @@
 
 					<div class="card-body">
 						<a href="/tools/{{ $tool->id }}">
-							<h4 class="card-title text-center">{{$tool->title}}</h4>
+							<h4 class="card-title text-center Txt-bold">{{$tool->title}}</h4>
 							<p class="card-text">{{$tool->description}}</p>
 						</a>
 					</div>

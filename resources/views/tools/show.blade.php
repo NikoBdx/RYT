@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <div class="banner-project-show">
-    <h1 class="card-title text-center mb-3">{{$tool->title}}</h1>
+    <h1 class="card-title text-center mb-3 Txt-bold">{{$tool->title}}</h1>
 </div>
 <div class="container">
   <div class="text-center mb-3">
