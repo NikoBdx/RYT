@@ -113,7 +113,7 @@ i {
 }
 
 .icon-register:hover {
-  color: rgba(225, 47, 20, 0.76);
+  color: #EEAC18;
 }
 
 .locomotion-icon {
@@ -138,7 +138,7 @@ i {
 /* CHECKED STYLES */
 
 [type=radio]:checked + i {
-  color: rgba(225, 47, 20, 0.76);
+  color: #EEAC18;
 }
 
 .flash {
@@ -195,6 +195,34 @@ i {
   #ajax {
     max-width: 90%;
   }
+}
+
+.numberCircle2 {
+  background: #cccccc;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 5px;
+  text-align: center;
+  width: 1.6em;
+}
+
+.numberCircle {
+  background: #EEAC18;
+  border-radius: 0.8em;
+  -moz-border-radius: 0.8em;
+  -webkit-border-radius: 0.8em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-right: 5px;
+  text-align: center;
+  width: 1.6em;
 }
 
 /*!
