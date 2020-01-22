@@ -23,6 +23,7 @@ class DriverController extends Controller
   {
 
     $orders_start = Order::where('status', 'start')->latest()->get();
+    dd($orders_start);
     $orders_pending = Order::where('status', 'pending')->latest()->get();
     $orders_done = Order::where('status', 'done')->latest()->get();
     return view('drivers.courses', compact('orders_start', 'orders_pending', 'orders_done'));

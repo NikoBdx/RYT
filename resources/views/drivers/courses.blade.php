@@ -19,7 +19,7 @@
 {{-- ---------------------------------------- Start -------------------------------------------------- --}}
 <div class="tab-content" id="myTabContent">
   <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-    {{dd($orders_start)}}
+
     @switch($orders_start->count() >= 0)
       @case($orders_start->count() === 0)
         <h4 class="text-center my-3">Aucune course disponible</h4>
