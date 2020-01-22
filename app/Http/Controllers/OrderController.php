@@ -31,13 +31,13 @@ class OrderController extends Controller
   public function index($renter_id)
   {
     $renter = Renter::find($renter_id);
+    $vehicule = $renter->vehicule;
     $renterLat = $renter->latitude;
     $renterLng = $renter->longitude;
     $user = auth()->user();
     $userLon = $user->longitude;
     $userLat = $user->latitude;
-    
-    return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon, 'renterLat' => $renterLat, 'renterLng' => $renterLng]);
+    return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon, 'renterLat' => $renterLat, 'renterLng' => $renterLng, 'vehicule' => $vehicule]);
   }
 
    /**
@@ -93,7 +93,7 @@ class OrderController extends Controller
     $order->tool_id = $id;
     $order->renter_id = $tool->user_id;
     $order->client_id = Auth::user()->id;
-    $order->status = 'Start';
+    $order->status = 'start';
 
     if($order->save()){
       return view('orders.show')->with('tool',$tool)->with('order',$order);

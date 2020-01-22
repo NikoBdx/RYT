@@ -115,7 +115,7 @@
             }
             var distanceDriver = distance2(mlat, mlng, endLat, endLng, 'K');
             if (distanceDriver > 0.01){
-                time = Math.round(distanceDriver * 60 / 10)
+                time = Math.round(distanceDriver * 60 / 49)
                 
                 var instruction = document.querySelector('#time');
                 instruction.innerText = time + ' min';
@@ -162,7 +162,13 @@
             driving : voiture, moto,...
             cycling : vélo
         */
-        var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+        driverTransport = {{$vehicule}};
+        if(driverTransport === "truck" || driverTransport === "car"){
+            var typeTransport = "driving";
+        }else{
+            var typeTransport = "cycling";
+        }
+        var url = 'https://api.mapbox.com/directions/v5/mapbox/'+ typeTransport + '/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
 
         // On créé XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
         // permet d'obtenir des données au format XML, JSON, HTML, ou un simple texte à l'aide de requêtes HTTP.
@@ -210,11 +216,19 @@
                     }
                 });
             }
-            driverTransport = 'car';
-            if(driverTransport === 'car'){
-                vehicule = '🚙';
+            
+            if(driverTransport === 'truck'){
+                vehicule = '🚚';
             }else{
-                vehicule = '🚴';
+                if(driverTransport === 'car'){
+                    vehicule = '🚙';
+                }else{
+                    if(driverTransport === 'moto'){
+                        vehicule = '🏍️';
+                    }else{
+                        vehicule = '🚴';
+                    }
+                }
             }
             var time = Math.floor(data.duration / 60);
             if(time != 0){
