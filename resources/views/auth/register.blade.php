@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Création du compte') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" autocomplete="off">
                         @csrf
                       <input name="role" type="hidden" value="customer">
                       <input name="vehicule" type="hidden" value="NULL">
@@ -16,14 +16,14 @@
                         <div class="form-group row">
                           <div class="col-md-6">
                              <label for="firstname">Prénom</label>
-                           <input id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}"  name="firstname" value="{{ old('firstname') }}">
+                           <input required id="firstname" type="text" class="form-control @error('firstname') is-invalid @enderror" value="{{ old('firstname') }}"  name="firstname" value="{{ old('firstname') }}">
                                 @error('firstname')
                                   <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                           </div>
                           <div class="col-md-6">
                              <label for="lastname">Nom</label>
-                            <input id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" >
+                            <input required id="lastname" type="text" class="form-control @error('lastname') is-invalid @enderror" name="lastname" value="{{ old('lastname') }}" >
                             @error('lastname')
                                   <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -32,7 +32,7 @@
 
                         <div class="form-group">
                           <label for="form-address">Adresse</label>
-                          <input type="search" class="form-control @error('address') is-invalid @enderror" id="form-address" name="address" placeholder="Veuillez saisir votre adresse" />
+                          <input required  type="search"  class="form-control @error('address') is-invalid @enderror" id="form-address" name="address" placeholder="Veuillez saisir votre adresse"/>
                           @error('address')
                                   <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -43,14 +43,14 @@
                         </div>
                         <div class="form-group">
                           <label for="form-city">Ville*</label>
-                          <input type="text" name="town" class="form-control @error('town') is-invalid @enderror" id="form-city" >
+                          <input required type="text" name="town" class="form-control @error('town') is-invalid @enderror" id="form-city" >
                           @error('town')
-                            <div class="invalid-feedback">{{ $message }}</div>
+                            <div  class="invalid-feedback">{{ $message }}</div>
                           @enderror
                         </div>
                         <div class="form-group">
                           <label for="form-zip">Code Postal*</label>
-                          <input type="text" class="form-control @error('cp') is-invalid @enderror" name="cp" id="form-zip">
+                          <input required type="text" class="form-control @error('cp') is-invalid @enderror" name="cp" id="form-zip">
                           @error('cp')
                             <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -62,7 +62,7 @@
 
                         <div class="form-group">
                           <label for="email">Email</label>
-                          <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email">
+                          <input required type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email">
                           @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -71,14 +71,14 @@
                         <div class="form-group row">
                           <div class="col-md-6">
                             <label for="password">Mot de Passe</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password">
+                            <input required id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password">
                           @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
                           </div>
                           <div class="col-md-6">
                             <label for="password-confirm">Confirmer votre mot de passe</label>
-                             <input id="password-confirm" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation">
+                            <input required id="password-confirm" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation">
                            @error('password_confirmation')
                             <div class="invalid-feedback">{{ $message }}</div>
                           @enderror
@@ -102,6 +102,39 @@
 
 <script src="https://cdn.jsdelivr.net/npm/places.js@1.17.1"></script>
 <script>
+  
+      let input = $("#form-zip");
+      input.change( function(){
+
+        let addresse  =  $("#form-address").val();
+        let ville     =  $("#form-city").val();
+        let cp        =  $("#form-zip").val();
+
+        let data = addresse + ' ' + ville + ' ' + cp;
+
+        if(ville != ""){
+            $.ajax({
+              
+                url: "https://nominatim.openstreetmap.org/search", // URL de Nominatim
+                type: 'get', // Requête de type GET
+                data: "q="+data+"&format=json&addressdetails=1&limit=1&polygon_svg=1", // Données envoyées (q -> adresse complète, format -> format attendu pour la réponse, limit -> nombre de réponses attendu, polygon_svg -> fournit les données de polygone de la réponse en svg)
+
+                
+              }).done(function (response) {
+                console.log('reponse is ='+response);
+                if(response != ""){
+                  userlat = response[0]['lat'];
+                  userlon = response[0]['lon'];
+                  $("#form-latitude").val(userlat);
+                  $("#form-longitude").val(userlon);
+
+                }                
+            }).fail(function (error) {
+                alert(error);
+            });      
+        }
+     });
+
   (function () {
     var placesAutocomplete = places({
       appId: 'pl5EJ6MHI6L9',
@@ -126,6 +159,7 @@
       console.log(coordonnees);
 
     });
-  })();
+  })();// <--- ON a enlever 2 parenthese ICI
+  
 </script>
 @endsection
