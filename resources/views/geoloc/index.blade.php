@@ -10,7 +10,7 @@
     <div id="map" style="width:100%;height:400px"></div>  
 </div>
 <div id="comment"></div>
-<div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
+<div class="row d-flex justify-content-center"><p> Temps restant GPS: <span id="time"></span></p></div>
 
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.min.js"></script>
 <script>
@@ -162,13 +162,7 @@
             driving : voiture, moto,...
             cycling : vélo
         */
-        driverTransport = {{$vehicule}};
-        if(driverTransport === "truck" || driverTransport === "car"){
-            var typeTransport = "driving";
-        }else{
-            var typeTransport = "cycling";
-        }
-        var url = 'https://api.mapbox.com/directions/v5/mapbox/'+ typeTransport + '/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+        var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
 
         // On créé XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
         // permet d'obtenir des données au format XML, JSON, HTML, ou un simple texte à l'aide de requêtes HTTP.
@@ -216,19 +210,11 @@
                     }
                 });
             }
-            
-            if(driverTransport === 'truck'){
-                vehicule = '🚚';
+            driverTransport = 'car';
+            if(driverTransport === 'car'){
+                vehicule = '🚙';
             }else{
-                if(driverTransport === 'car'){
-                    vehicule = '🚙';
-                }else{
-                    if(driverTransport === 'moto'){
-                        vehicule = '🏍️';
-                    }else{
-                        vehicule = '🚴';
-                    }
-                }
+                vehicule = '🚴';
             }
             var time = Math.floor(data.duration / 60);
             if(time != 0){
