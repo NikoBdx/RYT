@@ -10,7 +10,7 @@
     <div id="map" style="width:100%;height:400px"></div>  
 </div>
 <div id="comment"></div>
-<div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
+<div class="row d-flex justify-content-center"><p> Temps restant GPS: <span id="time"></span></p></div>
 
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.min.js"></script>
 <script>
@@ -115,7 +115,7 @@
             }
             var distanceDriver = distance2(mlat, mlng, endLat, endLng, 'K');
             if (distanceDriver > 0.01){
-                time = Math.round(distanceDriver * 60 / 10)
+                time = Math.round(distanceDriver * 60 / 49)
                 
                 var instruction = document.querySelector('#time');
                 instruction.innerText = time + ' min';
