@@ -35,7 +35,7 @@
         <div class="col text-center">
           <form action="/drivers/{{ $order_start->id }}"" method="post">
             @csrf
-            <button type="submit" class="btn btn-primary">Réserver</button>
+            <button type="submit" class="btn btn-primary">Accepter course</button>
           </form>
         </div>
       </div>
@@ -56,24 +56,48 @@
           </div>
           <div class="col-md-6">
             <div class="card-body">
-              <h5 class="card-title">{{$order_pending->tool->title}}</h5>
-              <h5 class="card-title">{{$order_pending->renter->town}} ({{$order_pending->renter->cp}})</h5>
-              <p class="card-text text-center"><em>Vous gagnerez pour cette course : ?? €</em>
-            </div>
-          </div>
-            <div class="col-md-3 row align-items-center">
-              <div class="col text-center">
-                  <a class="btn btn-primary" href="/drivers/order/{{ $order_pending->id }}">Voir la course</a>
+                <h5 class="card-title">{{$order_pending->tool->title}}</h5>
+                <h5 class="card-title">{{$order_pending->renter->town}} ({{$order_pending->renter->cp}})</h5>
+                <p class="card-text text-center"><em>Vous gagnerez pour cette course : ?? €</em>
               </div>
-            </div>
           </div>
+      <div class="col-md-3 row align-items-center">
+        <div class="col text-center">
+          <form action="/drivers/{{ $order_pending->id }}"" method="post">
+            @csrf
+            <button type="submit" class="btn btn-primary">Voir la course</button>
+          </form>
         </div>
-      @endif
-      @endforeach
+      </div>
+    </div>
   </div>
+  @endif
+  @endforeach
+</div>
 <!-- ---------------------------------- DONE COMMANDS ---------------------------------- -->
 <div class="tab-pane fade" id="nav-done" role="tabpanel" aria-labelledby="nav-profile-tab">
-  <h1>Hello</h1>
+  <h4 class="text-center">Courses terminées</h4>
+  @foreach ($orders_done as $order_done)
+    @if (($order_done->driver_id) === (Auth::user()->id))
+      <div class="card  mb-2">
+        <div class="row no-gutters">
+          <div class="col-md-3">
+            <img src=" {{$order_done->tool->image}}" class="card-img-top h-100 p-2" alt="...">
+          </div>
+          <div class="col-md-6">
+            <div class="card-body">
+                <h5 class="card-title">{{$order_done->tool->title}}</h5>
+                <h5 class="card-title">{{$order_done->renter->town}} ({{$order_done->renter->cp}})</h5>
+                <p class="card-text text-center"><em>Vous gagnerez pour cette course : ?? €</em>
+              </div>
+          </div>
+      <div class="col-md-3 row align-items-center">
+
+      </div>
+    </div>
+  </div>
+  @endif
+  @endforeach
 </div>
 
 @endsection

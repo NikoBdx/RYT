@@ -74,7 +74,7 @@ Route::get('/courses', 'DriverController@index')->name('courses');
 Route::post('/done-order/{id}', 'DriverController@done' );
 //  Map Coordonnée
 Route::post('/drivers/{order}', 'DriverController@order');
-Route::get('/drivers/{order}', 'DriverController@show_map');
+Route::get('/drivers/{id}', 'DriverController@show_map')->name('mapping');
 });
 
 // profil utilisateur
