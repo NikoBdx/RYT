@@ -19,17 +19,15 @@
   <div class="tab-pane fade show active" id="nav-start" role="tabpanel" aria-labelledby="nav-home-tab">
 
 @foreach ($orders_start as $order_start)
-
   <div class="card  mb-2">
     <div class="row no-gutters">
       <div class="col-md-3">
-        <img src=" {{$order_start->tool->image}}" class="card-img-top h-100 p-2" alt="...">
+        <img src=" {{$order_start->tool->image}}" class="card-img-top h-100 p-2" alt="order_start->tool->name">
       </div>
       <div class="col-md-6">
         <div class="card-body">
           <h5 class="card-title">{{$order_start->tool->title}}</h5>
           <h5 class="card-title">{{$order_start->renter->town}} ({{$order_start->renter->cp}})</h5>
-          <p class="card-text text-center"><em>Vous gagnerez pour cette course : ?? €</em></div>
       </div>
       <div class="col-md-3 row align-items-center">
         <div class="col text-center">
