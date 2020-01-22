@@ -47,7 +47,6 @@
               </form>
             </div>
           </div>
->>>>>>> eff339c592a7ccba71aa1075f5b3dd63b98c2129
         </div>
       </div>
     @endforeach
@@ -73,7 +72,7 @@
           <div class="col-md-6">
             <div class="card-body">
                 <h5 class="card-title">{{$order_pending->tool->title}}</h5>
-                <h6 class="card-title">{{$order_pending->renter->town}} ({{$order_pending->renter->cp}} ---> {{$order_pending->client->town}} ({{$order_pending->client->cp}})</h6>
+                <h6 class="card-title">{{$order_pending->renter->town}} ({{$order_pending->renter->cp}}) ---> {{$order_pending->client->town}} ({{$order_pending->client->cp}})</h6>
               </div>
           </div>
       <div class="col-md-3 row align-items-center">
@@ -111,7 +110,7 @@
               <div class="col-md-6">
                 <div class="card-body">
                   <h5 class="card-title">{{$order_done->tool->title}}</h5>
-                  <h6 class="card-title">{{$order_done->renter->town}} ({{$order_done->renter->cp}} ---> {{$order_done->client->town}} ({{$order_done->client->cp}})</h6>
+                  <h6 class="card-title">{{$order_done->renter->town}} ({{$order_done->renter->cp}}) ---> {{$order_done->client->town}} ({{$order_done->client->cp}})</h6>
                 </div>
             </div>
           </div>
