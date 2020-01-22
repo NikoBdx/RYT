@@ -162,7 +162,7 @@
                                     <a class="nav-link" href="{{ route('tools.index')}}"><i class="fa fa-wrench"></i> Recherche un outil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ asset('file/modele-contrat-location-entre-particuliers.doc') }}"><i class="fa fa-file"></i> Contrat de Location</a>
+                                    <a class="nav-link" href="{{ asset('file/contrat-location-entre-particuliers.pdf') }}"><i class="fa fa-file"></i> Contrat de Location</a>
                                 </li>
                                 <li class="nav-item">
                                 <a class="nav-link" href="{{ route('tools.create')}}"><i class="fa fa-plus-circle"></i> Publier une annonce</a>
@@ -208,28 +208,27 @@
                  @endif
                     @yield('content')
                 </main>
-                {{-- Footer --}}
-                @extends('layouts.footer')
             </div>
         </div>
     </header>
+    {{-- Footer --}}
+    @extends('layouts.footer')
 <script>
     $(document).ready(function () {
         $(".flash").fadeOut(3000);
 	});
+
+    //On Click stop displaying Ajax research
     $(document).click(function(){
         $('#ajax').html(' ');
         $('#ajax').css('border-radius', '0px');
         $('#ajax').css('border', 'none');
     });
-    console.log($('#q'))
+
+    // On KeyUp In Searchbar Input text call ajax method
     $('#q').keyup(function(){
-
-        console.log('SALAM');
-
+        // Fetch data from input text 
         let $data = $(this).serialize();
-
-        console.log($data);
 
         $.ajaxSetup({
         headers: {
@@ -237,25 +236,23 @@
         }
         });
 
+        
         $.ajax({
-            type : 'GET',
-            url  : "{{URL::to('tools/search')}}",
-            data : $data,
+            type : 'GET',                           // Ajax send data via method : GET
+            url  : "{{URL::to('tools/search')}}",   // URL to Controller method : ToolController@search
+            data : $data,                           // Data to send to method
 
-
+            // On succed Ajax display result
             success: function(code) {
-
-            console.log('succes 1');
             $('#ajax').css('border-radius', '5px');
             $('#ajax').css('border', 'whitesmoke 5px solid');
             $('#ajax').html(code);
-            console.log('succes 2');
+            },
 
-        },
-
-        error: function (erreur) {
-            console.log('ERROR :' + erreur.responseText);;
-        },
+            // On fail log error message
+            error: function (erreur) {
+                console.log('ERROR :' + erreur.responseText);;
+            },
         })
     });
 </script>

@@ -33,10 +33,10 @@
             <form action="{{ route('payments.store')  }}" method="POST">
                 @csrf
                 <label for="date">Je desire louer cet outil à partir du</label>
-                <input type='text' id='date' name="date" class='datepicker-here' data-language='fr' data-date-format="yyyy-mm-dd" data-timepicker="true" data-time-format='hh:ii' autocomplete="off"/>
+                <input type='text' id='date' name="date" class='datepicker-here' data-language='fr' data-date-format="yyyy-mm-dd" data-timepicker="true" data-time-format='hh:ii' required autocomplete="off"/>
                 <label for="day">et je desire louer cet outil pour une durée de</label>
                 <div class="input-group mb-3">
-                    <input type="number" class="form-control" name="day" id="day" value="1" >
+                    <input type="number" class="form-control" name="day" id="day" value="1" min="1" >
                     <input type="hidden" name="idOrder" value="{{ $order->id }}">
                     <div class="input-group-append">
                         <span class="input-group-text">JOUR</span>
@@ -52,9 +52,17 @@
 
 {{-- ------------------------------ Script Selection multiple ------------------------------ --}}
 <script>
+
+    let today = new Date();
+    let startdate = new Date();
+    startdate.setDate(today.getDate()+2);
     
     $( document ).ready(function(){
-            $('#date').datepicker({ timepicker: true });
+            console.log(startdate);
+            $('#date').datepicker({ 
+                timepicker: true ,
+                minDate: startdate,
+                });
             $('#day').change(function(){
                 updatePrice();  
             });
