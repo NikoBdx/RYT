@@ -203,7 +203,6 @@ class ToolController extends Controller
       // Requete SQL
       $list = Tool::where('title','LIKE', '%'.$_GET['q'].'%')->take(3)->get();
       // Boucle sur requete SQL
-      //dd($list);
       foreach ($list as $key ) {
 
         //Creer HTML necessaire
