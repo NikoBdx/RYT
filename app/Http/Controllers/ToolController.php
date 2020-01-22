@@ -22,7 +22,7 @@ class ToolController extends Controller
 {
     public function __construct()
       {
-          $this->middleware('auth')->only(['create', 'store']);
+          $this->middleware('auth')->only(['create', 'store', 'show', 'edit', 'update', 'destroy']);
       }
 
     public function index()
@@ -96,7 +96,7 @@ class ToolController extends Controller
         $tool->categories()->attach($request->categories);
       };
 
-      return redirect()->route('welcome')->with('success', 'Votre outils a bien été ajouté');
+      return redirect()->route('profile')->with('success', 'Votre outils a bien été ajouté');
 
   }
 

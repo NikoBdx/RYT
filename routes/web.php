@@ -15,9 +15,7 @@ Route::get('/', 'HomeController@welcome')->name('welcome');
 
 
 Auth::routes(['verify' => true]);
-
 Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-
 Route::get( 'tools/search', 'ToolController@search');
 Route::post('tools/search', 'ToolController@search');
 
@@ -26,8 +24,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 //Route::resource('users', 'UserController');
-Route::resource('tools', 'ToolController')->middleware('verified');
-
+//Route::resource('tools', 'ToolController')->middleware('verified');
+Route::resource('tools', 'ToolController');
 Route::resource('orders', 'OrderController');
 Route::resource('categories', 'CategoryController');
 Route::resource('category_tool', 'Category_toolController');
@@ -51,7 +49,6 @@ Route::get('showFromNotification/{tool}/{notification}', 'ToolController@showFro
 
 // Administrateur
 Route::group(['middleware' => ['auth','admin']], function () {
-
     Route::get('/dashboard', 'Admin\DashboardController@data');
     Route::get('/user-register', 'Admin\DashboardController@registered');
     Route::get('/post-register', 'Admin\DashboardController@posted');
@@ -72,6 +69,7 @@ Route::group(['middleware' => ['auth','admin']], function () {
 Route::group(['middleware' => ['auth','driver']], function () {
 Route::get('/courses', 'DriverController@index')->name('courses');
 Route::post('/done-order/{id}', 'DriverController@done' );
+
 //  Map Coordonnée
 Route::post('/drivers/{order}', 'DriverController@order');
 Route::get('/drivers/{id}', 'DriverController@show_map')->name('mapping');
@@ -79,7 +77,7 @@ Route::get('/drivers/{id}', 'DriverController@show_map')->name('mapping');
 
 // profil utilisateur
 
-Route::get('/profile', 'ProfileController@myprofile');
+Route::get('/profile', 'ProfileController@myprofile')->name('profile');
 Route::get('/profile-edit/{id}', 'ProfileController@profiledit');
 Route::put('/profile-update/{id}', 'ProfileController@profileupdate');
 Route::delete('/profile-delete/{id}', 'ProfileController@profiledelete');
@@ -87,7 +85,8 @@ Route::delete('/profile-delete/{id}', 'ProfileController@profiledelete');
 Route::get('/mypost-edit/{id}', 'ProfileController@mypostedit');
 Route::put('/mypost-update/{id}', 'ProfileController@mypostupdate');
 
-
+// User map
+Route::post('/order/{renter_id}', 'OrderController@index');
 
 
 //Export PDF bon de commande

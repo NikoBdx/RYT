@@ -12,21 +12,18 @@
     #outlook a {
       padding: 0;
     }
-
     body {
       margin: 0;
       padding: 0;
       -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
     }
-
     table,
     td {
       border-collapse: collapse;
       mso-table-lspace: 0pt;
       mso-table-rspace: 0pt;
     }
-
     img {
       border: 0;
       height: auto;
@@ -35,7 +32,6 @@
       text-decoration: none;
       -ms-interpolation-mode: bicubic;
     }
-
     p {
       display: block;
       margin: 13px 0;
@@ -108,7 +104,7 @@
                               <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
                                 <tbody>
                                   <tr>
-                                    <td style="width:300px;"> <img alt="header image" height="auto" src="https://www.darty.com/darty-et-vous/sites/default/files/thumbnails/image/outils-bricolage.jpg" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600"> </td>
+                                    <td style="width:600px;"> <img alt="header image" height="auto" src="http://go.mailjet.com/tplimg/mtrq/b/ox8s/mg1q9.png" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="600"> </td>
                                   </tr>
                                 </tbody>
                               </table>
@@ -172,9 +168,9 @@
                             <td align="center" vertical-align="middle" style="font-size:0px;padding:20px 0 0 0;word-break:break-word;">
                               <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;line-height:100%;">
                                 <tr>
-                                  <td align="center" bgcolor="#8bb420" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#8bb420;" valign="middle"> <a href="#" style="display: inline-block; background: #8bb420; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 120%; margin: 0; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px; text-decoration: none; color: inherit;"
+                                  <td align="center" bgcolor="#8bb420" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#8bb420;" valign="middle"> <a href="https://mjml.io" style="display: inline-block; background: #8bb420; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; line-height: 120%; margin: 0; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 3px; text-decoration: none; color: inherit;"
                                       target="_blank">
-              Visitez notre site !
+              Refer a friend now
             </a> </td>
                                 </tr>
                               </table>

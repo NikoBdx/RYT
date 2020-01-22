@@ -8,6 +8,7 @@ use User;
 use Redirect;
 use Validator;
 use UploadedFile;
+use App\Model\User as UserAll;
 use App\Model\Tool;
 use App\Model\Order;
 use App\Model\Category;
@@ -27,12 +28,20 @@ class OrderController extends Controller
    *
    * @return Response
    */
-  public function index()
+  public function index($renter_id)
   {
+    $renter = UserAll::find($renter_id);
+    $renterLat = $renter->latitude;
+    $renterLng = $renter->longitude;
+    // dd($renterLat);
     $user = auth()->user();
     $userLon = $user->longitude;
     $userLat = $user->latitude;
-    return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon]);
+    // $orders = Order::all();
+
+    // $renter = Coco::where('id', );
+
+    return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon, 'renterLat' => $renterLat, 'renterLng' => $renterLng]);
   }
 
    /**
@@ -126,22 +135,6 @@ class OrderController extends Controller
    */
   public function destroy($id)
   {
-
-  }
-
-  public function map(Request $request)
-  {
-    $values = $request->all();
-
-
-
-    $toto = Order::find($values['id']);
-    $toto_lat = $toto->user->latitude;
-    $toto_long = $toto->user->longitude;
-
-    $user = auth()->user();
-    $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
-    return view('orders.index', ['address' => $address]);
 
   }
 

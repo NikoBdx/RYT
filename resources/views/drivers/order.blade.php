@@ -272,9 +272,9 @@
             }
             var distanceDriver = distance2(mlat, mlng, endLat, endLng, 'K');
             if (distanceDriver > 1){
-                coco = Math.round(distanceDriver * 60 / 30)
+                timer = Math.round(distanceDriver * 60 / 30)
                 var instruction = document.querySelector('#time');
-                instruction.innerText = coco + ' min';
+                instruction.innerText = timer + ' min';
             }
             // On affiche le marqueur si la précision est inférieure à 15 et non vide  
             if (macc < 15 && macc !== ""){
