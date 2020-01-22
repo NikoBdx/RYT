@@ -75,36 +75,7 @@
                 <div class="form-group mt-3">
                 <img id="preview" class="img-fluid img-thumbnail" width="300" src="#" alt="">
                 </div>
-            </div>
-
-            <div class="form-group dropzone">
-            </div>
-{{-- ------------------------------ Drop Zone ------------------------------ --}}
-            <button class="btn-info btn-sm" data-tooglr="modal" data-target="#myModal"><i class="fa fa-image"></i> Upload Image </i></button>
-            <!-- MODAL START -->
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Upload Images</h4>
-        </div>
-        <div class="modal-body">
-          <form action="" class="dropzone" method="post" enctype="multipart/form-data">
-            {!! csrf_field() !!}
-           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      
-    </div>
-</div>
-<!-- MODAL END -->
-            
+            </div>    
             
             <div class="form-group">
                 <button class="btn btn-primary">Envoyer</button>
@@ -112,7 +83,6 @@
             </form>
         </div>
     </div>
-
 
 </div>
 

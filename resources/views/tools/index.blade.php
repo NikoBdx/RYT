@@ -9,47 +9,27 @@
     <ul>
         @foreach ($tools as $tool)
         <a href="/tools/{{ $tool->id }}">
-            <li>
-                <div class="col-12 mt-3">
-                    <div class="card card-product">
-                        <div class="card-horizontal">
-                            <div class="img-square-wrapper">
-
-                                <img src="{{$tool->image}}" class="img-responsive" alt="{{$tool->name}}">
-
-                            </div>
-                            <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
-                                        <h3 class="card-title Txt-bold">{{ $tool->title }}</h3>
-                                        <small class="text-muted">Publié
-                                            {{Carbon\Carbon::parse($tool->created_at)->diffForHumans()}} par
-                                            {{$tool->user->firstname}}</small>
-                                    </div>
-                                    <div>
-                                        <h2 class="card-title">{{ $tool->price }} €/jour</h2>
-                                    </div>
-                                </div>
-                                <p>{{ $tool->description}}</p>
-                            </div>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between">
-                            <div>
-                                @foreach($tool->categories as $category)
-                                <span class="categories">{{ $category->name }} </span>
-                                @endforeach
-                            </div>
-                            <div>
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span class="localisation">{{ $tool->user->town }} ({{$tool->user->cp}})</span>
-                            </div>
-
-
-                        </div>
+              <div class="blog-card">
+                <div class="meta">
+                    <div class="photo" style="background-image: url({{$tool->image}})"></div>
+                    <ul class="details">
+                        <li class="author">{{$tool->user->firstname}} {{$tool->user->lastname}}</li>
+                        <li class="date">{{Carbon\Carbon::parse($tool->created_at)->diffForHumans()}}</li>
+                    </ul>
+                </div>
+                <div class="description">
+                    <h1>{{ $tool->title }}</h1>
+                    <h2>{{ $tool->user->town }} ({{$tool->user->cp}})</h2>
+                    <p>{{ $tool->description}}</p>
+                     <div>
+                        @foreach($tool->categories as $category)
+                        <span class="categories">{{ $category->name }} </span>
+                        @endforeach
                     </div>
                 </div>
-            </li>
+            </div>
         </a>
+                    
         @endforeach
     </ul>
 
