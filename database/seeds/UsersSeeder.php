@@ -16,7 +16,6 @@ class UsersSeeder extends Seeder
             'lastname'  => 'Brunet',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('password'),
-            'email_verified_at' => '2020-01-01 00:00:00',
             'role'  => 'admin',
             'address' => '62-rue Abbé de l\'epée',
             'town'  => 'Bordeaux',
@@ -28,13 +27,12 @@ class UsersSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'firstname' => 'Nicolas',
-            'lastname'  => 'Brunet',
+            'firstname' => 'User',
+            'lastname'  => 'User',
             'email' => 'user@gmail.com',
             'password' => bcrypt('password'),
-            'email_verified_at' => '2020-01-01 00:00:00',
             'role'  => 'user',
-            'address' => '62-rue Abbé de l\'epée',
+            'address' => '68-rue Abbé de l\'epée',
             'town'  => 'Bordeaux',
             'cp'    => '33000',
             'vehicule'  => 'null',
