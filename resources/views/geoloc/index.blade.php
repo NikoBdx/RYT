@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-@auth
+
 <div class="d-flex justify-content-center">
     <h1 class="justify-content-center">Commande en cours</h1>
 </div>
@@ -11,12 +11,7 @@
 </div>
 <div id="comment"></div>
 <div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
-@endauth
-@guest
-   
-    <a href="{{ URL::previous() }}"></a>
 
-@endguest
 <script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.21.7.min.js"></script>
 <script>
     // Coordonnées
@@ -86,6 +81,7 @@
         subscribeKey: "sub-c-4d4bbee8-3a3a-11ea-afe9-722fee0ed680",
         uuid: uuid
     });
+    // connexion au websockets
     pubnub.subscribe({
         channels: ['pubnub_onboarding_channel'],
         withPresence: true
@@ -127,9 +123,6 @@
 
             // On affiche le marqueur si la précision est inférieure à 15 et non vide  
             if (macc < 15 && macc !== ""){
-                // var marker = new mapboxgl.Marker();               
-                // marker.setLngLat([mlng,mlat]);
-                // marker.addTo(map);
                 var marker = new mapboxgl.Marker();
                 function animateMarker(timestamp) {
                     var radius = 20;
@@ -191,7 +184,7 @@
             // Si la route existe déjà on utilise setData()
             if (map.getSource('route')) {
                 map.getSource('route').setData(geojson);
-            } else { // Sinon on créé une nouvelle requête
+            } else { // Sinon on créé une nouvelle route
                 map.addLayer({
                     id: 'route',
                     type: 'line',
