@@ -1,26 +1,22 @@
 @extends('layouts.app')
-
-
 @section('title')
   Enregistrement des rôles | RYT
 @endsection
-
-
 @section('content')
-
 <div class="row">
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
         <h4 class="card-title text-center">Mon profil</h4>
         @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-                </div>
+          <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+          </div>
         @endif
       </div>
+      {{-- Card coordonnées user --}}
       <div class="card-body">
-      <h5>Mes coordonnées</h5>
+        <h5>Mes coordonnées</h5>
         <div class="table-responsive">
           <table class="table">
             <thead class=" text-primary">                      
@@ -34,12 +30,8 @@
               <th>Nombre d'annonces</th>
               <th>Editer</th>
               <th>Supprimer</th>
-
-
             </thead>
-            <tbody>
-                              
-              
+            <tbody>        
               <tr>                        
                 <td> {{ $user->lastname }}</td>
                 <td> {{ $user->firstname }}</td>
@@ -62,86 +54,77 @@
                           echo"aucun";
                             break;
                   } ?>
-
                   </td>
                   <td class="text-center"> {{ $user->tools->count() }}</td>                                               
                   <td>
-                      <a href="/profile-edit/{{ $user->id }}" class="btn btn-success">Editer</a>
+                    <a href="/profile-edit/{{ $user->id }}" class="btn btn-success">Editer</a>
                   <td>
-                      <form action="/user-delete/{{ $user->id }}" method="post">
-                          {{ csrf_field() }}
-                          {{ method_field('DELETE') }}
-                      <input type="hidden" name="id" value=" {{ $user->id }}">
-                      <button type="submit" class="btn btn-danger">Supprimer</button>     
-                      </form>
+                    <form action="/user-delete/{{ $user->id }}" method="post">
+                      {{ csrf_field() }}
+                      {{ method_field('DELETE') }}
+                    <input type="hidden" name="id" value=" {{ $user->id }}">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>     
+                    </form>
                   </td>
-              </tr>
-                    
+              </tr>        
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
-
+  {{-- Card annonces user --}}
   <div class="col-md-12">
-    
     <div class="card">
       <div class="card-header">
         @if (session('status'))
-                <div class="alert alert-success" role="alert">
-                    {{ session('status') }}
-                </div>
+          <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+          </div>
         @endif
       </div>                 
-
-
-    <div class="card-body">
-    <h5>Mes annonces publiées</h5>          
-      <div class="table-responsive">
-        <table class="table">
-          <thead class=" text-primary text-center">
-            <th>Titre</th>
-            <th>Description</th>
-            <th>Prix</th>
-            <th>Photo</th>
-            <th>Editer</th>
-            <th>Supprimer</th>
-
-
-          </thead>
-          <tbody>
-            @foreach ($tools as $tool)
-            <tr>
-              <td> {{ $tool->title }}</td>
-              <td> {{ $tool->description }}</td>
-              <td> {{ $tool->price }} €/jour</td>
-              <td>
-                <div class="img-square-wrapper">
-                        <img class="img-fluid img-thumbnail" width="125" src="{{$tool->image}}" alt="{{$tool->name}}">
-
-                </div>
-              </td>
-              <td>
-                <a href="/mypost-edit/{{ $tool->id }}" class="btn btn-success">Editer</a>
-              <td>
+      <div class="card-body">
+        <h5>Mes annonces publiées</h5>          
+        <div class="table-responsive">
+          <table class="table">
+            <thead class=" text-primary text-center">
+              <th>Titre</th>
+              <th>Description</th>
+              <th>Prix</th>
+              <th>Photo</th>
+              <th>Editer</th>
+              <th>Supprimer</th>
+            </thead>
+            <tbody>
+              @foreach ($tools as $tool)
+              <tr>
+                <td> {{ $tool->title }}</td>
+                <td> {{ $tool->description }}</td>
+                <td> {{ $tool->price }} €/jour</td>
+                <td>
+                  <div class="img-square-wrapper">
+                    <img class="img-fluid img-thumbnail" width="125" src="{{$tool->image}}" alt="{{$tool->name}}">
+                  </div>
+                </td>
+                <td>
+                  <a href="/mypost-edit/{{ $tool->id }}" class="btn btn-success">Editer</a>
+                <td>
                   <form action="/mypost-delete/{{ $tool->id }}" method="post">
-                      {{ csrf_field() }}
-                      {{ method_field('DELETE') }}
-                  <input type="hidden" name="id" value=" {{ $tool->id }}">
-                  <button type="submit" class="btn btn-danger">Supprimer</button>
+                    {{ csrf_field() }}
+                    {{ method_field('DELETE') }}
+                    <input type="hidden" name="id" value=" {{ $tool->id }}">
+                    <button type="submit" class="btn btn-danger">Supprimer</button>
                   </form>
-              </td>
-            </tr>
+                </td>
+              </tr>
                 @endforeach
-
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-  </div>
-
+  {{-- Card demandes location utilisateur --}}
   <div class="col-md-12">
     <div class="card">
       <div class="card-header">
@@ -151,9 +134,8 @@
         </div>
         @endif
       </div>
-
       <div class="card-body">
-      <h5>Mes demandes de location</h5>
+        <h5>Mes demandes de location</h5>
         <div class="table-responsive">
           <table class="table">
             <thead class=" text-primary">                      
@@ -162,32 +144,66 @@
               <th>Prix total</th>
               <th>Durée</th>
               <th>Date de début de location</th>              
-              <th>Editer</th>
-              <th>Supprimer</th>
+              <th>Date de fin de location</th>
+              <th>Statut de la location</th>
+              <th>Voir le tranfert</th>                 
             </thead>
-            <tbody>
-                              
-              
-              <tr>
-                @foreach ($orders as $order)                        
-                <td> {{ $order->id }}</td>
-                <td> {{ $order->tool->title }}</td>
-                <td> {{ $order->total_price }}</td>
-                <td> {{ $order->duration }}</td> 
-                <td> {{ $order->created_at }}</td>               
-                        
-                @endforeach
-              </tr>
-                    
+            <tbody>            
+              @foreach ($orders as $order)  
+                <tr>                       
+                  <td> {{ $order->id }}</td>
+                  <td> {{ $order->tool->title }}</td>
+                  <td> {{ $order->total_price }} €</td>
+                  <td> {{ $order->duration }} jours</td> 
+                  <td> {{ date('d/m/Y', strtotime($order->start_date)) }}</td>
+                  <td> {{ date('d/m/Y', strtotime($order->end_date)) }}</td>               
+                  <td>
+                    <?php 
+                      switch ($order->status) {
+                        case 'start':
+                          echo 'Acceptée';
+                          break;
+                        case 'pending':
+                          echo "Livraison en cours";
+                          break;
+                        case 'done':
+                          echo "Location en cours";
+                          break;                       
+                        default:
+                          echo "aucun";
+                          break;
+                      } 
+                    ?>              
+                  </td>
+                  <td>
+                    <form action="/order/{{ $order->renter_id }}" method="POST">
+                      @csrf                   
+                        <?php 
+                          switch ($order->status) {
+                            case 'start':
+                              echo '<p>Uniquement lors de la livraison</p>';
+                              break;
+                            case 'pending':
+                              echo '<button type="submit" class="btn btn-primary w-100">Voir transfert</button>';
+                              break;
+                            case 'done':
+                              echo '<p>Location en cours</p>';
+                              break;                       
+                            default:
+                              echo "aucun";
+                              break;
+                          } 
+                        ?>                    
+                    </form>            
+                  </td>  
+                </tr>      
+              @endforeach         
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  </div>
-       
-
+  </div>      
 </div>       
         
-
 @endsection

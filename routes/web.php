@@ -87,7 +87,8 @@ Route::delete('/profile-delete/{id}', 'ProfileController@profiledelete');
 Route::get('/mypost-edit/{id}', 'ProfileController@mypostedit');
 Route::put('/mypost-update/{id}', 'ProfileController@mypostupdate');
 
-
+// User map
+Route::post('/order/{renter_id}', 'OrderController@index');
 
 
 //Export PDF bon de commande
