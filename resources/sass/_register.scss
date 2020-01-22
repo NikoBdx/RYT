@@ -3,7 +3,7 @@
 }
 
 .icon-register:hover{
-  color: hsla(8, 84%, 48%, 0.76);
+  color: $color-1;
 }
 
 .locomotion-icon{
@@ -25,6 +25,6 @@
 
 /* CHECKED STYLES */
 [type=radio]:checked + i {
-  color: hsla(8, 84%, 48%, 0.76);
+  color: $color-1;
 }
 

@@ -129,20 +129,4 @@ class OrderController extends Controller
 
   }
 
-  public function map(Request $request)
-  {
-    $values = $request->all();
-
-
-
-    $toto = Order::find($values['id']);
-    $toto_lat = $toto->user->latitude;
-    $toto_long = $toto->user->longitude;
-
-    $user = auth()->user();
-    $address = $user->adress . ' ' .  $user->town . ' ' . $user->cp;
-    return view('orders.index', ['address' => $address]);
-
-  }
-
 }
