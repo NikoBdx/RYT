@@ -14,7 +14,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
       <a class="navbar-brand" href="dashboard">Tableau De Bord</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -29,7 +29,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Donneés annexes</a>
-          </li>          
+          </li>
         </ul>
       </div>
     </nav>
@@ -46,34 +46,34 @@
       <table class="table">
         <tbody>
 
-          <tr>      
-            <th class="text-primary">Date de la dernière inscription</th>
-            @foreach ( $lastuser as $last)          
+          <tr>
+            <th>Date de la dernière inscription</th>
+            @foreach ( $lastuser as $last)
             <td>{{ date('d/m/Y H:i:s', strtotime($last->created_at)) }}</td>
             @endforeach
           </tr>
 
           <tr>
-            <th class="text-primary"><strong>Nombre total d'utilisateurs</strong></th>          
+            <th><strong>Nombre total d'utilisateurs</strong></th>
             <td class="text-left"><strong>{{ $users->count() }}</strong></td>
           </tr>
 
           <tr>
-            <th class="text-primary">Nombre total d'administrateurs</th>          
+            <th>Nombre total d'administrateurs</th>
             <td class="text-left">{{ $users->where('role', 'admin')->count()}}</td>
-          </tr> 
+          </tr>
 
           <tr>
-            <th class="text-primary">Nombre total de clients</th>          
+            <th>Nombre total de clients</th>
             <td>{{ $users->where('role', 'customer')->count()}}</td>
-          </tr> 
+          </tr>
 
           <tr>
-            <th class="text-primary">Nombre total de livreurs</th>          
+            <th>Nombre total de livreurs</th>
             <td>{{ $users->where('role', 'driver')->count()}}</td>
-          </tr>                        
+          </tr>
         </tbody>
-      </table>  
+      </table>
     </div>
   </div>
   <div class="col-md-6">
@@ -85,20 +85,20 @@
       <table class="table">
         <tbody>
 
-          <tr>      
-            <th class="text-primary">Date de la dernière annonce</th>
-            @foreach ( $lasttool as $last)          
+          <tr>
+            <th>Date de la dernière annonce</th>
+            @foreach ( $lasttool as $last)
             <td>{{ date('d/m/Y H:i:s', strtotime($last->created_at)) }}</td>
             @endforeach
           </tr>
 
           <tr>
-            <th class="text-primary">Nombre total d'annonces</th>          
+            <th>Nombre total d'annonces</th>
             <td><strong>{{ $tools->count()}}</strong></td>
-          </tr>       
-                             
+          </tr>
+
         </tbody>
-      </table>  
+      </table>
     </div>
   </div>
 

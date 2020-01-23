@@ -7,9 +7,9 @@
 
             <div class="alert alert-warning alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                Cette section contient les principales informations sur RYT. Si vous ne trouvez pas de réponse à votre question, contactez-nous !
+                Cette section contient les principales informations sur RYT. Si vous ne trouvez pas de réponse à votre question, contactez-nous !
             </div>
-        
+
                 <div class="faqHeader accordion" id="qg">Questions générales</div>
                 <div class="card">
                     <div class="card-header p-2" id="headingOne">
@@ -38,7 +38,7 @@
 
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#qg">
                         <div class="card-body">
-                        L’inscription est rapide. Vous devez entrer un email valide et un mot de passe complexe. Si vous ne pouvez toujours pas vous inscrire, contactez-nous.. 
+                        L’inscription est rapide. Vous devez entrer un email valide et un mot de passe complexe. Si vous ne pouvez toujours pas vous inscrire, contactez-nous..
                         </div>
                     </div>
                 </div>
@@ -53,13 +53,13 @@
 
                     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#qg">
                         <div class="card-body">
-                        Tous les prix sont en euros. <strong>RYT</strong> propose ses services uniquement en France. 
+                        Tous les prix sont en euros. <strong>RYT</strong> propose ses services uniquement en France.
                         </div>
                     </div>
                 </div>
-            
 
-            
+
+
                 <div class="faqHeader accordion" id="lou">Loueurs</div>
 
                 <div class="card">
@@ -78,9 +78,9 @@
                         </div>
                     </div>
                 </div>
-            
 
-            
+
+
                 <div class="faqHeader accordion" id="loc">Locataires</div>
 
                 <div class="card">
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-               
+
         </div>
     </div>
 @endsection

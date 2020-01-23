@@ -41,19 +41,19 @@ class FormulaireController extends Controller
        }
        // on crée une nouvelle entrée
        $formulaire = new Form();
-      
+
        $formulaire->email = $values['email'];
        $formulaire->lastname = $values['lastname'];
        $formulaire->firstname = $values['firstname'];
        $formulaire->message = $values['message'];
        $formulaire->ip_address = $_SERVER['REMOTE_ADDR'];
-       
+
        $formulaire->save();
 
 
        // Transfert de l'e-mail
        $title = 'Formulaire de contact';
-       $content = $values['lastname'] . '-' . $values['firstname'] . '<br>' . $values['message'];
+       $content = 'Message de ' . $values['lastname'] . ' ' . $values['firstname'] . '<br><br>' . $values['message'];
 
        Mail::to($values['email'])->send(new Formulaire($title, $content));
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Model\Tool;
 use App\Model\Comment;
+use App\Mail\Formulaire;
+use App\Model\Formulaire as Form;
+use Mail;
 use Illuminate\Http\Request;
 use App\Notifications\NewCommentPosted;
 
@@ -37,7 +40,10 @@ class CommentController extends Controller
         //Notification
         $tool->user->notify(new NewCommentPosted($tool, auth()->user()));
 
+        Mail::to($tool->user->email)->send(new Formulaire('RYT', 'Vous avez un nouveau message sur "Rent Your Tools"'));
+
         return redirect()->route('tools.show', $tool)->with('success', 'Votre message a bien été envoyé');
+
     }
 
     public function storeCommentReply(Comment $comment)
@@ -51,6 +57,8 @@ class CommentController extends Controller
         $commentReply->user_id = auth()->user()->id;
 
         $comment->comments()->save($commentReply);
+
+         Mail::to($comment->user->email)->send(new Formulaire('RYT', 'Vous avez un nouveau message sur "Rent Your Tools"'));
 
         return redirect()->route('tools.show', request()->tool_id)->with('success', 'Votre réponse a bien été envoyé');
     }
