@@ -30,7 +30,7 @@
 
 					<div class="card-body">
 						<a href="/tools/{{ $tool->id }}">
-							<h4 class="card-title text-center Txt-bold">{{$tool->title}}</h4>
+							<h4 class="card-title text-center">{{$tool->title}}</h4>
 							<p>{{ \Illuminate\Support\Str::limit($tool->description, 150, $end='...') }}</p>
 
 						</a>
