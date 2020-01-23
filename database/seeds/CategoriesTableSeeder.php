@@ -14,13 +14,20 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $categories = [
-          "Jardinage",
-          "Maçonnerie",
+          "Auto/Moto",
           "Couverture",
-          "Electroportatif",
-          "Electricité",
           "Cycle",
-          "Auto/Moto"
+          "Echelle / Escabeau",
+          "Electricité",
+          "Electroportatif",
+          "Fixation",
+          "Jardinage",
+          "Levage Manutention",
+          "Maçonnerie",
+          "Materiel d'atelier",
+          "Mesure",
+          "Nettoyage",
+          "Plomberie",
         ];
 
         foreach($categories as $categorie){
