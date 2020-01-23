@@ -5,9 +5,9 @@
     <h1 class="justify-content-center">Commande en cours</h1>
 </div>
 
-<div class="container d-flex justify-content-center" id="map map-canvas">  
-    
-    <div id="map" style="width:100%;height:400px"></div>  
+<div class="container d-flex justify-content-center" id="map map-canvas">
+
+    <div id="map" style="width:100%;height:400px"></div>
 </div>
 <div id="comment"></div>
 <div class="row d-flex justify-content-center"><p> Temps restant GPS: <span id="time"></span></p></div>
@@ -71,9 +71,9 @@
         zoom: size,   // La taille du zoom
         center: [centerLon,centerLat]// coordonnées de centrage de la carte. (dans ce cas, on récupère les coordonnées de l'utilisateur)
     });
-    
+
     // Connexion à pubnub
-    
+
     // identification à Pubnub
     const uuid = PubNub.generateUUID();
     const pubnub = new PubNub({
@@ -87,7 +87,7 @@
         withPresence: true
     });
     pubnub.addListener({
-        message: function(event)  {      
+        message: function(event)  {
             mlat = event.message.lat;
             mlng = event.message.lng;
             macc = event.message.accuracy
@@ -115,25 +115,25 @@
             }
             var distanceDriver = distance2(mlat, mlng, endLat, endLng, 'K');
             if (distanceDriver > 0.01){
-                time = Math.round(distanceDriver * 60 / 49)
-                
+                time = Math.round(distanceDriver * 60 / 20)
+
                 var instruction = document.querySelector('#time');
                 instruction.innerText = time + ' min';
             }
 
-            // On affiche le marqueur si la précision est inférieure à 15 et non vide  
+            // On affiche le marqueur si la précision est inférieure à 15 et non vide
             if (macc < 15 && macc !== ""){
                 var marker = new mapboxgl.Marker();
                 function animateMarker(timestamp) {
                     var radius = 20;
-                    
+
                     // Update the data to a new position based on the animation timestamp. The
                     // divisor in the expression `timestamp / 1000` controls the animation speed.
                     marker.setLngLat([mlng,mlat]);
-                    
+
                     // Ensure it's added to the map. This is safe to call if it's already added.
                     marker.addTo(map);
-                    
+
                     // Request the next frame of the animation.
                     requestAnimationFrame(animateMarker);
                 }
@@ -143,7 +143,7 @@
         presence: function(event) {
             // A utiliser pour afficher les responses avec event.(element)
         }
-    }); 
+    });
     pubnub.history(
         {
             channel: 'pubnub_onboarding_channel',
@@ -218,7 +218,7 @@
             }
             var time = Math.floor(data.duration / 60);
             if(time != 0){
-                var instructions = document.querySelector('#comment');          
+                var instructions = document.querySelector('#comment');
                 instructions.insertAdjacentHTML('afterend', '<row class="d-flex justify-content-center"><span class="duration">Temps de transport total estimé à : ' + Math.floor(data.duration / 60 * 1.5) + ' min ' + vehicule + '</span></row>');
             }
         };
@@ -243,7 +243,7 @@
         };
         if (map.getLayer('end')) {
             map.getSource('end').setData(end);
-        } else {           
+        } else {
             map.addLayer({
                 id: 'end',
                 type: 'circle',
@@ -290,9 +290,9 @@
             paint: {
                 'circle-radius': 10,
                 'circle-color': '#3887be'
-            }          
-        });        
+            }
+        });
     });
-    map.on();   
+    map.on();
 </script>
 @endsection

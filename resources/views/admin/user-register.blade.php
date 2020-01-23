@@ -25,9 +25,6 @@
           <li class="nav-item">
             <a class="nav-link" href="post-register">Gestions des annonces</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Gestion annexe</a>
-          </li>
         </ul>
       </div>
     </nav>
