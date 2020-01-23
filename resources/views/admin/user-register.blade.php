@@ -12,7 +12,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
       <a class="navbar-brand" href="dashboard">Tableau De Bord</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Gestion annexe</a>
-          </li>          
+          </li>
         </ul>
       </div>
     </nav>
@@ -48,7 +48,7 @@
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
-                    <thead class=" text-primary">                      
+                    <thead>
                       <th>Nom</th>
                       <th>Prénom</th>
                       <th>Email</th>
@@ -62,18 +62,18 @@
 
 
                     </thead>
-                    <tbody>                        
-                              
+                    <tbody>
+
 
                         @foreach ($users as $row)
-                      <tr>                        
+                      <tr>
                         <td> {{ $row->lastname }}</td>
                         <td> {{ $row->firstname }}</td>
                         <td> {{ $row->email }}</td>
                         <td> {{ $row->address }}</td>
                         <td> {{ $row->cp }}</td>
                         <td> {{ $row->town }}</td>
-                        <td>                 
+                        <td>
                         <?php switch ($row->role) {
                                 case 'customer':
                                   echo'Client';
@@ -83,7 +83,7 @@
                                   break;
                                 case 'driver':
                                   echo "Livreur";
-                                  break;                       
+                                  break;
                                 default:
                                   echo"aucun";
                                     break;
@@ -92,7 +92,7 @@
                           </td>
                           <td class="text-center">
                               <a class="nav-link" href="/post-by-user/{{ $row->id }}">{{ $row->tools->count() }}</a>
-                          </td>                                               
+                          </td>
                           <td>
                               <a href="/user-edit/{{ $row->id }}" class="btn btn-success">Editer</a>
                           <td>
@@ -100,26 +100,26 @@
                                   {{ csrf_field() }}
                                   {{ method_field('DELETE') }}
                               <input type="hidden" name="id" value=" {{ $row->id }}">
-                              <button type="submit" class="btn btn-danger">Supprimer</button>     
+                              <button type="submit" class="btn btn-danger">Supprimer</button>
                               </form>
                           </td>
                       </tr>
-                        @endforeach               
-                                             
+                        @endforeach
+
                     </tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
-        
+
 </div>
 @endsection
 
 <script>
 
 console.log($('#tri'));
-  
+
 
 
 if ($('#tri').val("1") == "Croissant") {

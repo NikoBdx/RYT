@@ -51,7 +51,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary mb-3">Envoyer la réponse</button>
             </form>
-            <button class="btn btn-danger btn-sm mt-2 mb-2" onclick="toggleReplyComment({{ $comment->id}})">Effacer</button>
+
         @endif
 
         @endauth

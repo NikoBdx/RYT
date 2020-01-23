@@ -52,7 +52,7 @@ Edition des utilisateurs | RYT
                                     <option value="{{ $users->role }}"></option>
                                     <option value="admin">Administrateur</option>
                                     <option value="customer">Client</option>
-                                    <option value="driver">Livreur</option>                            
+                                    <option value="driver">Livreur</option>
                                 </select>
                             </div>
                             <div class="form-group">

@@ -24,8 +24,8 @@
     <!-- Dropzone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/dropzone.js"></script>
-    
-    
+
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -138,7 +138,7 @@
                         @auth
                         @if (Auth::user()->role=='admin')
                             <div>
-                                <a href="/dashboard" type="submit" class="btn btn-warning">Tableau de Bord</a>
+                                <a href="/dashboard" type="submit" class="btn btn-secondary">Tableau de Bord</a>
                             </div>
                         @endif
                         @endauth
@@ -185,7 +185,7 @@
                         </div>
                     </nav>
                 </div>
-            </div>                            
+            </div>
             <div class="container">
                 {{-- Contenu des views --}}
                 <main class="py-4">

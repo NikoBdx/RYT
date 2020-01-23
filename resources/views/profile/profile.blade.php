@@ -19,7 +19,7 @@
         <h5>Mes coordonnées</h5>
         <div class="table-responsive">
           <table class="table">
-            <thead class=" text-primary">                      
+            <thead class=" text-secondary">
               <th>Nom</th>
               <th>Prénom</th>
               <th>Email</th>
@@ -33,15 +33,15 @@
                 <th>Supprimer</th>
               @endif
             </thead>
-            <tbody>        
-              <tr>                        
+            <tbody>
+              <tr>
                 <td> {{ $user->lastname }}</td>
                 <td> {{ $user->firstname }}</td>
                 <td> {{ $user->email }}</td>
                 <td> {{ $user->address }}</td>
                 <td> {{ $user->cp }}</td>
                 <td> {{ $user->town }}</td>
-                <td>                 
+                <td>
                 <?php switch ($user->role) {
                         case 'customer':
                           echo'Client';
@@ -51,13 +51,13 @@
                           break;
                         case 'driver':
                           echo "Livreur";
-                          break;                       
+                          break;
                         default:
                           echo"aucun";
                             break;
                   } ?>
                   </td>
-                  <td class="text-center"> {{ $user->tools->count() }}</td>                                               
+                  <td class="text-center"> {{ $user->tools->count() }}</td>
                   <td>
                     <a href="/profile-edit/{{ $user->id }}" class="btn btn-success">Editer</a>
                   </td>
@@ -67,11 +67,11 @@
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                       <input type="hidden" name="id" value=" {{ $user->id }}">
-                      <button type="submit" class="btn btn-danger">Supprimer</button>     
+                      <button type="submit" class="btn btn-danger">Supprimer</button>
                       </form>
                     </td>
                   @endif
-              </tr>        
+              </tr>
             </tbody>
           </table>
         </div>
@@ -87,12 +87,12 @@
             {{ session('status') }}
           </div>
         @endif
-      </div>                 
+      </div>
       <div class="card-body">
-        <h5>Mes annonces publiées</h5>          
+        <h5>Mes annonces publiées</h5>
         <div class="table-responsive">
           <table class="table">
-            <thead class="text-primary">
+            <thead class="text-secondary">
               <th>Titre</th>
               <th>Description</th>
               <th>Prix</th>
@@ -143,27 +143,27 @@
         <h5>Mes demandes de location</h5>
         <div class="table-responsive">
           <table class="table">
-            <thead class="text-primary">                      
+            <thead class="text-secondary">
               <th>N° de Commande</th>
               <th>Titre</th>
               <th>Prix total</th>
               <th>Durée</th>
-              <th>Date de début de location</th>              
+              <th>Date de début de location</th>
               <th>Date de fin de location</th>
               <th>Statut de la location</th>
-              <th>Voir le tranfert</th>                 
+              <th>Voir le tranfert</th>
             </thead>
-            <tbody>            
-              @foreach ($orders as $order)  
-                <tr>                       
+            <tbody>
+              @foreach ($orders as $order)
+                <tr>
                   <td> {{ $order->id }}</td>
                   <td> {{ $order->tool->title }}</td>
                   <td> {{ $order->total_price }} €</td>
-                  <td> {{ $order->duration }} jours</td> 
+                  <td> {{ $order->duration }} jours</td>
                   <td> {{ date('d/m/Y', strtotime($order->start_date)) }}</td>
-                  <td> {{ date('d/m/Y', strtotime($order->end_date)) }}</td>               
+                  <td> {{ date('d/m/Y', strtotime($order->end_date)) }}</td>
                   <td>
-                    <?php 
+                    <?php
                       switch ($order->status) {
                         case 'start':
                           echo 'Acceptée';
@@ -173,42 +173,42 @@
                           break;
                         case 'done':
                           echo "Location en cours";
-                          break;                       
+                          break;
                         default:
                           echo "aucun";
                           break;
-                      } 
-                    ?>              
+                      }
+                    ?>
                   </td>
                   <td>
                     <form action="/order/{{ $order->renter_id }}" method="POST">
-                      @csrf                   
-                      <?php 
+                      @csrf
+                      <?php
                         switch ($order->status) {
                           case 'start':
                             echo '<p>Uniquement lors de la livraison</p>';
                             break;
                           case 'pending':
-                            echo '<button type="submit" class="btn btn-primary w-100">Voir transfert</button>';
+                            echo '<button type="submit" class="btn btn-secondary w-100">Voir transfert</button>';
                             break;
                           case 'done':
                             echo '<p>Location en cours</p>';
-                            break;                       
+                            break;
                           default:
                             echo "aucun";
                             break;
-                          } 
-                        ?>                    
-                    </form>            
-                  </td>  
-                </tr>      
-              @endforeach         
+                          }
+                        ?>
+                    </form>
+                  </td>
+                </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
       </div>
     </div>
-  </div>      
-</div>       
-        
+  </div>
+</div>
+
 @endsection

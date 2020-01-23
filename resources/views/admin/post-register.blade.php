@@ -12,7 +12,7 @@
 
 <div class="row">
   <div class="col-md-12">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
       <a class="navbar-brand" href="dashboard">Tableau De Bord</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -48,7 +48,7 @@
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table">
-                    <thead class=" text-primary text-center">
+                    <thead class="  text-center">
                       <th>Titre</th>
                       <th>Description</th>
                       <th>Prix</th>
