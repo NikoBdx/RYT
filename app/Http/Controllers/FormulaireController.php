@@ -56,7 +56,7 @@ class FormulaireController extends Controller
        $title = 'Formulaire de contact';
        $content = 'Message de ' . $values['lastname'] . ' ' . $values['firstname'] . '<br><br>' . $values['message'];
        $tools = Tool::orderBy('id', 'desc')->take(3)->get();
-       //Mail::to($values['email'])->send(new Formulaire($title, $content));
+       Mail::to($values['email'])->send(new Formulaire($title, $content));
 
        return redirect()->route('welcome', compact('tools'))->with('success', 'Votre message a bien été envoyé');
 
