@@ -32,8 +32,8 @@ class Formulaire extends Mailable
      */
     public function build()
     {
-        return $this->from(getenv('APP_EMAIL'))
-                    ->subject(getenv('APP_NAME') . $this->title)
+        return $this->from(getenv('APP_EMAIL'), getenv('APP_NAME'))
+                    ->subject(getenv('APP_ENV') . $this->title)
                     ->view('layouts.email-mailtrap');
     }
 }
