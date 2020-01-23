@@ -66,11 +66,13 @@
                         </div>
                     </form>
                 </div>
-                @auth
+                    @auth
+                    @if (Auth::user()->email_verified_at != NULL)
                 <div class="card card-project">
                     <a class="btn btn-success" href="/orders/{{ $tool->id }}">Réserver cet outil</a>
                 </div>
-                @endauth
+                    @endif
+                    @endauth
                 @endif
 
         </div>
