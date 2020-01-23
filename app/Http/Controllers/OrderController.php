@@ -8,7 +8,7 @@ use User;
 use Redirect;
 use Validator;
 use UploadedFile;
-use App\Model\User as UserAll;
+use App\Model\User as Renter;
 use App\Model\Tool;
 use App\Model\Order;
 use App\Model\Category;
@@ -30,18 +30,14 @@ class OrderController extends Controller
    */
   public function index($renter_id)
   {
-    $renter = UserAll::find($renter_id);
+    $renter = Renter::find($renter_id);
+    $vehicule = $renter->vehicule;
     $renterLat = $renter->latitude;
     $renterLng = $renter->longitude;
-    // dd($renterLat);
     $user = auth()->user();
     $userLon = $user->longitude;
     $userLat = $user->latitude;
-    // $orders = Order::all();
-
-    // $renter = Coco::where('id', );
-
-    return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon, 'renterLat' => $renterLat, 'renterLng' => $renterLng]);
+    return view('geoloc.index', ['userLat' => $userLat, 'userLon' => $userLon, 'renterLat' => $renterLat, 'renterLng' => $renterLng, 'vehicule' => $vehicule]);
   }
 
    /**

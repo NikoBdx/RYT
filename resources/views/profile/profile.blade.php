@@ -29,7 +29,9 @@
               <th>Rôle</th>
               <th>Nombre d'annonces</th>
               <th>Editer</th>
-              <th>Supprimer</th>
+              @if (Auth::user()->role=='admin')
+                <th>Supprimer</th>
+              @endif
             </thead>
             <tbody>        
               <tr>                        
@@ -58,14 +60,17 @@
                   <td class="text-center"> {{ $user->tools->count() }}</td>                                               
                   <td>
                     <a href="/profile-edit/{{ $user->id }}" class="btn btn-success">Editer</a>
-                  <td>
-                    <form action="/user-delete/{{ $user->id }}" method="post">
-                      {{ csrf_field() }}
-                      {{ method_field('DELETE') }}
-                    <input type="hidden" name="id" value=" {{ $user->id }}">
-                    <button type="submit" class="btn btn-danger">Supprimer</button>     
-                    </form>
                   </td>
+                  @if (Auth::user()->role=='admin')
+                    <td>
+                      <form action="/user-delete/{{ $user->id }}" method="post">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                      <input type="hidden" name="id" value=" {{ $user->id }}">
+                      <button type="submit" class="btn btn-danger">Supprimer</button>     
+                      </form>
+                    </td>
+                  @endif
               </tr>        
             </tbody>
           </table>
@@ -87,7 +92,7 @@
         <h5>Mes annonces publiées</h5>          
         <div class="table-responsive">
           <table class="table">
-            <thead class=" text-primary text-center">
+            <thead class="text-primary">
               <th>Titre</th>
               <th>Description</th>
               <th>Prix</th>
@@ -98,9 +103,9 @@
             <tbody>
               @foreach ($tools as $tool)
               <tr>
-                <td> {{ $tool->title }}</td>
-                <td> {{ $tool->description }}</td>
-                <td> {{ $tool->price }} €/jour</td>
+                <td> {{ $tool->title }} </td>
+                <td> {{ $tool->description }} </td>
+                <td> {{ $tool->price }} €/jour </td>
                 <td>
                   <div class="img-square-wrapper">
                     <img class="img-fluid img-thumbnail" width="125" src="{{$tool->image}}" alt="{{$tool->name}}">
@@ -129,16 +134,16 @@
     <div class="card">
       <div class="card-header">
         @if (session('status'))
-        <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-        </div>
+          <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+          </div>
         @endif
       </div>
       <div class="card-body">
         <h5>Mes demandes de location</h5>
         <div class="table-responsive">
           <table class="table">
-            <thead class=" text-primary">                      
+            <thead class="text-primary">                      
               <th>N° de Commande</th>
               <th>Titre</th>
               <th>Prix total</th>
@@ -178,20 +183,20 @@
                   <td>
                     <form action="/order/{{ $order->renter_id }}" method="POST">
                       @csrf                   
-                        <?php 
-                          switch ($order->status) {
-                            case 'start':
-                              echo '<p>Uniquement lors de la livraison</p>';
-                              break;
-                            case 'pending':
-                              echo '<button type="submit" class="btn btn-primary w-100">Voir transfert</button>';
-                              break;
-                            case 'done':
-                              echo '<p>Location en cours</p>';
-                              break;                       
-                            default:
-                              echo "aucun";
-                              break;
+                      <?php 
+                        switch ($order->status) {
+                          case 'start':
+                            echo '<p>Uniquement lors de la livraison</p>';
+                            break;
+                          case 'pending':
+                            echo '<button type="submit" class="btn btn-primary w-100">Voir transfert</button>';
+                            break;
+                          case 'done':
+                            echo '<p>Location en cours</p>';
+                            break;                       
+                          default:
+                            echo "aucun";
+                            break;
                           } 
                         ?>                    
                     </form>            

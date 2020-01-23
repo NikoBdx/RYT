@@ -19,7 +19,7 @@
             <button type="submit" class="btn btn-primary">Course terminée </button>
           </form>
     </div>
-    <div class="row d-flex justify-content-center"><p> Temps restant : <span id="time"></span></p></div>
+    <div class="row d-flex justify-content-center"><p> Temps restant GPS : <span id="time"></span></p></div>
 {{-- @endauth --}}
 {{-- @guest
    
@@ -272,7 +272,7 @@
             }
             var distanceDriver = distance2(mlat, mlng, endLat, endLng, 'K');
             if (distanceDriver > 1){
-                timer = Math.round(distanceDriver * 60 / 30)
+                timer = Math.round(distanceDriver * 60 / 49)
                 var instruction = document.querySelector('#time');
                 instruction.innerText = timer + ' min';
             }

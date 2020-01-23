@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('./dropzone');
 
 window.Vue = require('vue');
 
