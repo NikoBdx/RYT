@@ -365,6 +365,10 @@ i {
   font-size: 2em !important;
 }
 
+main {
+  min-height: calc(100vh - 333px);
+}
+
 #ajax {
   position: absolute;
   z-index: 99;
