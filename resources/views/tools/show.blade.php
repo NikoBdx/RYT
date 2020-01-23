@@ -66,10 +66,11 @@
                         </div>
                     </form>
                 </div>
+                @auth
                 <div class="card card-project">
                     <a class="btn btn-success" href="/orders/{{ $tool->id }}">Réserver cet outil</a>
                 </div>
-
+                @endauth
                 @endif
 
         </div>
