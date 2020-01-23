@@ -75,15 +75,14 @@
                 <div class="form-group mt-3">
                 <img id="preview" class="img-fluid img-thumbnail" width="300" src="#" alt="">
                 </div>
-            </div>
-
+            </div>    
+            
             <div class="form-group">
                 <button class="btn btn-primary">Envoyer</button>
             </div>
             </form>
         </div>
     </div>
-
 
 </div>
 
@@ -94,9 +93,7 @@
 $(document).ready(function() {
     $('.js-select').select2();
 });
-
 // script visualisation de l’image avant envoi
-
 $(() => {
     $('input[type="file"]').on('change', (e) => {
         let that = e.currentTarget
@@ -110,8 +107,6 @@ $(() => {
         }
     })
 })
-
-
 </script>
 
 @endsection

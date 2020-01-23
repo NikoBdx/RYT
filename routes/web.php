@@ -99,9 +99,5 @@ Route::post('/map/{order}', 'DriverController@order');
 // Pdf Download
 Route::get('/download_pdf', 'PaymentController@export')->name('payments.export');
 
-//Cloudinary
-Route::post('/upload/images', [
-  'uses'   =>  'ImageUploadController@uploadImages',
-  'as'     =>  'uploadImage',
-]);
+
 
