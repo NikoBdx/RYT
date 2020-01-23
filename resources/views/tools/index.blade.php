@@ -12,16 +12,20 @@
               <div class="blog-card">
                 <div class="meta">
                     <div class="photo" style="background-image: url({{$tool->image}})"></div>
-                    <ul class="details">
+                    <ul class="details list-unstyled">
                         <li class="author">{{$tool->user->firstname}} {{$tool->user->lastname}}</li>
                         <li class="date">{{Carbon\Carbon::parse($tool->created_at)->diffForHumans()}}</li>
                     </ul>
                 </div>
                 <div class="description">
-                    <h1>{{ $tool->title }}</h1>
+                    <div class="d-flex justify-content-between">
+                        <h1>{{ $tool->title }}</h1>
+                        <h1>{{ $tool->price }}€</h1>
+                    </div>
+
                     <h2>{{ $tool->user->town }} ({{$tool->user->cp}})</h2>
                     <p>{{ $tool->description}}</p>
-                     <div>
+                     <div class="d-flex categorie-list">
                         @foreach($tool->categories as $category)
                         <span class="categories">{{ $category->name }} </span>
                         @endforeach
@@ -29,7 +33,7 @@
                 </div>
             </div>
         </a>
-                    
+
         @endforeach
     </ul>
 

@@ -19,8 +19,8 @@
 
 
 </div>
-<h1 class="text-center Txt-bold">Les derniers outils proposés</h1>
-<div class="card-deck mt-3">
+<h1 class="text-center Txt-bold mb-4">Les derniers outils proposés</h1>
+<div class="card-deck mt-5">
   @foreach ( $tools as $tool)
 
     <div class="card card-home">
