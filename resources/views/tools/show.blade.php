@@ -67,7 +67,7 @@
                     </form>
                 </div>
                     @auth
-                    @if (Auth::user()->email_verified_at != NULL)
+                    @if ((Auth::user()->email_verified_at != NULL) && (Auth::user()->role != 'driver'))
                 <div class="card card-project">
                     <a class="btn btn-success" href="/orders/{{ $tool->id }}">Réserver cet outil</a>
                 </div>
