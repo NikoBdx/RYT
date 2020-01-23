@@ -22,7 +22,7 @@ class ToolController extends Controller
 {
     public function __construct()
       {
-          $this->middleware('verified')->only(['create', 'show','store', 'edit', 'update', 'destroy']);
+          $this->middleware('verified')->only(['create','store', 'edit', 'update', 'destroy']);
       }
 
     public function index()
