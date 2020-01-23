@@ -5,3 +5,7 @@
 .text-script{
   font-size: 2em !important;
 }
+
+main{
+  min-height: calc(100vh - 333px);
+}
