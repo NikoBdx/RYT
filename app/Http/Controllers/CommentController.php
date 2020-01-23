@@ -37,7 +37,7 @@ class CommentController extends Controller
         //Notification
         $tool->user->notify(new NewCommentPosted($tool, auth()->user()));
 
-        return redirect()->route('tools.show', $tool)->with('success', 'Votre message a bien été envoyé');;
+        return redirect()->route('tools.show', $tool)->with('success', 'Votre message a bien été envoyé');
     }
 
     public function storeCommentReply(Comment $comment)
