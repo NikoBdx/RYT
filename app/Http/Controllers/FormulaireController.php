@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Mail\Formulaire;
-use App\Model\Formulaire as Form;
 use Mail;
 use Redirect;
 use Validator;
+use App\Model\Tool;
+use App\Mail\Formulaire;
+use Illuminate\Http\Request;
+use App\Model\Formulaire as Form;
 
 class FormulaireController extends Controller
 {
@@ -54,11 +55,10 @@ class FormulaireController extends Controller
        // Transfert de l'e-mail
        $title = 'Formulaire de contact';
        $content = 'Message de ' . $values['lastname'] . ' ' . $values['firstname'] . '<br><br>' . $values['message'];
+       $tools = Tool::orderBy('id', 'desc')->take(3)->get();
+       //Mail::to($values['email'])->send(new Formulaire($title, $content));
 
-       Mail::to($values['email'])->send(new Formulaire($title, $content));
-
-       return view('formulaire.index')
-                ->with('successMessage', 'Message envoyé !');
+       return redirect()->route('welcome', compact('tools'))->with('success', 'Votre message a bien été envoyé');
 
     }
 }
