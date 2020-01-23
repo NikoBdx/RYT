@@ -24,7 +24,7 @@
                     </div>
 
                     <h2>{{ $tool->user->town }} ({{$tool->user->cp}})</h2>
-                    <p>{{ $tool->description}}</p>
+                    <p>{{ \Illuminate\Support\Str::limit($tool->description, 150, $end='...') }}</p>
                      <div class="d-flex categorie-list">
                         @foreach($tool->categories as $category)
                         <span class="categories">{{ $category->name }} </span>
