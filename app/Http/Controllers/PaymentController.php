@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Auth;
 
 use PDF;
+use App\Mail\Formulaire;
+use App\Model\Formulaire as Form;
+use Mail;
 use App\Model\Tool;
 use App\Model\User;
 use App\Model\Order;
@@ -44,7 +47,7 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         $values = $request->all();
-      
+
         // Get the current Order and Tool
 
         $order = Order::find($values['idOrder']);
@@ -52,18 +55,18 @@ class PaymentController extends Controller
 
         // Date manipulation
         $date = $values['date'].' 00:00:00';
-        
+
         $end_date = date( 'Y-m-d H:i:s',strtotime( $date. ' + '. $values['day']. ' days'));
-        
-        
-        // Adjusting Order value 
+
+
+        // Adjusting Order value
         $order->total_price = $tool->price * $values['day'];
         $order->duration = $values['day'];
         $order->start_date =  $date;
         $order->end_date =   $end_date;
         $order->save();
-        
-        // Create Payment 
+
+        // Create Payment
         // DUPLICATE PREVENT -> Check if Data with same tool_id and same user_id have been already made in the previous 3 DAYS
         $is_payment =   Payment::where([
                         ['tool_id', "=",$order->tool_id],
@@ -82,7 +85,7 @@ class PaymentController extends Controller
             //If not create a new payment
             $payment = new Payment;
         }
-        
+
         $payment->tool_id = $order->tool_id;
         $payment->user_id = Auth::user()->id;
         $payment->order_id = $order->id;
@@ -90,9 +93,10 @@ class PaymentController extends Controller
         $payment->price = $tool->price * $values['day'];
 
         $payment->save() ;
-        
+
+        Mail::to($tool->user->email)->send(new Formulaire('RYT', 'Vous avez une nouvelle réservation sur "Rent Your Tools" !'));
         return view('payments.show')->with('payment', $payment);
-     
+
     }
 
     /**

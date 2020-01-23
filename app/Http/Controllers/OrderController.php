@@ -7,6 +7,8 @@ use Mail;
 use User;
 use Redirect;
 use Validator;
+use App\Mail\Formulaire;
+use App\Model\Formulaire as Form;
 use UploadedFile;
 use App\Model\User as Renter;
 use App\Model\Tool;
