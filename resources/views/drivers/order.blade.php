@@ -22,7 +22,7 @@
     <div class="row d-flex justify-content-center"><p> Temps restant GPS : <span id="time"></span></p></div>
 {{-- @endauth --}}
 {{-- @guest
-   
+
     <a href="{{ URL::previous() }}"></a>
 
 @endguest --}}
@@ -58,7 +58,7 @@
         }
     }
     var distance = distance(startLat, startLng, endLat, endLng, 'K');
-    
+
 
     // Calculs centre du trajet
     var centerLon = (startLng + endLng) /2;
@@ -94,7 +94,7 @@
             cycling : vélo
         */
         var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
-        
+
 
         // On créé XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
         // permet d'obtenir des données au format XML, JSON, HTML, ou un simple texte à l'aide de requêtes HTTP.
@@ -151,7 +151,7 @@
             var time = Math.floor(data.duration / 60);
             console.log(time)
             if(time != 0){
-                var instructions = document.querySelector('#comment');          
+                var instructions = document.querySelector('#comment');
                 instructions.insertAdjacentHTML('beforeend', '<row class="d-flex justify-content-center"><span class="duration">Temps de transport total estimé à : ' + Math.floor(data.duration / 60 * 1.5) + ' min ' + vehicule + '</span></row>');
             }
         };
@@ -272,23 +272,23 @@
             }
             var distanceDriver = distance2(mlat, mlng, endLat, endLng, 'K');
             if (distanceDriver > 1){
-                timer = Math.round(distanceDriver * 60 / 49)
+                timer = Math.round(distanceDriver * 60 / 20)
                 var instruction = document.querySelector('#time');
                 instruction.innerText = timer + ' min';
             }
-            // On affiche le marqueur si la précision est inférieure à 15 et non vide  
+            // On affiche le marqueur si la précision est inférieure à 15 et non vide
             if (macc < 15 && macc !== ""){
                 var marker = new mapboxgl.Marker();
                 function animateMarker(timestamp) {
                     var radius = 20;
-                    
+
                     // Update the data to a new position based on the animation timestamp. The
                     // divisor in the expression `timestamp / 1000` controls the animation speed.
                     marker.setLngLat([mlng,mlat]);
-                    
+
                     // Ensure it's added to the map. This is safe to call if it's already added.
                     marker.addTo(map);
-                    
+
                     // Request the next frame of the animation.
                     requestAnimationFrame(animateMarker);
                 }
@@ -339,7 +339,7 @@
     }
 
     setInterval(function(){updatePosition(getLocation());}, 3000);
-    function currentLocation() {       
+    function currentLocation() {
         return {lat:window.lat, lng:window.lng, accuracy:window.accuracy};
     }
     setInterval(function() {
